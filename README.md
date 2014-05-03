@@ -36,6 +36,14 @@ angular.module('someModule', ['angular-svg-round-progress'])
 </div>
 ```
 
+## Browser support
+
+* Internet Explorer 9+
+* Firefox 28.0+
+* Chrome 31+
+* Safari 5.1+
+* and pretty much any browser that supports SVG
+
 ## Credits
 
 * Erik Möller for the requestAnimationFrame shim
