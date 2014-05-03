@@ -13,6 +13,29 @@ AngularJS module that uses SVG to create a circular progressar
 angular.module('someModule', ['angular-svg-round-progress'])
 ```
 
+## Options
+
+* `current` current progress, some value on the scope or a number
+* `max` maximum value, some value on the scope or a number
+* `radius` radius of the circle
+* `color` hex color for the `current` value, example: `#45ccce`
+* `bgcolor` hex background color, example: `#eaeaea`
+* `stroke` specifies the thickness of the line
+
+### Example:
+
+```html
+<div 
+	round-progress 
+	max="max" 
+	current="current" 
+	color="#45ccce" 
+	bgcolor="#eaeaea" 
+	radius="100" 
+	stroke="20">
+</div>
+```
+
 ## Credits
 
 * Erik Möller for the requestAnimationFrame shim
