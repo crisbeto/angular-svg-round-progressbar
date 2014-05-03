@@ -40,3 +40,4 @@ angular.module('someModule', ['angular-svg-round-progress'])
 
 * Erik Möller for the requestAnimationFrame shim
 * [Modernizr](http://modernizr.com/) for the SVG support test
+* [Kirupa](http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-Pure-JS-(no-jQuery)) for the easing function
