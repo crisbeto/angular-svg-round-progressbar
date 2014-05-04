@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('angular-svg-round-progress', [])
-    .directive('roundProgress', [function(){
+    .directive('roundProgress', ['$timeout', function($timeout){
             //credits to http://modernizr.com/ for the feature test
             if(!(!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect)){
                 return {
@@ -92,24 +92,24 @@ angular.module('angular-svg-round-progress', [])
                     // watch for changes and draw the progress
                     scope.$watch('current', function (newValue, oldValue){
                         // limit the current value so we dont get any crazy results
-                        if(newValue > scope.max){
-                           return scope.current = scope.max;
-                        };
+                        var max = scope.max;
 
                         if(newValue < 0){
-                           return scope.current = 0;
+                            scope.current = 0;
                         };
 
-                        var max             = scope.max,
-                        radius              = scope.radius,
-                        start               = (oldValue || 0),
+                        if(newValue > max){
+                            scope.current = max;
+                        };
+
+                        var radius          = scope.radius,
+                        start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
                         val                 = newValue - start,
                         currentIteration    = 0,
                         totalIterations     = 50;
 
                         (function animation(){
                             if(currentIteration <= totalIterations){
-                                requestAnimationFrame(animation);
 
                                 updateState(
                                     easeOutCubic(currentIteration, start, val, totalIterations), 
@@ -118,6 +118,7 @@ angular.module('angular-svg-round-progress', [])
                                     ring
                                 );
 
+                                requestAnimationFrame(animation);
                                 currentIteration++;
                             };
                         })();
