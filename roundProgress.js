@@ -80,31 +80,43 @@ angular.module('angular-svg-round-progress', [])
                     var ring    = element.find('path'),
                     size        = scope.radius*2 + parseInt(scope.stroke)*2,
                     circleSize  = -((300 - scope.radius) - scope.stroke);
-                    
-                    element.attr({
-                        width: size,
-                        height: size
+
+                    scope.$watchCollection('[radius, color, bgcolor, stroke]', function(newValue, oldValue){
+                        if(newValue){
+                            var newRadius   = newValue[0],
+                            newStroke       = parseInt(newValue[3]);
+
+                            size            = newRadius*2 + newStroke*2;
+                            circleSize      = -((300 - newRadius) - newStroke);
+
+                            element.attr({
+                                width: size,
+                                height: size
+                            });
+                            
+                            // centers the ring inside the svg element
+                            ring.attr('transform', 'translate('+ circleSize +','+ circleSize +')');
+                        };
                     });
-                    
-                    // centers the ring inside the svg element
-                    ring.attr('transform', 'translate('+ circleSize +','+ circleSize +')');
 
                     // watch for changes and draw the progress
-                    scope.$watch('current', function (newValue, oldValue){
-                        // limit the current value so we dont get any crazy results
-                        var max = scope.max;
+                    scope.$watchCollection('[current, max, radius]', function (newValue, oldValue){
+                        var max             = newValue[1],
+                        newCurrent          = newValue[0],
+                        oldCurrent          = oldValue[0],
+                        newRadius           = newValue[2];
 
-                        if(newValue < 0){
+                        // limit the current value so we dont get any crazy results
+                        if(newCurrent < 0){
                             scope.current = 0;
                         };
 
-                        if(newValue > max){
+                        if(newCurrent > max){
                             scope.current = max;
                         };
 
-                        var radius          = scope.radius,
-                        start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
-                        val                 = newValue - start,
+                        var start           = oldCurrent === newCurrent ? 0 : (oldCurrent || 0), // fixes the initial animation
+                        val                 = newCurrent - start,
                         currentIteration    = 0,
                         totalIterations     = 50;
 
@@ -114,7 +126,7 @@ angular.module('angular-svg-round-progress', [])
                                 updateState(
                                     easeOutCubic(currentIteration, start, val, totalIterations), 
                                     max, 
-                                    radius, 
+                                    newRadius, 
                                     ring
                                 );
 
