@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 angular.module('angular-svg-round-progress', [])
     .directive('roundProgress', ['$timeout', function($timeout){
@@ -41,27 +41,40 @@ angular.module('angular-svg-round-progress', [])
                 }
                     
             }());
+
+
+            var polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
+                var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+
+                return {
+                    x: centerX + (radius * Math.cos(angleInRadians)),
+                    y: centerY + (radius * Math.sin(angleInRadians))
+                };
+            }
             
-            var updateState = function(value, total, R, ring) {
-                if(value >= 0){
-                    var value = value >= total ? total - 0.00001 : value,
-                    alpha = 360 / total * value,
-                    a = (90 - alpha) * Math.PI / 180,
-                    x = 300 + R * Math.cos(a),
-                    y = 300 - R * Math.sin(a),
-                    path,
-                    center = alpha > 180 ? 1 : 0;
-                            
-                    if (total === value) {
-                        path = "M" + 300 + "," + (300 - R) + " A" + R + "," + R + "," + 0 + "," + 1 + "," + 1 + "," + 300 + "," + 300 - R;
-                    }else{
-                        path = "M"+ 300 + "," + (300 - R) + " A" + R + "," + R + "," + 0 + "," + center + "," + 1 + "," + x + "," + y;
-                    };
-                    
-                    ring.attr('d', path);
-                }
-            },
-            easeOutCubic = function(currentIteration, startValue, changeInValue, totalIterations) {
+            var updateState = function(value, total, R, ring, size, isSemicircle) {
+                if(!size){
+                    return;
+                };
+
+                // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
+                var value       = value >= total ? total - 0.00001 : value,
+                    type        = isSemicircle ? 180 : 359.9999,
+                    perc        = (value/total)*type,
+                    x           = size/2,
+                    start       = polarToCartesian(x, x, R, perc), // in this case x and y are the same
+                    end         = polarToCartesian(x, x, R, 0),
+                    // arcSweep = endAngle - startAngle <= 180 ? "0" : "1",
+                    arcSweep    = (perc <= 180 ? "0" : "1"),
+                    d = [
+                        "M", start.x, start.y, 
+                        "A", R, R, 0, arcSweep, 0, end.x, end.y
+                    ].join(" ");
+
+                ring.attr('d', d);
+            };
+
+            var easeOutCubic = function(currentIteration, startValue, changeInValue, totalIterations) {
                 // credits to http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-Pure-JS-(no-jQuery)
                 return changeInValue * (Math.pow(currentIteration / totalIterations - 1, 3) + 1) + startValue;
             };  
@@ -71,76 +84,109 @@ angular.module('angular-svg-round-progress', [])
                 scope:{
                     current:    "=",
                     max:        "=",
+                    semi:       "=",
                     radius:     "@",
                     color:      "@",
                     bgcolor:    "@",
                     stroke:     "@"
                 },
                 link: function (scope, element, attrs) {
-                    var ring    = element.find('path'),
-                    size        = scope.radius*2 + parseInt(scope.stroke)*2,
-                    circleSize  = -((300 - scope.radius) - scope.stroke);
+                    var ring        = element.find('path'),
+                        background  = element.find('circle'),
+                        size,
+                        resetValue;
 
-                    scope.$watchCollection('[radius, color, bgcolor, stroke]', function(newValue, oldValue){
-                        if(newValue){
-                            var newRadius   = newValue[0],
-                            newStroke       = parseInt(newValue[3]);
+                    var renderCircle = function(){
+                        $timeout(function(){
+                            var isSemicircle = scope.semi,
+                            radius           = scope.radius,
+                            stroke           = scope.stroke;
 
-                            size            = newRadius*2 + newStroke*2;
-                            circleSize      = -((300 - newRadius) - newStroke);
+                            size = radius*2 + parseInt(stroke)*2;
 
                             element.attr({
-                                width: size,
-                                height: size
+                                "width":        size,
+                                "height":       isSemicircle ? size/2 : size
+                            }).css({
+                                "overflow": "hidden" // on some browsers the background overflows, if in semicircle mode
                             });
-                            
-                            // centers the ring inside the svg element
-                            ring.attr('transform', 'translate('+ circleSize +','+ circleSize +')');
+
+                            ring.attr({
+                                "stroke":       scope.color,
+                                "stroke-width": stroke,
+                                "transform":    isSemicircle ? ('translate('+ 0 +','+ size +') rotate(-90)') : ''
+                            });
+
+                            background.attr({
+                                "cx":           radius,
+                                "cy":           radius,
+                                "transform":    "translate("+ stroke +", "+ stroke +")",
+                                "r":            radius,
+                                "stroke":       scope.bgcolor,
+                                "stroke-width": stroke
+                            });
+
+                            renderState(scope.current, scope.current);
+                        });
+                    };
+
+                    var renderState = function (newValue, oldValue){
+                        if(!angular.isDefined(newValue)){
+                            return false;
                         };
-                    });
 
-                    // watch for changes and draw the progress
-                    scope.$watchCollection('[current, max, radius]', function (newValue, oldValue){
-                        var max             = newValue[1],
-                        newCurrent          = newValue[0],
-                        oldCurrent          = oldValue[0],
-                        newRadius           = newValue[2];
-
-                        // limit the current value so we dont get any crazy results
-                        if(newCurrent < 0){
-                            scope.current = 0;
+                        if(newValue < 0){
+                            resetValue = oldValue;
+                            return scope.current = 0;
                         };
 
-                        if(newCurrent > max){
-                            scope.current = max;
+                        if(newValue > scope.max){
+                            resetValue = oldValue;
+                            return scope.current = scope.max;
                         };
 
-                        var start           = oldCurrent === newCurrent ? 0 : (oldCurrent || 0), // fixes the initial animation
-                        val                 = newCurrent - start,
+                        var max             = scope.max,
+                        radius              = scope.radius,
+                        isSemicircle        = scope.semi,
+                        start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
+                        val                 = newValue - start,
                         currentIteration    = 0,
                         totalIterations     = 50;
 
+                        if(angular.isNumber(resetValue)){
+                            // the reset value fixes problems with animation, caused when limiting the scope.current
+                            start       = resetValue;
+                            val         = newValue - resetValue;
+                            resetValue  = null;
+                        };
+
                         (function animation(){
                             if(currentIteration <= totalIterations){
-
                                 updateState(
                                     easeOutCubic(currentIteration, start, val, totalIterations), 
                                     max, 
-                                    newRadius, 
-                                    ring
+                                    radius, 
+                                    ring,
+                                    size,
+                                    isSemicircle
                                 );
 
                                 requestAnimationFrame(animation);
                                 currentIteration++;
                             };
-                        })();
-                    });
+                        })();                        
+                    };
+
+                    scope.$on('renderCircle', renderCircle);
+                    scope.$watch('current', renderState);
+
+                    renderCircle();
                 },
                 replace:true,
                 template:'\
                 <svg class="round-progress" xmlns="http://www.w3.org/2000/svg">\
-                    <circle ng-attr-cx="{{ radius }}" ng-attr-cy="{{ radius }}" ng-attr-transform="translate({{ stroke }}, {{ stroke }})" ng-attr-r="{{ radius }}" fill="none" stroke="{{ bgcolor }}" stroke-width="{{ stroke }}"/>\
-                    <path fill="none" stroke="{{ color }}" stroke-width="{{ stroke }}" />\
+                    <circle fill="none"/>\
+                    <path fill="none" />\
                 </svg>'
             };
         }]);
