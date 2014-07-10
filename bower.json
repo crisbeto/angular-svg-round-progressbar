@@ -16,7 +16,7 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "bower_components",
+    "bower_components"
   ],
   "dependencies": {
     "angular": "~1.2.19"
