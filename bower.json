@@ -20,5 +20,6 @@
   ],
   "dependencies": {
     "angular": "~1.2.19"
-  }
+  },
+  "main":"roundProgress.js"
 }
