@@ -6,8 +6,16 @@ AngularJS module that uses SVG to create a circular progressar
 
 ## Install
 
-* Include Angular and `roundProgress.js` or `roundProgress.min.js` in your page.
-* Add `angular-svg-round-progress` as a dependency
+Include Angular and `roundProgress.js` or `roundProgress.min.js` in your page. You can use bower, or a script-tag:
+
+`bower install angular-svg-round-progressbar`
+
+or
+
+`<script src="http://crisbeto.github.io/angular-svg-round-progressbar/roundProgress.min.js"></script>`
+
+
+Add `angular-svg-round-progress` to your app's module dependencies:
 
 ```javascript
 angular.module('someModule', ['angular-svg-round-progress'])
@@ -51,9 +59,18 @@ $rootScope.$broadcast('renderCircle');
 * Safari 5.1+
 * and pretty much any browser that supports SVG
 
+
+## Development
+
+*  `npm install` to install development dependencies
+*  `grunt` to build minified demo in build/
+*  `grunt deploy` to build minified demo and push it to gh-pages branch
+
+
 ## Credits
 
 * Erik Möller for the requestAnimationFrame shim
 * [Modernizr](http://modernizr.com/) for the SVG support test
 * [Kirupa](http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-Pure-JS-(no-jQuery)) for the easing function
 * [opsb](http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
+* [konsumer](https://github.com/konsumer) for build-system & deployment stuff
