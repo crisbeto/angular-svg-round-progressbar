@@ -60,7 +60,7 @@ angular.module('angular-svg-round-progress', [])
                 // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
                 var value       = value >= total ? total - 0.00001 : value,
                     type        = isSemicircle ? 180 : 359.9999,
-                    perc        = (value/total)*type,
+                    perc        = total === 0 ? 0 : (value / total) * type,
                     x           = size/2,
                     start       = polarToCartesian(x, x, R, perc), // in this case x and y are the same
                     end         = polarToCartesian(x, x, R, 0),
