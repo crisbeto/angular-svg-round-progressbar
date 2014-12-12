@@ -57,7 +57,7 @@
 
         form{
             text-align: left;
-            width: 250px;
+            width: 270px;
             margin:20px auto;
         }
 
@@ -84,15 +84,16 @@
         <h2>Sample progressbar</h2>
         <div class="progress-wrapper" ng-style="{'font-size': ((radius + stroke)/(isSemi ? 3.5 : 3))+'px'}">
             <div class="progress">{{ current }}/{{ max }}</div>
-            <div 
-                round-progress 
-                max="max" 
-                current="current" 
-                color="{{ currentColor }}" 
-                bgcolor="{{ bgColor }}" 
-                radius="{{ radius }}" 
+            <div
+                round-progress
+                max="max"
+                current="current"
+                color="{{ currentColor }}"
+                bgcolor="{{ bgColor }}"
+                radius="{{ radius }}"
                 semi="isSemi"
-                stroke="{{ stroke }}">
+                stroke="{{ stroke }}"
+                iterations="{{ iterations }}">
             </div>
         </div>
 
@@ -122,23 +123,28 @@
 
             <div class="cf">
                 <label>Stroke:</label>
-                <input type="number" ng-model="stroke"/> 
+                <input type="number" ng-model="stroke"/>
             </div>
 
             <div class="cf">
                 <label>Radius:</label>
                 <input type="number" ng-model="radius"/>
-            </div> 
+            </div>
 
             <div class="cf">
                 <label>Color:</label>
-                <input type="color" ng-model="currentColor"/> 
+                <input type="color" ng-model="currentColor"/>
             </div>
 
             <div class="cf">
                 <label>Background color:</label>
                 <input type="color" ng-model="bgColor"/>
-            </div> 
+            </div>
+
+            <div class="cf">
+                <label>Iterations:</label>
+                <input type="number" ng-model="iterations"/>
+            </div>
         </form>
     </div>
 
@@ -146,13 +152,13 @@
         <h2>Upload progress example</h2>
         <div class="progress-wrapper">
             <div class="progress">{{ ((uploadCurrent/100)*100) | number:0 }}%</div>
-            <div 
-                round-progress 
-                max="100" 
-                current="uploadCurrent" 
-                color="#45ccce" 
-                bgcolor="#eaeaea" 
-                radius="100" 
+            <div
+                round-progress
+                max="100"
+                current="uploadCurrent"
+                color="#45ccce"
+                bgcolor="#eaeaea"
+                radius="100"
                 semi="isSemi"
                 stroke="15">
             </div>
@@ -188,7 +194,7 @@
                 $scope.current+=(amount || 1);
             };
 
-            $scope.$watchCollection('[max, stroke, radius, isSemi, currentColor, bgColor]', function(newValue, oldValue){
+            $scope.$watchCollection('[max, stroke, radius, isSemi, currentColor, bgColor, iterations]', function(newValue, oldValue){
                 $rootScope.$broadcast('renderCircle');
             });
 
