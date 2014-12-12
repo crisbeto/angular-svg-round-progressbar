@@ -30,6 +30,7 @@ angular.module('someModule', ['angular-svg-round-progress'])
 * `bgcolor` hex background color, example: `#eaeaea`
 * `stroke` specifies the thickness of the line
 * `semi` boolean, specifies whether the progressbar should be a semicircle or a full circle
+* `iterations` number of iterations for the animation. Set it to 1 for *no animation* and increase for slower animation. *(Optional, 50 by default)*
 * To manually trigger a complete re-render of the progressbar, broadcast a "renderCircle" from a parent scope:
 
 ```javascript
@@ -39,13 +40,13 @@ $rootScope.$broadcast('renderCircle');
 ### Example:
 
 ```html
-<div 
-	round-progress 
-	max="max" 
-	current="current" 
-	color="#45ccce" 
-	bgcolor="#eaeaea" 
-	radius="100" 
+<div
+	round-progress
+	max="max"
+	current="current"
+	color="#45ccce"
+	bgcolor="#eaeaea"
+	radius="100"
 	stroke="20"
 	semi="true">
 </div>

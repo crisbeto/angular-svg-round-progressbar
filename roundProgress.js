@@ -33,13 +33,13 @@ angular.module('angular-svg-round-progress', [])
                         return id;
                     };
                 }
-                    
+
                 if (!window.cancelAnimationFrame){
                     window.cancelAnimationFrame = function(id) {
                         clearTimeout(id);
                     };
                 }
-                    
+
             }());
 
 
@@ -51,7 +51,7 @@ angular.module('angular-svg-round-progress', [])
                     y: centerY + (radius * Math.sin(angleInRadians))
                 };
             }
-            
+
             var updateState = function(value, total, R, ring, size, isSemicircle) {
                 if(!size){
                     return;
@@ -67,7 +67,7 @@ angular.module('angular-svg-round-progress', [])
                     // arcSweep = endAngle - startAngle <= 180 ? "0" : "1",
                     arcSweep    = (perc <= 180 ? "0" : "1"),
                     d = [
-                        "M", start.x, start.y, 
+                        "M", start.x, start.y,
                         "A", R, R, 0, arcSweep, 0, end.x, end.y
                     ].join(" ");
 
@@ -77,8 +77,8 @@ angular.module('angular-svg-round-progress', [])
             var easeOutCubic = function(currentIteration, startValue, changeInValue, totalIterations) {
                 // credits to http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-Pure-JS-(no-jQuery)
                 return changeInValue * (Math.pow(currentIteration / totalIterations - 1, 3) + 1) + startValue;
-            };  
-        
+            };
+
             return {
                 restrict:'EA',
                 scope:{
@@ -88,7 +88,8 @@ angular.module('angular-svg-round-progress', [])
                     radius:     "@",
                     color:      "@",
                     bgcolor:    "@",
-                    stroke:     "@"
+                    stroke:     "@",
+                    iterations: "@"
                 },
                 link: function (scope, element, attrs) {
                     var ring        = element.find('path'),
@@ -151,7 +152,7 @@ angular.module('angular-svg-round-progress', [])
                         start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
                         val                 = newValue - start,
                         currentIteration    = 0,
-                        totalIterations     = 50;
+                        totalIterations     = scope.iterations || 50;
 
                         if(angular.isNumber(resetValue)){
                             // the reset value fixes problems with animation, caused when limiting the scope.current
@@ -163,9 +164,9 @@ angular.module('angular-svg-round-progress', [])
                         (function animation(){
                             if(currentIteration <= totalIterations){
                                 updateState(
-                                    easeOutCubic(currentIteration, start, val, totalIterations), 
-                                    max, 
-                                    radius, 
+                                    easeOutCubic(currentIteration, start, val, totalIterations),
+                                    max,
+                                    radius,
                                     ring,
                                     size,
                                     isSemicircle
@@ -174,7 +175,7 @@ angular.module('angular-svg-round-progress', [])
                                 requestAnimationFrame(animation);
                                 currentIteration++;
                             };
-                        })();                        
+                        })();
                     };
 
                     scope.$on('renderCircle', renderCircle);
