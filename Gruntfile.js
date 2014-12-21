@@ -1,4 +1,11 @@
 module.exports = function(grunt) {
+  var files = [
+      'src/shim.js',
+      'src/module.js',
+      'src/roundProgressService.js',
+      'src/roundProgress.js',
+  ];
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     'uglify': {
@@ -6,19 +13,17 @@ module.exports = function(grunt) {
         'banner': '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       'build': {
-        'src': 'roundProgress.js',
+        'src': files,
         'dest': 'build/roundProgress.min.js'
       }
     },
-    'copy': {
-      'deploy': {
-        'files': [{
-          'src': ['demo.html'],
-          'dest': 'build/index.html'
-        }, {
-          'src': ['roundProgress.js'],
-          'dest': 'build/'
-        }]
+    'concat': {
+      'options': {
+        separator: '\n',
+      },
+      'build': {
+        src: files,
+        dest: 'build/roundProgress.js',
       }
     },
     'gh-pages': {
@@ -32,9 +37,9 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-gh-pages');
 
-  grunt.registerTask('default', ['uglify:build', 'copy:deploy']);
+  grunt.registerTask('default', ['concat:build', 'uglify:build']);
   grunt.registerTask('deploy', ['default', 'gh-pages:deploy']);
 };

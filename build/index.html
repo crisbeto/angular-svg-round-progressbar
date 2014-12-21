@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="demo">
 <head>
     <meta charset="UTF-8">
     <title>Angular SVG round progressbar demo</title>
@@ -57,7 +57,7 @@
 
         form{
             text-align: left;
-            width: 270px;
+            width: 300px;
             margin:20px auto;
         }
 
@@ -65,7 +65,7 @@
             margin-bottom: 5px;
         }
 
-        input{
+        input, select{
             float:right;
             padding: 5px;
         }
@@ -77,8 +77,8 @@
         }
     </style>
 </head>
-<body ng-app="demo">
-    <div class="container" ng-controller="demoCtrl">
+<body ng-controller="demoCtrl">
+    <div class="container">
         <a class="back" href="https://github.com/crisbeto/angular-svg-round-progressbar">Back to project repo</a>
 
         <h2>Sample progressbar</h2>
@@ -93,7 +93,8 @@
                 radius="{{ radius }}"
                 semi="isSemi"
                 stroke="{{ stroke }}"
-                iterations="{{ iterations }}">
+                iterations="{{ iterations }}"
+                animation="{{ currentAnimation }}">
             </div>
         </div>
 
@@ -132,6 +133,16 @@
             </div>
 
             <div class="cf">
+                <label>Iterations:</label>
+                <input type="number" ng-model="iterations"/>
+            </div>
+
+            <div class="cf">
+                <label>Animation:</label>
+                <select ng-model="currentAnimation" ng-options="animation for animation in animations"></select>
+            </div>
+
+            <div class="cf">
                 <label>Color:</label>
                 <input type="color" ng-model="currentColor"/>
             </div>
@@ -140,28 +151,23 @@
                 <label>Background color:</label>
                 <input type="color" ng-model="bgColor"/>
             </div>
-
-            <div class="cf">
-                <label>Iterations:</label>
-                <input type="number" ng-model="iterations"/>
-            </div>
         </form>
     </div>
 
-    <div class="container" ng-controller="demoCtrl">
+    <div class="container">
         <h2>Upload progress example</h2>
         <div class="progress-wrapper">
-            <div class="progress">{{ ((uploadCurrent/100)*100) | number:0 }}%</div>
+            <div class="progress"  ng-style="{'font-size': ((radius + stroke)/(isSemi ? 3.5 : 3))+'px'}">{{ ((uploadCurrent/100)*100) | number:0 }}%</div>
             <div
                 round-progress
                 max="100"
                 current="uploadCurrent"
-                color="#45ccce"
-                bgcolor="#eaeaea"
-                radius="100"
+                color="{{ currentColor }}"
+                bgcolor="{{ bgColor }}"
+                radius="{{ radius }}"
                 semi="isSemi"
-                stroke="15">
-            </div>
+                stroke="{{ stroke }}"
+                animation="{{ currentAnimation }}"></div>
         </div>
 
         <button ng-click="start();">Start</button>
@@ -170,20 +176,22 @@
     </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.js"></script>
     <script src="roundProgress.js"></script>
     <script>
         angular.module('demo', ['angular-svg-round-progress'])
-        .controller('demoCtrl', ['$scope', '$timeout', '$rootScope', function($scope, $timeout, $rootScope){
+        .controller('demoCtrl', ['$scope', '$timeout', 'roundProgressService', function($scope, $timeout, roundProgressService){
 
-            $scope.current =        27,
-            $scope.max =            50,
-            $scope.uploadCurrent =  0,
-            $scope.stroke =         15,
-            $scope.radius =         100,
-            $scope.isSemi =         false,
-            $scope.currentColor =   '#45ccce',
-            $scope.bgColor =        '#eaeaea'
+            $scope.current =        27;
+            $scope.max =            50;
+            $scope.uploadCurrent =  0;
+            $scope.stroke =         15;
+            $scope.radius =         100;
+            $scope.isSemi =         false;
+            $scope.currentColor =   '#45ccce';
+            $scope.bgColor =        '#eaeaea';
+            $scope.iterations =     50;
+            $scope.currentAnimation = 'easeOutCubic';
 
             var random = function(min, max){
                 return Math.round(Math.floor(Math.random()*(max-min+1)+min));
@@ -193,10 +201,6 @@
             $scope.increment = function(amount){
                 $scope.current+=(amount || 1);
             };
-
-            $scope.$watchCollection('[max, stroke, radius, isSemi, currentColor, bgColor, iterations]', function(newValue, oldValue){
-                $rootScope.$broadcast('renderCircle');
-            });
 
             $scope.decrement = function(amount){
                 $scope.current-=(amount || 1);
@@ -210,7 +214,7 @@
                     if($scope.uploadCurrent < 100){
                         $scope.start();
                     }
-                }, random(300, 500));
+                }, random(100, 500));
             };
 
             $scope.stop = function(){
@@ -222,6 +226,11 @@
                 $scope.uploadCurrent = 0;
             };
 
+            $scope.animations = [];
+
+            angular.forEach(roundProgressService.animations, function(value, key){
+                $scope.animations.push(key);
+            });
         }]);
     </script>
 </body>

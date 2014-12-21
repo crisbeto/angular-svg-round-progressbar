@@ -6,7 +6,7 @@ AngularJS module that uses SVG to create a circular progressbar
 
 ## Install
 
-Include Angular and `roundProgress.js` or `roundProgress.min.js` in your page. You can use bower, or a script-tag:
+Include Angular and [roundProgress.min.js](https://raw.githubusercontent.com/crisbeto/angular-svg-round-progressbar/master/build/roundProgress.min.js) or [roundProgress.js](https://raw.githubusercontent.com/crisbeto/angular-svg-round-progressbar/master/build/roundProgress.js) in your page. You can use bower, or a script-tag:
 
 `bower install angular-svg-round-progressbar`
 
@@ -31,25 +31,44 @@ angular.module('someModule', ['angular-svg-round-progress'])
 * `stroke` specifies the thickness of the line
 * `semi` boolean, specifies whether the progressbar should be a semicircle or a full circle
 * `iterations` number of iterations for the animation. Set it to 1 for *no animation* and increase for slower animation. *(Optional, 50 by default)*
-* To manually trigger a complete re-render of the progressbar, broadcast a "renderCircle" from a parent scope:
-
-```javascript
-$rootScope.$broadcast('renderCircle');
-```
+* `animation` the easing function that will be used. Default value is `easeOutCubic`, possible values:
+    * linearEase
+    * easeInQuad
+    * easeOutQuad
+    * easeInOutQuad
+    * easeInCubic
+    * easeOutCubic
+    * easeInOutCubic
+    * easeInQuart
+    * easeOutQuart
+    * easeInOutQuart
+    * easeInQuint
+    * easeOutQuint
+    * easeInOutQuint
+    * easeInSine
+    * easeOutSine
+    * easeInOutSine
+    * easeInExpo
+    * easeOutExpo
+    * easeInOutExpo
+    * easeInCirc
+    * easeOutCirc
+    * easeInOutCirc
 
 ### Example:
 
 ```html
 <div
-	round-progress
-	max="max"
-	current="current"
-	color="#45ccce"
-	bgcolor="#eaeaea"
-	radius="100"
-	stroke="20"
-	semi="true">
-</div>
+    round-progress
+    max="max"
+    current="current"
+    color="#45ccce"
+    bgcolor="#eaeaea"
+    radius="100"
+    stroke="20"
+    semi="true"
+    iterations="50"
+    animation="easeInOutQuart"></div>
 ```
 
 ## Browser support
