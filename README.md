@@ -54,6 +54,15 @@ angular.module('someModule', ['angular-svg-round-progress'])
     * easeInCirc
     * easeOutCirc
     * easeInOutCirc
+    * easeInElastic
+    * easeOutElastic
+    * easeInOutElastic
+    * easeInBack
+    * easeOutBack
+    * easeInOutBack
+    * easeInBounce
+    * easeOutBounce
+    * easeInOutBounce
 * Since the `0.2.0` release this directive uses dynamic binding. For example, if you want to change the fill color at a certain value, you can use `color="{{ (current / max < 0.5) ? '#ff8080' : '#45ccce'" }}`.
 
 ### Example:
@@ -92,6 +101,6 @@ angular.module('someModule', ['angular-svg-round-progress'])
 
 * Erik Möller for the requestAnimationFrame shim
 * [Modernizr](http://modernizr.com/) for the SVG support test
-* [Kirupa](http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-Pure-JS-(no-jQuery)) for the easing function
+* [Robert Penner](http://www.robertpenner.com/easing/) for the easing function
 * [opsb](http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
 * [konsumer](https://github.com/konsumer) for build-system & deployment stuff

@@ -2,7 +2,7 @@
 
 angular.module('angular-svg-round-progress')
     .directive('roundProgress', ['$timeout', 'roundProgressService', function($timeout, service){
-            
+
             if(!service.isSupported){
                 return {
                     // placeholder element to keep the structure
