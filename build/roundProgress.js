@@ -64,8 +64,6 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
                 "A", R, R, 0, arcSweep, 0, end.x, end.y
             ].join(" ");
 
-            console.log(d);
-
         return ring.attr('d', d);
     };
 
