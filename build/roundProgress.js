@@ -64,6 +64,8 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
                 "A", R, R, 0, arcSweep, 0, end.x, end.y
             ].join(" ");
 
+            console.log(d);
+
         return ring.attr('d', d);
     };
 
@@ -268,6 +270,7 @@ angular.module('angular-svg-round-progress')
                     animation:      "@"
                 },
                 link: function (scope, element, attrs) {
+
                     var ring        = element.find('path'),
                         background  = element.find('circle'),
                         size,
@@ -276,10 +279,10 @@ angular.module('angular-svg-round-progress')
                     var renderCircle = function(){
                         $timeout(function(){
                             var isSemicircle = scope.semi,
-                            radius           = scope.radius,
-                            stroke           = scope.stroke;
+                            radius           = parseInt(scope.radius),
+                            stroke           = parseInt(scope.stroke);
 
-                            size = radius*2 + parseInt(stroke)*2;
+                            size = radius*2 + stroke*2;
 
                             element.attr({
                                 "width":        size,
@@ -327,7 +330,7 @@ angular.module('angular-svg-round-progress')
                         start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
                         val                 = newValue - start,
                         currentIteration    = 0,
-                        totalIterations     = scope.iterations || 50;
+                        totalIterations     = parseInt(scope.iterations || 50);
 
                         if(angular.isNumber(resetValue)){
                             // the reset value fixes problems with animation, caused when limiting the scope.current
