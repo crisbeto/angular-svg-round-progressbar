@@ -87,7 +87,14 @@
             <div
                 round-progress
                 max="max"
-                current="current">
+                current="current"
+                color="{{ currentColor }}"
+                bgcolor="{{ bgColor }}"
+                radius="{{ radius }}"
+                semi="isSemi"
+                stroke="{{ stroke }}"
+                iterations="{{ iterations }}"
+                animation="{{ currentAnimation }}">
             </div>
         </div>
 
@@ -170,7 +177,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.js"></script>
-    <script src="roundProgress.min.js"></script>
+    <script src="roundProgress.js"></script>
     <script>
         angular.module('demo', ['angular-svg-round-progress'])
         .controller('demoCtrl', ['$scope', '$timeout', 'roundProgressService', function($scope, $timeout, roundProgressService){
