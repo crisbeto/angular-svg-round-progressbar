@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angular-svg-round-progress')
-    .directive('roundProgress', ['$timeout', 'roundProgressService', function($timeout, service){
+    .directive('roundProgress', ['roundProgressService', function(service){
 
             if(!service.isSupported){
                 return {
@@ -33,34 +33,31 @@ angular.module('angular-svg-round-progress')
                         resetValue;
 
                     var renderCircle = function(){
-                        $timeout(function(){
-                            var isSemicircle = scope.semi,
-                            radius           = parseInt(scope.radius),
-                            stroke           = parseInt(scope.stroke);
+                        var isSemicircle = scope.semi,
+                        radius           = parseInt(scope.radius),
+                        stroke           = parseInt(scope.stroke);
 
-                            size = radius*2 + stroke*2;
+                        size = radius*2 + stroke*2;
 
-                            element.attr({
-                                "width":        size,
-                                "height":       isSemicircle ? size/2 : size
-                            }).css({
-                                "overflow": "hidden" // on some browsers the background overflows, if in semicircle mode
-                            });
+                        element.css({
+                            "width":        size,
+                            "height":       isSemicircle ? size/2 : size,
+                            "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
+                        });
 
-                            ring.attr({
-                                "stroke":       scope.color,
-                                "stroke-width": stroke,
-                                "transform":    isSemicircle ? ('translate('+ 0 +','+ size +') rotate(-90)') : ''
-                            });
+                        ring.attr({
+                            "stroke":       scope.color,
+                            "stroke-width": stroke,
+                            "transform":    isSemicircle ? ('translate('+ 0 +','+ size +') rotate(-90)') : ''
+                        });
 
-                            background.attr({
-                                "cx":           radius,
-                                "cy":           radius,
-                                "transform":    "translate("+ stroke +", "+ stroke +")",
-                                "r":            radius,
-                                "stroke":       scope.bgcolor,
-                                "stroke-width": stroke
-                            });
+                        background.attr({
+                            "cx":           radius,
+                            "cy":           radius,
+                            "transform":    "translate("+ stroke +", "+ stroke +")",
+                            "r":            radius,
+                            "stroke":       scope.bgcolor,
+                            "stroke-width": stroke
                         });
                     };
 
@@ -120,7 +117,7 @@ angular.module('angular-svg-round-progress')
                 template:[
                     '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
                         '<circle fill="none"/>',
-                        '<path fill="none" />',
+                        '<path fill="none"/>',
                     '</svg>'
                 ].join('\n')
             };
