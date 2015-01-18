@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('angular-svg-round-progress').service('roundProgressService', [function(){
     var service = {};
 

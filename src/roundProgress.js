@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angular-svg-round-progress')
-    .directive('roundProgress', ['roundProgressService', function(service){
+    .directive('roundProgress', ['roundProgressService', 'roundProgressConfig', function(service, roundProgressConfig){
 
             if(!service.isSupported){
                 return {
@@ -26,16 +26,16 @@ angular.module('angular-svg-round-progress')
                     animation:      "@"
                 },
                 link: function (scope, element, attrs) {
-
                     var ring        = element.find('path'),
                         background  = element.find('circle'),
+                        options     = angular.copy(roundProgressConfig),
                         size,
                         resetValue;
 
                     var renderCircle = function(){
-                        var isSemicircle = scope.semi,
-                        radius           = parseInt(scope.radius),
-                        stroke           = parseInt(scope.stroke);
+                        var isSemicircle = options.semi,
+                        radius           = parseInt(options.radius),
+                        stroke           = parseInt(options.stroke);
 
                         size = radius*2 + stroke*2;
 
@@ -46,7 +46,7 @@ angular.module('angular-svg-round-progress')
                         });
 
                         ring.attr({
-                            "stroke":       scope.color,
+                            "stroke":       options.color,
                             "stroke-width": stroke,
                             "transform":    isSemicircle ? ('translate('+ 0 +','+ size +') rotate(-90)') : ''
                         });
@@ -56,7 +56,7 @@ angular.module('angular-svg-round-progress')
                             "cy":           radius,
                             "transform":    "translate("+ stroke +", "+ stroke +")",
                             "r":            radius,
-                            "stroke":       scope.bgcolor,
+                            "stroke":       options.bgcolor,
                             "stroke-width": stroke
                         });
                     };
@@ -71,19 +71,19 @@ angular.module('angular-svg-round-progress')
                             return scope.current = 0;
                         };
 
-                        if(newValue > scope.max){
+                        if(newValue > options.max){
                             resetValue = oldValue;
-                            return scope.current = scope.max;
+                            return scope.current = options.max;
                         };
 
-                        var max             = scope.max,
-                        radius              = scope.radius,
-                        isSemicircle        = scope.semi,
-                        easingAnimation     = service.animations[scope.animation || 'easeOutCubic'],
+                        var max             = options.max,
+                        radius              = options.radius,
+                        isSemicircle        = options.semi,
+                        easingAnimation     = service.animations[options.animation],
                         start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
                         val                 = newValue - start,
                         currentIteration    = 0,
-                        totalIterations     = parseInt(scope.iterations || 50);
+                        totalIterations     = parseInt(options.iterations);
 
                         if(angular.isNumber(resetValue)){
                             // the reset value fixes problems with animation, caused when limiting the scope.current
@@ -108,7 +108,17 @@ angular.module('angular-svg-round-progress')
                         })();
                     };
 
-                    scope.$watchCollection('[current, max, semi, radius, color, bgcolor, stroke, iterations]', function(newValue, oldValue){
+                    scope.$watchCollection('[current, max, semi, radius, color, bgcolor, stroke, iterations]', function(newValue, oldValue, scope){
+
+                        // pretty much the same as angular.extend,
+                        // but this skips undefined values and internal angular keys
+                        angular.forEach(scope, function(value, key){
+                            // note the scope !== value is because `this` is part of the scope
+                            if(key.indexOf('$') && scope !== value && angular.isDefined(value)){
+                                options[key] = value;
+                            };
+                        });
+
                         renderCircle();
                         renderState(newValue[0], oldValue[0]);
                     });

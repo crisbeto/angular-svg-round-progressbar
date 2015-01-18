@@ -23,15 +23,16 @@ angular.module('someModule', ['angular-svg-round-progress'])
 
 ## Options
 
+* To edit the default values, change the options in the `roundProgressConfig` constant
 * `current` current progress, some value on the scope or a number
-* `max` maximum value, some value on the scope or a number
-* `radius` radius of the circle
-* `color` hex color for the `current` value, example: `#45ccce`
-* `bgcolor` hex background color, example: `#eaeaea`
-* `stroke` specifies the thickness of the line
-* `semi` boolean, specifies whether the progressbar should be a semicircle or a full circle
-* `iterations` number of iterations for the animation. Set it to 1 for *no animation* and increase for slower animation. *(Optional, 50 by default)*
-* `animation` the easing function that will be used. Default value is `easeOutCubic`, possible values:
+* `max` maximum value, some value on the scope or a number *(Defaults to `50`)*
+* `radius` radius of the circle *(Defaults to `50`)*
+* `color` hex color for the `current` value, example: `#45ccce` *(Defaults to `#45ccce`)*
+* `bgcolor` hex background color, example: `#eaeaea` *(Defaults to `#eaeaea`)*
+* `stroke` specifies the thickness of the line *(Defaults to `15`)*
+* `semi` boolean, specifies whether the progressbar should be a semicircle or a full circle *(Defaults to `false`)*
+* `iterations` number of iterations for the animation. Set it to 1 for *no animation* and increase for slower animation. *(Defaults to `50`)*
+* `animation` the easing function that will be used. *(Defaults to `easeOutCubic`)* possible values:
     * linearEase
     * easeInQuad
     * easeOutQuad

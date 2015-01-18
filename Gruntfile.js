@@ -2,6 +2,7 @@ module.exports = function(grunt) {
   var files = [
       'src/shim.js',
       'src/module.js',
+      'src/roundProgressConfig.js',
       'src/roundProgressService.js',
       'src/roundProgress.js',
   ];
