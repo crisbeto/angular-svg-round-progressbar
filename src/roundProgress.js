@@ -40,8 +40,8 @@ angular.module('angular-svg-round-progress')
                         size = radius*2 + stroke*2;
 
                         element.css({
-                            "width":        size,
-                            "height":       isSemicircle ? size/2 : size,
+                            "width":        size + "px",
+                            "height":       (isSemicircle ? size/2 : size) + "px",
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
                         });
 
