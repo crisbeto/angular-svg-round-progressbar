@@ -45,17 +45,16 @@ angular.module('angular-svg-round-progress')
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
                         });
 
-                        ring.attr({
+                        ring.css({
                             "stroke":       options.color,
-                            "stroke-width": stroke,
-                            "transform":    isSemicircle ? ('translate('+ 0 +','+ size +') rotate(-90)') : ''
-                        });
+                            "stroke-width": stroke
+                        }).attr("transform", isSemicircle ? ("translate("+ 0 +","+ size +") rotate(-90)") : "");
 
                         background.attr({
-                            "cx":           radius,
-                            "cy":           radius,
-                            "transform":    "translate("+ stroke +", "+ stroke +")",
-                            "r":            radius,
+                            "cx":           radius + stroke,
+                            "cy":           radius + stroke,
+                            "r":            radius
+                        }).css({
                             "stroke":       options.bgcolor,
                             "stroke-width": stroke
                         });
