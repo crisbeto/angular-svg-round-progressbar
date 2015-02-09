@@ -79,6 +79,7 @@ angular.module('someModule', ['angular-svg-round-progress'])
     radius="100"
     stroke="20"
     semi="true"
+    rounded="true"
     iterations="50"
     animation="easeInOutQuart"></div>
 ```
