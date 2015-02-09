@@ -31,6 +31,7 @@ angular.module('someModule', ['angular-svg-round-progress'])
 * `bgcolor` hex background color, example: `#eaeaea` *(Defaults to `#eaeaea`)*
 * `stroke` specifies the thickness of the line *(Defaults to `15`)*
 * `semi` boolean, specifies whether the progressbar should be a semicircle or a full circle *(Defaults to `false`)*
+* `rounded` boolean, whether the current progress ending should be rounded or straight *(Defaults to `false`)*
 * `iterations` number of iterations for the animation. Set it to 1 for *no animation* and increase for slower animation. *(Defaults to `50`)*
 * `animation` the easing function that will be used. *(Defaults to `easeOutCubic`)* possible values:
     * linearEase

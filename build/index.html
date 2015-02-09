@@ -92,6 +92,7 @@
                 bgcolor="{{ bgColor }}"
                 radius="{{ radius }}"
                 semi="isSemi"
+                rounded="rounded"
                 stroke="{{ stroke }}"
                 iterations="{{ iterations }}"
                 animation="{{ currentAnimation }}">
@@ -110,6 +111,11 @@
             <div class="cf">
                 <label>Semicircle:</label>
                 <input type="checkbox" ng-model="isSemi"/>
+            </div>
+
+            <div class="cf">
+                <label>Rounded:</label>
+                <input type="checkbox" ng-model="rounded"/>
             </div>
 
             <div class="cf">
@@ -166,6 +172,7 @@
                 bgcolor="{{ bgColor }}"
                 radius="{{ radius }}"
                 semi="isSemi"
+                rounded="rounded"
                 stroke="{{ stroke }}"
                 animation="{{ currentAnimation }}"></div>
         </div>
@@ -188,6 +195,7 @@
             $scope.stroke =         15;
             $scope.radius =         100;
             $scope.isSemi =         false;
+            $scope.rounded =        false;
             $scope.currentColor =   '#45ccce';
             $scope.bgColor =        '#eaeaea';
             $scope.iterations =     50;
