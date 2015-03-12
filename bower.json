@@ -1,6 +1,6 @@
 {
   "name": "angular-svg-round-progressbar",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar",
   "authors": [
     "crisbeto"
@@ -19,7 +19,7 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular": "~1.2.19"
+    "angular": ">=1.3.0"
   },
   "main":"build/roundProgress.min.js"
 }
