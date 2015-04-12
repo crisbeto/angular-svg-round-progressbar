@@ -8,7 +8,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
     // utility function
     var polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
-        var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+        var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
 
         return {
             x: centerX + (radius * Math.cos(angleInRadians)),
@@ -22,12 +22,11 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         if(!size) return ring;
 
         var value       = value >= total ? total - 0.00001 : value,
-            type        = isSemicircle ? 180 : 359.9999,
+            type        = (isSemicircle ? 180 : 359.9999),
             perc        = total === 0 ? 0 : (value / total) * type,
             x           = size/2,
             start       = polarToCartesian(x, x, R, perc), // in this case x and y are the same
             end         = polarToCartesian(x, x, R, 0),
-            // arcSweep = endAngle - startAngle <= 180 ? "0" : "1",
             arcSweep    = (perc <= 180 ? "0" : "1"),
             d = [
                 "M", start.x, start.y,
