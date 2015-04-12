@@ -24,7 +24,7 @@ angular.module('someModule', ['angular-svg-round-progress'])
 ## Options
 
 * To edit the default values, change the options in the `roundProgressConfig` constant
-* `current` current progress, some value on the scope or a number
+* `current` current progress, some value on the scope or a number. Is limited by the `max` value.
 * `max` maximum value, some value on the scope or a number *(Defaults to `50`)*
 * `radius` radius of the circle *(Defaults to `50`)*
 * `color` hex color for the `current` value, example: `#45ccce` *(Defaults to `#45ccce`)*
@@ -66,7 +66,7 @@ angular.module('someModule', ['angular-svg-round-progress'])
     * easeInBounce
     * easeOutBounce
     * easeInOutBounce
-* Since the `0.2.0` release this directive uses dynamic binding. For example, if you want to change the fill color at a certain value, you can use `color="{{ (current / max < 0.5) ? '#ff8080' : '#45ccce'" }}`.
+* Since the `0.2.0` release this directive uses dynamic binding. For example, if you want to change the fill color at a certain value, you can use `color="{{ (current / max < 0.5) ? '#ff8080' : '#45ccce' }}"`.
 
 ### Example:
 
