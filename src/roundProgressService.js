@@ -22,7 +22,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         if(!size) return ring;
 
         var value       = val >= total ? total - 0.00001 : val,
-            type        = (isSemicircle ? 180 : 359.9999),
+            type        = isSemicircle ? 180 : 359.9999,
             perc        = total === 0 ? 0 : (value / total) * type,
             x           = size/2,
             start       = polarToCartesian(x, x, R, perc), // in this case x and y are the same
