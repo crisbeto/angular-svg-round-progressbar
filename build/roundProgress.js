@@ -1,5 +1,7 @@
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+'use strict';
+
 (function() {
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
@@ -10,7 +12,7 @@
     }
 
     if (!window.requestAnimationFrame){
-        window.requestAnimationFrame = function(callback, element) {
+        window.requestAnimationFrame = function(callback) {
             var currTime = new Date().getTime();
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
             var id = window.setTimeout(function() { callback(currTime + timeToCall); },
@@ -22,7 +24,7 @@
 
     if (!window.cancelAnimationFrame){
         window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
+            window.clearTimeout(id);
         };
     }
 
@@ -36,6 +38,7 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     max:            50,
     semi:           false,
     rounded:        false,
+    clockwise:      true,
     radius:         100,
     color:          "#45ccce",
     bgcolor:        "#eaeaea",
@@ -54,7 +57,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
     // utility function
     var polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
-        var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+        var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
 
         return {
             x: centerX + (radius * Math.cos(angleInRadians)),
@@ -63,17 +66,16 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
     };
 
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
-    service.updateState = function(value, total, R, ring, size, isSemicircle) {
+    service.updateState = function(val, total, R, ring, size, isSemicircle) {
 
         if(!size) return ring;
 
-        var value       = value >= total ? total - 0.00001 : value,
-            type        = isSemicircle ? 180 : 359.9999,
+        var value       = val >= total ? total - 0.00001 : val,
+            type        = (isSemicircle ? 180 : 359.9999),
             perc        = total === 0 ? 0 : (value / total) * type,
             x           = size/2,
             start       = polarToCartesian(x, x, R, perc), // in this case x and y are the same
             end         = polarToCartesian(x, x, R, 0),
-            // arcSweep = endAngle - startAngle <= 180 ? "0" : "1",
             arcSweep    = (perc <= 180 ? "0" : "1"),
             d = [
                 "M", start.x, start.y,
@@ -93,6 +95,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         // b: Start value
         // c: Change in value
         // d: Total iterations
+        // jshint eqeqeq: false, -W041: true
 
         linearEase: function(t, b, c, d) {
             return c * t / d + b;
@@ -192,40 +195,44 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
         easeInElastic: function (t, b, c, d) {
             var s=1.70158;var p=0;var a=c;
-            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-            if (a < Math.abs(c)) { a=c; var s=p/4; }
-            else var s = p/(2*Math.PI) * Math.asin (c/a);
+            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*0.3;
+            if (a < Math.abs(c)) { a=c; s=p/4; }
+            else s = p/(2*Math.PI) * Math.asin (c/a);
             return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
         },
 
         easeOutElastic: function (t, b, c, d) {
             var s=1.70158;var p=0;var a=c;
-            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-            if (a < Math.abs(c)) { a=c; var s=p/4; }
-            else var s = p/(2*Math.PI) * Math.asin (c/a);
+            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*0.3;
+            if (a < Math.abs(c)) { a=c; s=p/4; }
+            else s = p/(2*Math.PI) * Math.asin (c/a);
             return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
         },
 
         easeInOutElastic: function (t, b, c, d) {
+            // jshint eqeqeq: false, -W041: true
             var s=1.70158;var p=0;var a=c;
-            if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
-            if (a < Math.abs(c)) { a=c; var s=p/4; }
-            else var s = p/(2*Math.PI) * Math.asin (c/a);
-            if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
-            return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
+            if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(0.3*1.5);
+            if (a < Math.abs(c)) { a=c; s=p/4; }
+            else s = p/(2*Math.PI) * Math.asin (c/a);
+            if (t < 1) return -0.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+            return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
         },
 
         easeInBack: function (t, b, c, d, s) {
+            // jshint eqeqeq: false, -W041: true
             if (s == undefined) s = 1.70158;
             return c*(t/=d)*t*((s+1)*t - s) + b;
         },
 
         easeOutBack: function (t, b, c, d, s) {
+            // jshint eqeqeq: false, -W041: true
             if (s == undefined) s = 1.70158;
             return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
         },
 
         easeInOutBack: function (t, b, c, d, s) {
+            // jshint eqeqeq: false, -W041: true
             if (s == undefined) s = 1.70158;
             if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
             return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
@@ -239,17 +246,17 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
             if ((t/=d) < (1/2.75)) {
                 return c*(7.5625*t*t) + b;
             } else if (t < (2/2.75)) {
-                return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+                return c*(7.5625*(t-=(1.5/2.75))*t + 0.75) + b;
             } else if (t < (2.5/2.75)) {
-                return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+                return c*(7.5625*(t-=(2.25/2.75))*t + 0.9375) + b;
             } else {
-                return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+                return c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
             }
         },
 
         easeInOutBounce: function (t, b, c, d) {
-            if (t < d/2) return service.animations.easeInBounce (t*2, 0, c, d) * .5 + b;
-            return service.animations.easeOutBounce (t*2-d, 0, c, d) * .5 + c*.5 + b;
+            if (t < d/2) return service.animations.easeInBounce (t*2, 0, c, d) * 0.5 + b;
+            return service.animations.easeOutBounce (t*2-d, 0, c, d) * 0.5 + c*0.5 + b;
         }
     };
 
@@ -259,24 +266,27 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 'use strict';
 
 angular.module('angular-svg-round-progress')
-    .directive('roundProgress', ['roundProgressService', 'roundProgressConfig', function(service, roundProgressConfig){
+    .directive('roundProgress', ['$window', 'roundProgressService', 'roundProgressConfig', function($window, service, roundProgressConfig){
 
-            if(!service.isSupported){
-                return {
-                    // placeholder element to keep the structure
-                    restrict: 'EA',
-                    template:'<div class="round-progress"></div>',
-                    replace: true
-                };
+            var base = {
+                restrict: "EA",
+                replace: true
             };
 
-            return {
-                restrict:           "EA",
+            if(!service.isSupported){
+                return angular.extend(base, {
+                    // placeholder element to keep the structure
+                    template: '<div class="round-progress"></div>'
+                });
+            }
+
+            return angular.extend(base, {
                 scope:{
                     current:        "=",
                     max:            "=",
                     semi:           "=",
                     rounded:        "=",
+                    clockwise:      "=",
                     radius:         "@",
                     color:          "@",
                     bgcolor:        "@",
@@ -284,7 +294,7 @@ angular.module('angular-svg-round-progress')
                     iterations:     "@",
                     animation:      "@"
                 },
-                link: function (scope, element, attrs) {
+                link: function (scope, element) {
                     var ring        = element.find('path'),
                         background  = element.find('circle'),
                         options     = angular.copy(roundProgressConfig),
@@ -308,7 +318,13 @@ angular.module('angular-svg-round-progress')
                             "stroke":       options.color,
                             "stroke-width": stroke,
                             "stroke-linecap": options.rounded ? "round": "butt"
-                        }).attr("transform", isSemicircle ? ("translate("+ 0 +","+ size +") rotate(-90)") : "");
+                        });
+
+                        if(isSemicircle){
+                            ring.attr("transform", options.clockwise ? "translate("+ 0 +","+ size +") rotate(-90)" : "translate("+ size +", "+ size +") rotate(90) scale(-1, 1)");
+                        }else{
+                            ring.attr("transform", options.clockwise ? "" : "scale(-1, 1) translate("+ (-size) +" 0)");
+                        }
 
                         background.attr({
                             "cx":           radius + stroke,
@@ -323,17 +339,17 @@ angular.module('angular-svg-round-progress')
                     var renderState = function (newValue, oldValue){
                         if(!angular.isDefined(newValue)){
                             return false;
-                        };
+                        }
 
                         if(newValue < 0){
                             resetValue = oldValue;
                             return scope.current = 0;
-                        };
+                        }
 
                         if(newValue > options.max){
                             resetValue = oldValue;
                             return scope.current = options.max;
-                        };
+                        }
 
                         var max             = options.max,
                         radius              = options.radius,
@@ -349,7 +365,7 @@ angular.module('angular-svg-round-progress')
                             start       = resetValue;
                             val         = newValue - resetValue;
                             resetValue  = null;
-                        };
+                        }
 
                         (function animation(){
                             service.updateState(
@@ -361,13 +377,13 @@ angular.module('angular-svg-round-progress')
                                 isSemicircle);
 
                             if(currentIteration < totalIterations){
-                                requestAnimationFrame(animation);
+                                $window.requestAnimationFrame(animation);
                                 currentIteration++;
-                            };
+                            }
                         })();
                     };
 
-                    scope.$watchCollection('[current, max, semi, rounded, radius, color, bgcolor, stroke, iterations]', function(newValue, oldValue, scope){
+                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, iterations]', function(newValue, oldValue, scope){
 
                         // pretty much the same as angular.extend,
                         // but this skips undefined values and internal angular keys
@@ -375,19 +391,19 @@ angular.module('angular-svg-round-progress')
                             // note the scope !== value is because `this` is part of the scope
                             if(key.indexOf('$') && scope !== value && angular.isDefined(value)){
                                 options[key] = value;
-                            };
+                            }
                         });
 
                         renderCircle();
                         renderState(newValue[0], oldValue[0]);
                     });
                 },
-                replace:true,
                 template:[
                     '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
                         '<circle fill="none"/>',
                         '<path fill="none"/>',
                     '</svg>'
                 ].join('\n')
-            };
+            });
+
         }]);

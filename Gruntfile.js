@@ -1,3 +1,7 @@
+'use strict';
+
+// jshint node:true
+
 module.exports = function(grunt) {
   var files = [
       'src/shim.js',
@@ -35,12 +39,24 @@ module.exports = function(grunt) {
         'src': ['index.html','roundProgress.js', 'roundProgress.min.js']
       }
     },
+    'jshint': {
+      'options': {
+        'jshintrc': true,
+        'reporter': require('jshint-stylish')
+      },
+      'src': {
+        'files': {
+          'src': ['src/*.js']
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-gh-pages');
 
-  grunt.registerTask('default', ['concat:build', 'uglify:build']);
+  grunt.registerTask('default', ['jshint:src', 'concat:build', 'uglify:build']);
   grunt.registerTask('deploy', ['default', 'gh-pages:deploy']);
 };

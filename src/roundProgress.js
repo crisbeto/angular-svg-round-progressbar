@@ -1,19 +1,21 @@
 'use strict';
 
 angular.module('angular-svg-round-progress')
-    .directive('roundProgress', ['roundProgressService', 'roundProgressConfig', function(service, roundProgressConfig){
+    .directive('roundProgress', ['$window', 'roundProgressService', 'roundProgressConfig', function($window, service, roundProgressConfig){
 
-            if(!service.isSupported){
-                return {
-                    // placeholder element to keep the structure
-                    restrict: 'EA',
-                    template:'<div class="round-progress"></div>',
-                    replace: true
-                };
+            var base = {
+                restrict: "EA",
+                replace: true
             };
 
-            return {
-                restrict:           "EA",
+            if(!service.isSupported){
+                return angular.extend(base, {
+                    // placeholder element to keep the structure
+                    template: '<div class="round-progress"></div>'
+                });
+            }
+
+            return angular.extend(base, {
                 scope:{
                     current:        "=",
                     max:            "=",
@@ -27,7 +29,7 @@ angular.module('angular-svg-round-progress')
                     iterations:     "@",
                     animation:      "@"
                 },
-                link: function (scope, element, attrs) {
+                link: function (scope, element) {
                     var ring        = element.find('path'),
                         background  = element.find('circle'),
                         options     = angular.copy(roundProgressConfig),
@@ -72,17 +74,17 @@ angular.module('angular-svg-round-progress')
                     var renderState = function (newValue, oldValue){
                         if(!angular.isDefined(newValue)){
                             return false;
-                        };
+                        }
 
                         if(newValue < 0){
                             resetValue = oldValue;
                             return scope.current = 0;
-                        };
+                        }
 
                         if(newValue > options.max){
                             resetValue = oldValue;
                             return scope.current = options.max;
-                        };
+                        }
 
                         var max             = options.max,
                         radius              = options.radius,
@@ -98,7 +100,7 @@ angular.module('angular-svg-round-progress')
                             start       = resetValue;
                             val         = newValue - resetValue;
                             resetValue  = null;
-                        };
+                        }
 
                         (function animation(){
                             service.updateState(
@@ -110,9 +112,9 @@ angular.module('angular-svg-round-progress')
                                 isSemicircle);
 
                             if(currentIteration < totalIterations){
-                                requestAnimationFrame(animation);
+                                $window.requestAnimationFrame(animation);
                                 currentIteration++;
-                            };
+                            }
                         })();
                     };
 
@@ -124,19 +126,19 @@ angular.module('angular-svg-round-progress')
                             // note the scope !== value is because `this` is part of the scope
                             if(key.indexOf('$') && scope !== value && angular.isDefined(value)){
                                 options[key] = value;
-                            };
+                            }
                         });
 
                         renderCircle();
                         renderState(newValue[0], oldValue[0]);
                     });
                 },
-                replace:true,
                 template:[
                     '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
                         '<circle fill="none"/>',
                         '<path fill="none"/>',
                     '</svg>'
                 ].join('\n')
-            };
+            });
+
         }]);

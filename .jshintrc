@@ -1,0 +1,23 @@
+{
+  "curly": false,
+  "eqeqeq": true,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "sub": true,
+  "undef": true,
+  "boss": true,
+  "eqnull": true,
+  "globalstrict": true,
+  "strict": true,
+  "white": true,
+  "indent": 4,
+  "unused": true,
+  "predef": [
+    "angular",
+    "document",
+    "window",
+    "console"
+  ]
+}

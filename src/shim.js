@@ -1,5 +1,7 @@
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+'use strict';
+
 (function() {
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
@@ -10,7 +12,7 @@
     }
 
     if (!window.requestAnimationFrame){
-        window.requestAnimationFrame = function(callback, element) {
+        window.requestAnimationFrame = function(callback) {
             var currTime = new Date().getTime();
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
             var id = window.setTimeout(function() { callback(currTime + timeToCall); },
@@ -22,7 +24,7 @@
 
     if (!window.cancelAnimationFrame){
         window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
+            window.clearTimeout(id);
         };
     }
 
