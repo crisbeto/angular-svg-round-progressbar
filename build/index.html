@@ -6,6 +6,10 @@
     <title>Angular SVG round progressbar demo</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <style>
+        *{
+            box-sizing: border-box;
+        }
+
         body{
             font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
         }
@@ -57,17 +61,26 @@
 
         form{
             text-align: left;
-            width: 300px;
-            margin:20px auto;
+            width: 350px;
+            margin: 30px auto;
         }
 
         form > div{
-            margin-bottom: 5px;
+            margin-bottom: 15px;
         }
 
         input, select{
             float:right;
             padding: 5px;
+            width: 150px;
+        }
+
+        input[type="checkbox"]{
+            width: auto;
+        }
+
+        input[type="color"]{
+            height: 30px;
         }
 
         .back{
@@ -110,58 +123,58 @@
             <h3>Customize!</h3>
 
             <div class="cf">
-                <label>Semicircle:</label>
-                <input type="checkbox" ng-model="isSemi"/>
+                <label for="semi">Semicircle:</label>
+                <input id="semi" type="checkbox" ng-model="isSemi"/>
             </div>
 
             <div class="cf">
-                <label>Rounded:</label>
-                <input type="checkbox" ng-model="rounded"/>
+                <label for="rounded">Rounded:</label>
+                <input id="rounded" type="checkbox" ng-model="rounded"/>
             </div>
 
             <div class="cf">
-                <label>Clockwise:</label>
-                <input type="checkbox" ng-model="clockwise"/>
+                <label for="clockwise">Clockwise:</label>
+                <input id="clockwise" type="checkbox" ng-model="clockwise"/>
             </div>
 
             <div class="cf">
-                <label>Current:</label>
-                <input type="number" ng-model="current"/>
+                <label for="current">Current:</label>
+                <input id="current" type="number" ng-model="current"/>
             </div>
 
             <div class="cf">
-                <label>Max:</label>
-                <input type="number" ng-model="max"/>
+                <label for="max">Max:</label>
+                <input id="max" type="number" ng-model="max"/>
             </div>
 
             <div class="cf">
-                <label>Stroke:</label>
-                <input type="number" ng-model="stroke"/>
+                <label for="stroke">Stroke:</label>
+                <input id="stroke" type="number" ng-model="stroke"/>
             </div>
 
             <div class="cf">
-                <label>Radius:</label>
-                <input type="number" ng-model="radius"/>
+                <label for="radius">Radius:</label>
+                <input id="radius" type="number" ng-model="radius"/>
             </div>
 
             <div class="cf">
-                <label>Iterations:</label>
-                <input type="number" ng-model="iterations"/>
+                <label for="iterations">Iterations:</label>
+                <input id="iterations" type="number" ng-model="iterations"/>
             </div>
 
             <div class="cf">
-                <label>Animation:</label>
-                <select ng-model="currentAnimation" ng-options="animation for animation in animations"></select>
+                <label for="animation">Animation:</label>
+                <select id="animation" ng-model="currentAnimation" ng-options="animation for animation in animations"></select>
             </div>
 
             <div class="cf">
-                <label>Color:</label>
-                <input type="color" ng-model="currentColor"/>
+                <label for="color">Color:</label>
+                <input id="color" type="color" ng-model="currentColor"/>
             </div>
 
             <div class="cf">
-                <label>Background color:</label>
-                <input type="color" ng-model="bgColor"/>
+                <label for="bgcolor">Background color:</label>
+                <input id="bgcolor" type="color" ng-model="bgColor"/>
             </div>
         </form>
     </div>
