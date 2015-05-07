@@ -23,50 +23,23 @@ angular.module('someModule', ['angular-svg-round-progress'])
 
 ## Options
 
-* To edit the default values, change the options in the `roundProgressConfig` constant
-* `current` current progress, some value on the scope or a number. Is limited by the `max` value.
-* `max` maximum value, some value on the scope or a number *(Defaults to `50`)*
-* `radius` radius of the circle *(Defaults to `50`)*
-* `color` hex color for the `current` value, example: `#45ccce` *(Defaults to `#45ccce`)*
-* `bgcolor` hex background color, example: `#eaeaea` *(Defaults to `#eaeaea`)*
-* `stroke` specifies the thickness of the line *(Defaults to `15`)*
-* `semi` boolean, specifies whether the progressbar should be a semicircle or a full circle *(Defaults to `false`)*
-* `clockwise` boolean, specifies whether the progressbar should rotate clockwise or counter-clockwise *(Defaults to `true`)*
-* `rounded` boolean, whether the current progress ending should be rounded or straight *(Defaults to `false`)*
-* `iterations` number of iterations for the animation. Set it to 1 for *no animation* and increase for slower animation. *(Defaults to `50`)*
-* `animation` the easing function that will be used. *(Defaults to `easeOutCubic`)* possible values:
-    * linearEase
-    * easeInQuad
-    * easeOutQuad
-    * easeInOutQuad
-    * easeInCubic
-    * easeOutCubic
-    * easeInOutCubic
-    * easeInQuart
-    * easeOutQuart
-    * easeInOutQuart
-    * easeInQuint
-    * easeOutQuint
-    * easeInOutQuint
-    * easeInSine
-    * easeOutSine
-    * easeInOutSine
-    * easeInExpo
-    * easeOutExpo
-    * easeInOutExpo
-    * easeInCirc
-    * easeOutCirc
-    * easeInOutCirc
-    * easeInElastic
-    * easeOutElastic
-    * easeInOutElastic
-    * easeInBack
-    * easeOutBack
-    * easeInOutBack
-    * easeInBounce
-    * easeOutBounce
-    * easeInOutBounce
+* To edit the default values, change the options in the `roundProgressConfig` constant.
 * Since the `0.2.0` release this directive uses dynamic binding. For example, if you want to change the fill color at a certain value, you can use `color="{{ (current / max < 0.5) ? '#ff8080' : '#45ccce' }}"`.
+
+| Name           | Description                                                                                               | Required  | Default value     | Possible values   | 
+| ---            | ---                                                                                                       | ---       | ---               | ---               |
+| `current`      | The current progress. Limited by the `max` option.                                                        | Yes       | undefined         | Integer           | 
+| `max`          | The progress' maximum value.                                                                              | Yes       | undefined         | Integer           | 
+| `radius`       | Radius of the circle.                                                                                     | No        | 50                | Integer           |
+| `color`        | The color of the `current` value on the circle.                                                           | No        | #45ccce           | Hex color         |
+| `bgcolor`      | Color of the circle's background.                                                                         | No        | #eaeaea           | Hex color         |
+| `stroke`       | Specifies the circle's thickness.                                                                         | No        | 15                | Integer           |
+| `semi`         | Whether the progressbar should be a full circle or a semicircle.                                          | No        | false             | Boolean           |
+| `clockwise`    | Whether the progressbar should rotate clockwise or counter-clockwise.                                     | No        | true              | Boolean           |
+| `rounded`      | Whether the current progress ending should be rounded or straight.                                        | No        | false             | Boolean           |
+| `iterations`   | Number of iterations for the animation. Set it to 1 for no animation and increase for slower animation.   | No        | 50                | Integer           |
+| `animation`    | The easing function that will be used when animating.                                                     | No        | easeOutCubic      | linearEase <br> easeInQuad <br> easeOutQuad <br> easeInOutQuad <br> easeInCubic <br> easeOutCubic <br> easeInOutCubic <br> easeInQuart <br> easeOutQuart <br> easeInOutQuart <br> easeInQuint <br> easeOutQuint <br> easeInOutQuint <br> easeInSine <br> easeOutSine <br> easeInOutSine <br> easeInExpo <br> easeOutExpo <br> easeInOutExpo <br> easeInCirc <br> easeOutCirc <br> easeInOutCirc <br> easeInElastic <br> easeOutElastic <br> easeInOutElastic <br> easeInBack <br> easeOutBack <br> easeInOutBack <br> easeInBounce <br> easeOutBounce <br> easeInOutBounce <br> |
+
 
 ### Example:
 
