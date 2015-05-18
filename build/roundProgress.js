@@ -306,7 +306,7 @@ angular.module('angular-svg-round-progress')
                         radius           = parseInt(options.radius),
                         stroke           = parseInt(options.stroke);
 
-                        size = radius*2 + stroke*2;
+                        size = radius*2 + stroke;
 
                         element.css({
                             "width":        size + "px",
@@ -327,8 +327,8 @@ angular.module('angular-svg-round-progress')
                         }
 
                         background.attr({
-                            "cx":           radius + stroke,
-                            "cy":           radius + stroke,
+                            "cx":           radius + stroke/2,
+                            "cy":           radius + stroke/2,
                             "r":            radius
                         }).css({
                             "stroke":       options.bgcolor,
