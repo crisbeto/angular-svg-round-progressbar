@@ -298,38 +298,37 @@ angular.module('angular-svg-round-progress')
                     var ring        = element.find('path'),
                         background  = element.find('circle'),
                         options     = angular.copy(roundProgressConfig),
-                        size,
                         resetValue;
 
                     var renderCircle = function(){
-                        var isSemicircle = options.semi,
-                        radius           = parseInt(options.radius),
-                        stroke           = parseInt(options.stroke);
-
-                        size = radius*2 + stroke*2;
+                        var isSemicircle     = options.semi;
+                        var radius           = parseInt(options.radius) || 0;
+                        var stroke           = parseInt(options.stroke);
+                        var diameter         = radius*2;
+                        var backgroundSize   = radius - (stroke/2);
 
                         element.css({
-                            "width":        size + "px",
-                            "height":       (isSemicircle ? size/2 : size) + "px",
+                            "width":        diameter + "px",
+                            "height":       (isSemicircle ? radius : diameter) + "px",
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
                         });
 
                         ring.css({
-                            "stroke":       options.color,
-                            "stroke-width": stroke,
-                            "stroke-linecap": options.rounded ? "round": "butt"
+                            "stroke":           options.color,
+                            "stroke-width":     stroke,
+                            "stroke-linecap":   options.rounded ? "round": "butt"
                         });
 
                         if(isSemicircle){
-                            ring.attr("transform", options.clockwise ? "translate("+ 0 +","+ size +") rotate(-90)" : "translate("+ size +", "+ size +") rotate(90) scale(-1, 1)");
+                            ring.attr("transform", options.clockwise ? "translate("+ 0 +","+ diameter +") rotate(-90)" : "translate("+ diameter +", "+ diameter +") rotate(90) scale(-1, 1)");
                         }else{
-                            ring.attr("transform", options.clockwise ? "" : "scale(-1, 1) translate("+ (-size) +" 0)");
+                            ring.attr("transform", options.clockwise ? "" : "scale(-1, 1) translate("+ (-diameter) +" 0)");
                         }
 
                         background.attr({
-                            "cx":           radius + stroke,
-                            "cy":           radius + stroke,
-                            "r":            radius
+                            "cx":           radius,
+                            "cy":           radius,
+                            "r":            backgroundSize >= 0 ? backgroundSize : 0
                         }).css({
                             "stroke":       options.bgcolor,
                             "stroke-width": stroke
@@ -351,14 +350,15 @@ angular.module('angular-svg-round-progress')
                             return scope.current = options.max;
                         }
 
-                        var max             = options.max,
-                        radius              = options.radius,
-                        isSemicircle        = options.semi,
-                        easingAnimation     = service.animations[options.animation],
-                        start               = oldValue === newValue ? 0 : (oldValue || 0), // fixes the initial animation
-                        val                 = newValue - start,
-                        currentIteration    = 0,
-                        totalIterations     = parseInt(options.iterations);
+                        var max                 = options.max || 0;
+                        var easingAnimation     = service.animations[options.animation];
+                        var start               = oldValue === newValue ? 0 : (oldValue || 0); // fixes the initial animation
+                        var val                 = newValue - start;
+                        var currentIteration    = 0;
+                        var totalIterations     = parseInt(options.iterations);
+                        var radius              = options.radius;
+                        var circleSize          = radius - (options.stroke/2);
+                        var elementSize         = radius*2;
 
                         if(angular.isNumber(resetValue)){
                             // the reset value fixes problems with animation, caused when limiting the scope.current
@@ -371,10 +371,10 @@ angular.module('angular-svg-round-progress')
                             service.updateState(
                                 easingAnimation(currentIteration, start, val, totalIterations),
                                 max,
-                                radius,
+                                circleSize,
                                 ring,
-                                size,
-                                isSemicircle);
+                                elementSize,
+                                options.semi);
 
                             if(currentIteration < totalIterations){
                                 $window.requestAnimationFrame(animation);

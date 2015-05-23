@@ -95,7 +95,7 @@
         <a class="back" href="https://github.com/crisbeto/angular-svg-round-progressbar">Back to project repo</a>
 
         <h2>Sample progressbar</h2>
-        <div class="progress-wrapper" ng-style="{'font-size': ((radius + stroke)/(isSemi ? 3.5 : 3))+'px'}">
+        <div class="progress-wrapper" ng-style="{'font-size': getFontSize()}">
             <div class="progress">{{ current }}/{{ max }}</div>
             <div
                 round-progress
@@ -182,7 +182,7 @@
     <div class="container">
         <h2>Upload progress example</h2>
         <div class="progress-wrapper">
-            <div class="progress"  ng-style="{'font-size': ((radius + stroke)/(isSemi ? 3.5 : 3))+'px'}">{{ ((uploadCurrent/100)*100) | number:0 }}%</div>
+            <div class="progress"  ng-style="{'font-size': getFontSize()}">{{ ((uploadCurrent/100)*100) | number:0 }}%</div>
             <div
                 round-progress
                 max="100"
@@ -206,6 +206,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
     <script src="roundProgress.min.js"></script>
     <script>
+        'use strict';
+
         angular.module('demo', ['angular-svg-round-progress'])
         .controller('demoCtrl', ['$scope', '$timeout', 'roundProgressService', function($scope, $timeout, roundProgressService){
 
@@ -260,6 +262,10 @@
             angular.forEach(roundProgressService.animations, function(value, key){
                 $scope.animations.push(key);
             });
+
+            $scope.getFontSize = function(){
+                return $scope.radius/($scope.isSemi ? 3.5 : 3) + 'px';
+            };
         }]);
     </script>
 </body>
