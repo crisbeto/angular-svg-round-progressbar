@@ -26,13 +26,13 @@ angular.module('someModule', ['angular-svg-round-progress'])
 * To edit the default values, change the options in the `roundProgressConfig` constant.
 * Since the `0.2.0` release this directive uses dynamic binding. For example, if you want to change the fill color at a certain value, you can use `color="{{ (current / max < 0.5) ? '#ff8080' : '#45ccce' }}"`.
 
-| Name           | Description                                                                                               | Required  | Default value     | Possible values   | 
+| Name           | Description                                                                                               | Required  | Default value     | Possible values   |
 | ---            | ---                                                                                                       | ---       | ---               | ---               |
-| `current`      | The current progress. Limited by the `max` option.                                                        | Yes       | undefined         | Integer           | 
-| `max`          | The progress' maximum value.                                                                              | Yes       | undefined         | Integer           | 
+| `current`      | The current progress. Limited by the `max` option.                                                        | Yes       | undefined         | Integer           |
+| `max`          | The progress' maximum value.                                                                              | Yes       | undefined         | Integer           |
 | `radius`       | Radius of the circle.                                                                                     | No        | 50                | Integer           |
-| `color`        | The color of the `current` value on the circle.                                                           | No        | #45ccce           | Hex color         |
-| `bgcolor`      | Color of the circle's background.                                                                         | No        | #eaeaea           | Hex color         |
+| `color`        | The color of the `current` value on the circle.                                                           | No        | #45ccce           | Hex color or string. Refer to [this example](https://github.com/crisbeto/angular-svg-round-progressbar/issues/29) for an example of using a gradient.        |
+| `bgcolor`      | Color of the circle's background.                                                                         | No        | #eaeaea           | Hex color or string. Refer to [this example](https://github.com/crisbeto/angular-svg-round-progressbar/issues/29) for an example of using a gradient.         |
 | `stroke`       | Specifies the circle's thickness.                                                                         | No        | 15                | Integer           |
 | `semi`         | Whether the progressbar should be a full circle or a semicircle.                                          | No        | false             | Boolean           |
 | `clockwise`    | Whether the progressbar should rotate clockwise or counter-clockwise.                                     | No        | true              | Boolean           |

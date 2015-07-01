@@ -5,13 +5,14 @@ angular.module('angular-svg-round-progress')
 
             var base = {
                 restrict: "EA",
-                replace: true
+                replace: true,
+                transclude: true
             };
 
             if(!service.isSupported){
                 return angular.extend(base, {
                     // placeholder element to keep the structure
-                    template: '<div class="round-progress"></div>'
+                    template: '<div class="round-progress" ng-transclude></div>'
                 });
             }
 
@@ -137,6 +138,7 @@ angular.module('angular-svg-round-progress')
                     '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
                         '<circle fill="none"/>',
                         '<path fill="none"/>',
+                        '<g ng-transclude></g>',
                     '</svg>'
                 ].join('\n')
             });
