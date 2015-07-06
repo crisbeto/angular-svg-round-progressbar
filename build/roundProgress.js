@@ -298,8 +298,7 @@ angular.module('angular-svg-round-progress')
                 link: function (scope, element) {
                     var ring        = element.find('path'),
                         background  = element.find('circle'),
-                        options     = angular.copy(roundProgressConfig),
-                        resetValue;
+                        options     = angular.copy(roundProgressConfig);
 
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
@@ -341,36 +340,22 @@ angular.module('angular-svg-round-progress')
                             return false;
                         }
 
-                        if(newValue < 0){
-                            resetValue = oldValue;
-                            return scope.current = 0;
-                        }
-
-                        if(newValue > options.max){
-                            resetValue = oldValue;
-                            return scope.current = options.max;
-                        }
-
                         var max                 = options.max || 0;
+                        var current             = newValue > max ? max : (newValue < 0 ? 0 : newValue);
+                        var start               = (oldValue === current || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
+                        var changeInValue       = current - start;
+
                         var easingAnimation     = service.animations[options.animation];
-                        var start               = oldValue === newValue ? 0 : (oldValue || 0); // fixes the initial animation
-                        var val                 = newValue - start;
                         var currentIteration    = 0;
                         var totalIterations     = parseInt(options.iterations);
+
                         var radius              = options.radius;
                         var circleSize          = radius - (options.stroke/2);
                         var elementSize         = radius*2;
 
-                        if(angular.isNumber(resetValue)){
-                            // the reset value fixes problems with animation, caused when limiting the scope.current
-                            start       = resetValue;
-                            val         = newValue - resetValue;
-                            resetValue  = null;
-                        }
-
                         (function animation(){
                             service.updateState(
-                                easingAnimation(currentIteration, start, val, totalIterations),
+                                easingAnimation(currentIteration, start, changeInValue, totalIterations),
                                 max,
                                 circleSize,
                                 ring,
