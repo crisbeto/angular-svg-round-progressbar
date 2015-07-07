@@ -82,7 +82,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
                 "A", R, R, 0, arcSweep, 0, end.x, end.y
             ].join(" ");
 
-        return ring.attr('d', d);
+        return ring.attr('ng-attr-d', d);
     };
 
     // Easing functions by Robert Penner
