@@ -51,6 +51,7 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
 
 angular.module('angular-svg-round-progress').service('roundProgressService', [function(){
     var service = {};
+    var isNumber = angular.isNumber;
 
     // credits to http://modernizr.com/ for the feature test
     service.isSupported = !!(document.createElementNS && document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect);
@@ -63,6 +64,11 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
             x: centerX + (radius * Math.cos(angleInRadians)),
             y: centerY + (radius * Math.sin(angleInRadians))
         };
+    };
+
+    // deals with floats passed as strings
+    service.toNumber = function(value){
+        return isNumber(value) ? value : parseFloat((value + '').replace(',', '.'));
     };
 
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
@@ -335,12 +341,12 @@ angular.module('angular-svg-round-progress')
                         });
                     };
 
-                    var renderState = function (newValue, oldValue){
+                    var renderState = function(newValue, oldValue){
                         if(!angular.isDefined(newValue)){
                             return false;
                         }
 
-                        var max                 = options.max || 0;
+                        var max                 = service.toNumber(options.max || 0);
                         var current             = newValue > max ? max : (newValue < 0 ? 0 : newValue);
                         var start               = (oldValue === current || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
                         var changeInValue       = current - start;
@@ -381,7 +387,7 @@ angular.module('angular-svg-round-progress')
                         });
 
                         renderCircle();
-                        renderState(newValue[0], oldValue[0]);
+                        renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
                 template:[

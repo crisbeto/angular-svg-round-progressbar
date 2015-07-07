@@ -70,12 +70,12 @@ angular.module('angular-svg-round-progress')
                         });
                     };
 
-                    var renderState = function (newValue, oldValue){
+                    var renderState = function(newValue, oldValue){
                         if(!angular.isDefined(newValue)){
                             return false;
                         }
 
-                        var max                 = options.max || 0;
+                        var max                 = service.toNumber(options.max || 0);
                         var current             = newValue > max ? max : (newValue < 0 ? 0 : newValue);
                         var start               = (oldValue === current || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
                         var changeInValue       = current - start;
@@ -116,7 +116,7 @@ angular.module('angular-svg-round-progress')
                         });
 
                         renderCircle();
-                        renderState(newValue[0], oldValue[0]);
+                        renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
                 template:[

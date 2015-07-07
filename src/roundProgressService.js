@@ -2,6 +2,7 @@
 
 angular.module('angular-svg-round-progress').service('roundProgressService', [function(){
     var service = {};
+    var isNumber = angular.isNumber;
 
     // credits to http://modernizr.com/ for the feature test
     service.isSupported = !!(document.createElementNS && document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect);
@@ -14,6 +15,11 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
             x: centerX + (radius * Math.cos(angleInRadians)),
             y: centerY + (radius * Math.sin(angleInRadians))
         };
+    };
+
+    // deals with floats passed as strings
+    service.toNumber = function(value){
+        return isNumber(value) ? value : parseFloat((value + '').replace(',', '.'));
     };
 
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
