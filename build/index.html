@@ -198,7 +198,7 @@
             <div class="progress"  ng-style="{'font-size': getFontSize()}">{{ time }}</div>
             <div
                 round-progress
-                max="60"
+                max="59"
                 current="timerCurrent"
                 color="{{ getColor() }}"
                 bgcolor="{{ bgColor }}"
@@ -221,6 +221,7 @@
 
             $scope.current =        27;
             $scope.max =            50;
+            $scope.timerCurrent =   0;
             $scope.uploadCurrent =  0;
             $scope.stroke =         15;
             $scope.radius =         125;
@@ -254,10 +255,16 @@
                 return $scope.gradient ? 'url(#gradient)' : $scope.currentColor;
             };
 
+            var getPadded = function(val){
+                return val < 10 ? ('0' + val) : val;
+            };
+
             $interval(function(){
                 var date = new Date();
-                $scope.timerCurrent = date.getSeconds();
-                $scope.time = date.toLocaleTimeString();
+                var secs = date.getSeconds();
+
+                $scope.timerCurrent = secs;
+                $scope.time = getPadded(date.getHours()) + ':' + getPadded(date.getMinutes()) + ':' + getPadded(secs);
             }, 1000);
         }]);
     </script>
