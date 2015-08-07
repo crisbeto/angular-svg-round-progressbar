@@ -32,13 +32,9 @@
 
         .progress{
             position: absolute;
-            width: 100%;
-            height: 100%;
-            line-height: 6em;
-            font-size:1em;
-            text-align: center;
             color: #bbb;
             font-weight: 100;
+            line-height: 1;
         }
 
         .container{
@@ -96,8 +92,8 @@
         <a class="back" href="https://github.com/crisbeto/angular-svg-round-progressbar">Back to project repo</a>
 
         <h2>Sample progressbar</h2>
-        <div class="progress-wrapper" ng-style="{'font-size': getFontSize()}">
-            <div class="progress">{{ current }}/{{ max }}</div>
+        <div class="progress-wrapper">
+            <div class="progress" ng-style="getStyle()">{{ current }}/{{ max }}</div>
             <div
                 round-progress
                 max="max"
@@ -109,6 +105,7 @@
                 rounded="rounded"
                 stroke="{{ stroke }}"
                 clockwise="clockwise"
+                responsive="responsive"
                 iterations="{{ iterations }}"
                 animation="{{ currentAnimation }}">
 
@@ -133,6 +130,11 @@
             <div class="cf">
                 <label for="semi">Semicircle:</label>
                 <input id="semi" type="checkbox" ng-model="isSemi"/>
+            </div>
+
+            <div class="cf">
+                <label for="responsive">Responsive:</label>
+                <input id="responsive" type="checkbox" ng-model="responsive"/>
             </div>
 
             <div class="cf">
@@ -195,7 +197,7 @@
     <div class="container">
         <h2>Clock example</h2>
         <div class="progress-wrapper">
-            <div class="progress"  ng-style="{'font-size': getFontSize()}">{{ time }}</div>
+            <div class="progress" ng-style="getStyle()">{{ time }}</div>
             <div
                 round-progress
                 max="59"
@@ -206,13 +208,17 @@
                 semi="isSemi"
                 rounded="rounded"
                 clockwise="clockwise"
+                responsive="responsive"
                 stroke="{{ stroke }}"
                 animation="{{ currentAnimation }}"></div>
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
-    <script src="roundProgress.js"></script>
+    <script src="../src/module.js"></script>
+    <script src="../src/roundProgress.js"></script>
+    <script src="../src/roundProgressService.js"></script>
+    <script src="../src/roundProgressConfig.js"></script>
     <script>
         'use strict';
 
@@ -227,6 +233,7 @@
             $scope.radius =         125;
             $scope.isSemi =         false;
             $scope.rounded =        false;
+            $scope.responsive =     false;
             $scope.clockwise =      true;
             $scope.currentColor =   '#45ccce';
             $scope.bgColor =        '#eaeaea';
@@ -247,8 +254,14 @@
                 $scope.animations.push(key);
             });
 
-            $scope.getFontSize = function(){
-                return $scope.radius/($scope.isSemi ? 3.5 : 3) + 'px';
+            $scope.getStyle = function(){
+                return {
+                    'top': $scope.isSemi ? 'auto' : '50%',
+                    'bottom': $scope.isSemi ? '5%' : 'auto',
+                    'left': '50%',
+                    'transform': ($scope.isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)',
+                    'font-size': $scope.radius/3.5 + 'px'
+                };
             };
 
             $scope.getColor = function(){

@@ -4,6 +4,7 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     max:            50,
     semi:           false,
     rounded:        false,
+    responsive:     false,
     clockwise:      true,
     radius:         100,
     color:          "#45ccce",

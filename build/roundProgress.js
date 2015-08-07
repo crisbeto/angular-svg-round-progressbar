@@ -38,6 +38,7 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     max:            50,
     semi:           false,
     rounded:        false,
+    responsive:     false,
     clockwise:      true,
     radius:         100,
     color:          "#45ccce",
@@ -294,6 +295,7 @@ angular.module('angular-svg-round-progress')
                     semi:           "=",
                     rounded:        "=",
                     clockwise:      "=",
+                    responsive:     "=",
                     radius:         "@",
                     color:          "@",
                     bgcolor:        "@",
@@ -301,22 +303,35 @@ angular.module('angular-svg-round-progress')
                     iterations:     "@",
                     animation:      "@"
                 },
-                link: function (scope, element) {
-                    var ring        = element.find('path'),
-                        background  = element.find('circle'),
-                        options     = angular.copy(roundProgressConfig);
+                link: function(scope, element){
+                    var svg         = angular.element(element[0].querySelector('svg'));
+                    var ring        = svg.find('path');
+                    var background  = svg.find('circle');
+                    var options     = angular.copy(roundProgressConfig);
 
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
+                        var responsive       = options.responsive;
                         var radius           = parseInt(options.radius) || 0;
                         var stroke           = parseInt(options.stroke);
                         var diameter         = radius*2;
                         var backgroundSize   = radius - (stroke/2);
 
-                        element.css({
-                            "width":        diameter + "px",
-                            "height":       (isSemicircle ? radius : diameter) + "px",
+                        svg.css({
+                            "top":          0,
+                            "left":         0,
+                            "position":     responsive ? "absolute" : "static",
+                            "width":        responsive ? "100%" : (diameter + "px"),
+                            "height":       responsive ? "100%" : (isSemicircle ? radius : diameter) + "px",
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
+                        }).attr({
+                            viewBox:        "0 0 " + diameter + " " + (isSemicircle ? radius : diameter)
+                        });
+
+                        element.css({
+                            "width":            responsive ? "100%" : "auto",
+                            "position":         "relative",
+                            "padding-bottom":   responsive ? (isSemicircle ? "50%" : "100%") : 0
                         });
 
                         ring.css({
@@ -375,7 +390,7 @@ angular.module('angular-svg-round-progress')
                         })();
                     };
 
-                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, iterations]', function(newValue, oldValue, scope){
+                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, iterations, responsive]', function(newValue, oldValue, scope){
 
                         // pretty much the same as angular.extend,
                         // but this skips undefined values and internal angular keys
@@ -391,11 +406,13 @@ angular.module('angular-svg-round-progress')
                     });
                 },
                 template:[
-                    '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
-                        '<circle fill="none"/>',
-                        '<path fill="none"/>',
-                        '<g ng-transclude></g>',
-                    '</svg>'
+                    '<div class="round-progress-wrapper">',
+                        '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
+                            '<circle fill="none"/>',
+                            '<path fill="none"/>',
+                            '<g ng-transclude></g>',
+                        '</svg>',
+                    '</div>'
                 ].join('\n')
             });
 
