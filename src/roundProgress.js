@@ -85,12 +85,8 @@ angular.module('angular-svg-round-progress')
                     };
 
                     var renderState = function(newValue, oldValue){
-                        if(!angular.isDefined(newValue)){
-                            return false;
-                        }
-
                         var max                 = service.toNumber(options.max || 0);
-                        var current             = newValue > max ? max : (newValue < 0 ? 0 : newValue);
+                        var current             = newValue > max ? max : (newValue < 0 || !newValue ? 0 : newValue);
                         var start               = (oldValue === current || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
                         var changeInValue       = current - start;
 
