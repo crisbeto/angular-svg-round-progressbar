@@ -48,10 +48,10 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
     service.animations = {
 
-        // t: Current iteration
-        // b: Start value
-        // c: Change in value
-        // d: Total iterations
+        // t: is the current time (or position) of the tween. This can be seconds or frames, steps, seconds, ms, whatever – as long as the unit is the same as is used for the total time.
+        // b: is the beginning value of the property.
+        // c: is the change between the beginning and destination value of the property.
+        // d: is the total time of the tween.
         // jshint eqeqeq: false, -W041: true
 
         linearEase: function(t, b, c, d) {

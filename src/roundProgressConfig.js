@@ -10,6 +10,6 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     color:          "#45ccce",
     bgcolor:        "#eaeaea",
     stroke:         15,
-    iterations:     50,
+    duration:       800,
     animation:      "easeOutCubic"
 });
