@@ -44,7 +44,7 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     color:          "#45ccce",
     bgcolor:        "#eaeaea",
     stroke:         15,
-    iterations:     50,
+    duration:       800,
     animation:      "easeOutCubic"
 });
 
@@ -98,10 +98,10 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
     service.animations = {
 
-        // t: Current iteration
-        // b: Start value
-        // c: Change in value
-        // d: Total iterations
+        // t: is the current time (or position) of the tween. This can be seconds or frames, steps, seconds, ms, whatever – as long as the unit is the same as is used for the total time.
+        // b: is the beginning value of the property.
+        // c: is the change between the beginning and destination value of the property.
+        // d: is the total time of the tween.
         // jshint eqeqeq: false, -W041: true
 
         linearEase: function(t, b, c, d) {
@@ -300,7 +300,7 @@ angular.module('angular-svg-round-progress')
                     color:          "@",
                     bgcolor:        "@",
                     stroke:         "@",
-                    iterations:     "@",
+                    duration:       "@",
                     animation:      "@"
                 },
                 link: function(scope, element){
@@ -308,6 +308,7 @@ angular.module('angular-svg-round-progress')
                     var ring        = svg.find('path');
                     var background  = svg.find('circle');
                     var options     = angular.copy(roundProgressConfig);
+                    var lastAnimationId;
 
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
@@ -358,35 +359,43 @@ angular.module('angular-svg-round-progress')
 
                     var renderState = function(newValue, oldValue){
                         var max                 = service.toNumber(options.max || 0);
-                        var current             = newValue > max ? max : (newValue < 0 || !newValue ? 0 : newValue);
-                        var start               = (oldValue === current || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
-                        var changeInValue       = current - start;
+                        var end                 = newValue > max ? max : (newValue < 0 || !newValue ? 0 : newValue);
+                        var start               = (oldValue === end || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
+                        var changeInValue       = end - start;
 
                         var easingAnimation     = service.animations[options.animation];
-                        var currentIteration    = 0;
-                        var totalIterations     = parseInt(options.iterations);
+                        var startTime           = new Date();
+                        var duration            = parseInt(options.duration);
 
                         var radius              = options.radius;
                         var circleSize          = radius - (options.stroke/2);
                         var elementSize         = radius*2;
 
-                        (function animation(){
-                            service.updateState(
-                                easingAnimation(currentIteration, start, changeInValue, totalIterations),
-                                max,
-                                circleSize,
-                                ring,
-                                elementSize,
-                                options.semi);
+                        $window.cancelAnimationFrame(lastAnimationId);
 
-                            if(currentIteration < totalIterations){
-                                $window.requestAnimationFrame(animation);
-                                currentIteration++;
-                            }
-                        })();
+                        // below 25ms stuff starts to break
+                        if(duration > 25){
+                            (function animation(){
+                                var currentTime = new Date() - startTime;
+
+                                service.updateState(
+                                    easingAnimation(currentTime, start, changeInValue, duration),
+                                    max,
+                                    circleSize,
+                                    ring,
+                                    elementSize,
+                                    options.semi);
+
+                                if(currentTime < duration){
+                                    lastAnimationId = $window.requestAnimationFrame(animation);
+                                }
+                            })();
+                        }else{
+                            service.updateState(end, max, circleSize, ring, elementSize, options.semi);
+                        }
                     };
 
-                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, iterations, responsive]', function(newValue, oldValue, scope){
+                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, duration, responsive]', function(newValue, oldValue, scope){
 
                         // pretty much the same as angular.extend,
                         // but this skips undefined values and internal angular keys

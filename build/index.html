@@ -106,7 +106,7 @@
                 stroke="{{ stroke }}"
                 clockwise="clockwise"
                 responsive="responsive"
-                iterations="{{ iterations }}"
+                duration="{{ duration }}"
                 animation="{{ currentAnimation }}">
 
                 <svg>
@@ -173,8 +173,8 @@
             </div>
 
             <div class="cf">
-                <label for="iterations">Iterations:</label>
-                <input id="iterations" type="number" ng-model="iterations"/>
+                <label for="duration">Duration:</label>
+                <input id="duration" type="number" ng-model="duration"/>
             </div>
 
             <div class="cf">
@@ -234,7 +234,7 @@
             $scope.clockwise =      true;
             $scope.currentColor =   '#45ccce';
             $scope.bgColor =        '#eaeaea';
-            $scope.iterations =     50;
+            $scope.duration =       800;
             $scope.currentAnimation = 'easeOutCubic';
 
             $scope.increment = function(amount){
