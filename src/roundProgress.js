@@ -24,7 +24,7 @@ angular.module('angular-svg-round-progress')
                     rounded:        "=",
                     clockwise:      "=",
                     responsive:     "=",
-                    show:			"=",
+                    show:           "=",
                     radius:         "@",
                     color:          "@",
                     bgcolor:        "@",
@@ -46,7 +46,7 @@ angular.module('angular-svg-round-progress')
                         var stroke           = parseInt(options.stroke);
                         var diameter         = radius*2;
                         var backgroundSize   = radius - (stroke/2);
-                        var show			 = options.show;
+                        var show             = options.show;
 
                         svg.css({
                             "top":          0,
@@ -63,7 +63,7 @@ angular.module('angular-svg-round-progress')
                             "width":            responsive ? "100%" : "auto",
                             "position":         "relative",
                             "padding-bottom":   responsive ? (isSemicircle ? "50%" : "100%") : 0,
-                            "display":			show ? "block" : "none"
+                            "display":          show ? "block" : "none"
                         });
 
                         ring.css({
