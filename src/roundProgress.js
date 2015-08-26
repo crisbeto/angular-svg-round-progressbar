@@ -24,6 +24,7 @@ angular.module('angular-svg-round-progress')
                     rounded:        "=",
                     clockwise:      "=",
                     responsive:     "=",
+                    show:           "=",
                     radius:         "@",
                     color:          "@",
                     bgcolor:        "@",
@@ -45,6 +46,7 @@ angular.module('angular-svg-round-progress')
                         var stroke           = parseInt(options.stroke);
                         var diameter         = radius*2;
                         var backgroundSize   = radius - (stroke/2);
+                        var show             = options.show;
 
                         svg.css({
                             "top":          0,
@@ -60,7 +62,8 @@ angular.module('angular-svg-round-progress')
                         element.css({
                             "width":            responsive ? "100%" : "auto",
                             "position":         "relative",
-                            "padding-bottom":   responsive ? (isSemicircle ? "50%" : "100%") : 0
+                            "padding-bottom":   responsive ? (isSemicircle ? "50%" : "100%") : 0,
+                            "display":          show ? "block" : "none"
                         });
 
                         ring.css({
@@ -123,7 +126,7 @@ angular.module('angular-svg-round-progress')
                         }
                     };
 
-                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, duration, responsive]', function(newValue, oldValue, scope){
+                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, duration, responsive, show]', function(newValue, oldValue, scope){
 
                         // pretty much the same as angular.extend,
                         // but this skips undefined values and internal angular keys
