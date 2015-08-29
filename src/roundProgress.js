@@ -32,9 +32,9 @@ angular.module('angular-svg-round-progress')
                     animation:      "@"
                 },
                 link: function(scope, element){
-                    var svg         = angular.element(element[0].querySelector('svg'));
-                    var ring        = svg.find('path');
-                    var background  = svg.find('circle');
+                    var svg         = element.find('svg').eq(0);
+                    var ring        = svg.find('path').eq(0);
+                    var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
                     var lastAnimationId;
 
