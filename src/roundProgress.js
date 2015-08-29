@@ -6,17 +6,7 @@ angular.module('angular-svg-round-progress')
             var base = {
                 restrict: "EA",
                 replace: true,
-                transclude: true
-            };
-
-            if(!service.isSupported){
-                return angular.extend(base, {
-                    // placeholder element to keep the structure
-                    template: '<div class="round-progress" ng-transclude></div>'
-                });
-            }
-
-            return angular.extend(base, {
+                transclude: true,
                 scope:{
                     current:        "=",
                     max:            "=",
@@ -30,7 +20,17 @@ angular.module('angular-svg-round-progress')
                     stroke:         "@",
                     duration:       "@",
                     animation:      "@"
-                },
+                }
+            };
+
+            if(!service.isSupported){
+                return angular.extend(base, {
+                    // placeholder element to keep the structure
+                    template: '<div class="round-progress" ng-transclude></div>'
+                });
+            }
+
+            return angular.extend(base, {
                 link: function(scope, element){
                     var svg         = element.find('svg').eq(0);
                     var ring        = svg.find('path').eq(0);
@@ -125,8 +125,7 @@ angular.module('angular-svg-round-progress')
                         }
                     };
 
-                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, duration, responsive]', function(newValue, oldValue, scope){
-
+                    scope.$watchCollection('[' + Object.keys(base.scope).join(',') + ']', function(newValue, oldValue, scope){
                         // pretty much the same as angular.extend,
                         // but this skips undefined values and internal angular keys
                         angular.forEach(scope, function(value, key){
