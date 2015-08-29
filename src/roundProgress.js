@@ -94,15 +94,16 @@ angular.module('angular-svg-round-progress')
                         var easingAnimation     = service.animations[options.animation];
                         var startTime           = new Date();
                         var duration            = parseInt(options.duration);
+                        var triggerAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration > 25;
 
                         var radius              = options.radius;
                         var circleSize          = radius - (options.stroke/2);
                         var elementSize         = radius*2;
+                        var isSemicircle        = options.semi;
 
                         $window.cancelAnimationFrame(lastAnimationId);
 
-                        // below 25ms stuff starts to break
-                        if(duration > 25){
+                        if(triggerAnimation){
                             (function animation(){
                                 var currentTime = new Date() - startTime;
 
@@ -112,14 +113,14 @@ angular.module('angular-svg-round-progress')
                                     circleSize,
                                     ring,
                                     elementSize,
-                                    options.semi);
+                                    isSemicircle);
 
                                 if(currentTime < duration){
                                     lastAnimationId = $window.requestAnimationFrame(animation);
                                 }
                             })();
                         }else{
-                            service.updateState(end, max, circleSize, ring, elementSize, options.semi);
+                            service.updateState(end, max, circleSize, ring, elementSize, isSemicircle);
                         }
                     };
 
