@@ -325,9 +325,11 @@ angular.module('angular-svg-round-progress')
                             "width":        responsive ? "100%" : (diameter + "px"),
                             "height":       responsive ? "100%" : (isSemicircle ? radius : diameter) + "px",
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
-                        }).attr({
-                            viewBox:        "0 0 " + diameter + " " + (isSemicircle ? radius : diameter)
                         });
+
+                        // note that we can't use .attr, because if jQuery is loaded, it lowercases all attributes
+                        // and viewBox is case-sensitive
+                        svg[0].setAttribute('viewBox', '0 0 ' + diameter + ' ' + (isSemicircle ? radius : diameter));
 
                         element.css({
                             "width":            responsive ? "100%" : "auto",
@@ -365,7 +367,7 @@ angular.module('angular-svg-round-progress')
 
                         var easingAnimation     = service.animations[options.animation];
                         var startTime           = new Date();
-                        var duration            = parseInt(options.duration);
+                        var duration            = parseInt(options.duration) || 0;
                         var preventAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
                         var radius              = options.radius;
