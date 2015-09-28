@@ -127,17 +127,24 @@ angular.module('angular-svg-round-progress')
                         }
                     };
 
-                    scope.$watchCollection('[' + Object.keys(base.scope).join(',') + ']', function(newValue, oldValue, scope){
-                        // pretty much the same as angular.extend,
-                        // but this skips undefined values and internal angular keys
-                        angular.forEach(scope, function(value, key){
-                            // note the scope !== value is because `this` is part of the scope
-                            if(key.indexOf('$') && scope !== value && angular.isDefined(value)){
-                                options[key] = value;
+                    var keys = Object.keys(base.scope).filter(function(key){
+                        return key !== 'current';
+                    });
+
+                    // properties that are used only for presentation
+                    scope.$watchGroup(keys, function(newValue){
+                        for(var i = 0; i < newValue.length ; i++){
+                            if(typeof newValue[i] !== 'undefined'){
+                                options[keys[i]] = newValue[i];
                             }
-                        });
+                        }
 
                         renderCircle();
+                    });
+
+                    // properties that are used during animation. some of these overlap with
+                    // the ones that are used for presentation
+                    scope.$watchGroup(['current', 'max', 'animation', 'duration', 'radius', 'stroke', 'semi'], function(newValue, oldValue){
                         renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
