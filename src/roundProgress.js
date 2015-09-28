@@ -110,7 +110,7 @@ angular.module('angular-svg-round-progress')
                             $window.cancelAnimationFrame(lastAnimationId);
 
                             (function animation(){
-                                var currentTime = new Date() - startTime;
+                                var currentTime = $window.Math.min(new Date() - startTime, duration);
 
                                 service.updateState(
                                     easingAnimation(currentTime, start, changeInValue, duration),

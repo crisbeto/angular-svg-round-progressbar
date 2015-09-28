@@ -27,17 +27,17 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
         if(!size) return ring;
 
-        var value       = val >= total ? total - 0.00001 : val,
-            type        = isSemicircle ? 180 : 359.9999,
-            perc        = total === 0 ? 0 : (value / total) * type,
-            x           = size/2,
-            start       = polarToCartesian(x, x, R, perc), // in this case x and y are the same
-            end         = polarToCartesian(x, x, R, 0),
-            arcSweep    = (perc <= 180 ? "0" : "1"),
-            d = [
-                "M", start.x, start.y,
-                "A", R, R, 0, arcSweep, 0, end.x, end.y
-            ].join(" ");
+        var value       = val >= total ? total - 0.00001 : val;
+        var type        = isSemicircle ? 180 : 359.9999;
+        var perc        = total === 0 ? 0 : (value / total) * type;
+        var x           = size/2;
+        var start       = polarToCartesian(x, x, R, perc); // in this case x and y are the same
+        var end         = polarToCartesian(x, x, R, 0);
+        var arcSweep    = (perc <= 180 ? "0" : "1");
+        var d = [
+            "M", start.x, start.y,
+            "A", R, R, 0, arcSweep, 0, end.x, end.y
+        ].join(" ");
 
         return ring.attr('d', d);
     };
