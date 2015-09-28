@@ -51,9 +51,35 @@ module.exports = function(grunt) {
                     src: files
                 }
             }
+        },
+        watch: {
+            options: {
+                debounceDelay: 250,
+                livereload: true
+            },
+            main: {
+                // not the most efficient but it doesn't require
+                // modification of the index.html
+                files: ['src/**/*.js'],
+                tasks: ['concat:build']
+            },
+            html: {
+                files: ['build/index.html']
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 1337,
+                    livereload: true,
+                    base: 'build',
+                    open: true
+                }
+            }
         }
     });
 
-    grunt.registerTask('default', ['jshint:src', 'concat:build', 'uglify:build']);
-    grunt.registerTask('deploy', ['default', 'gh-pages:deploy']);
+    grunt.registerTask('default', ['concat:build', 'connect', 'watch']);
+    grunt.registerTask('build', ['jshint:src', 'concat:build', 'uglify:build']);
+    grunt.registerTask('deploy', ['build', 'gh-pages:deploy']);
 };

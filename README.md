@@ -73,7 +73,8 @@ angular.module('someModule', ['angular-svg-round-progress'])
 ## Development
 
 *  `npm install` to install development dependencies
-*  `grunt` to build minified demo in build/
+*  `grunt` to run a development server. Not mandatory(you can run the build/index.html directly), but more convenient.
+*  `grunt build` to build minified demo in build/
 *  `grunt deploy` to build minified demo and push it to gh-pages branch
 
 
