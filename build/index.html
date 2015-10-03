@@ -93,7 +93,7 @@
 
         <h2>Sample progressbar</h2>
         <div class="progress-wrapper">
-            <div class="progress" ng-style="getStyle()">{{ current }}/{{ max }}</div>
+            <div class="progress ng-cloak" ng-style="getStyle()">{{ current }}/{{ max }}</div>
             <div
                 round-progress
                 max="max"
@@ -197,7 +197,7 @@
     <div class="container">
         <h2>Clock example</h2>
         <div class="progress-wrapper">
-            <div class="progress" ng-style="getStyle()">{{ time }}</div>
+            <div class="progress ng-cloak" ng-style="getStyle()">{{ time }}</div>
             <div
                 round-progress
                 max="59"
