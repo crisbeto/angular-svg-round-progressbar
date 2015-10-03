@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.3.4 2015-10-03 */
+/* angular-svg-round-progressbar@0.3.5 2015-10-03 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
