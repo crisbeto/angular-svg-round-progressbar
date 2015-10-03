@@ -89,12 +89,12 @@ angular.module('angular-svg-round-progress')
 
                     var renderState = function(newValue, oldValue){
                         var max                 = service.toNumber(options.max || 0);
-                        var end                 = newValue > max ? max : (newValue < 0 || !newValue ? 0 : newValue);
+                        var end                 = newValue > 0 ? $window.Math.min(newValue, max) : 0;
                         var start               = (oldValue === end || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
                         var changeInValue       = end - start;
 
                         var easingAnimation     = service.animations[options.animation];
-                        var startTime           = new Date();
+                        var startTime           = new $window.Date();
                         var duration            = parseInt(options.duration) || 0;
                         var preventAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
