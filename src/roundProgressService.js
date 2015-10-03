@@ -27,7 +27,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
         if(!size) return ring;
 
-        var value       = val >= total ? total - 0.00001 : val;
+        var value       = val > 0 ? Math.min(val, total) : 0;
         var type        = isSemicircle ? 180 : 359.9999;
         var perc        = total === 0 ? 0 : (value / total) * type;
         var x           = size/2;
