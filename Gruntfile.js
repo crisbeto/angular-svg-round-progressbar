@@ -79,24 +79,10 @@ module.exports = function(grunt) {
                     open: true
                 }
             }
-        },
-        bump: {
-            options: {
-                files: ['package.json', 'bower.json'],
-                commit: true,
-                commitMessage: 'Release %VERSION%',
-                commitFiles: ['package.json', 'bower.json'],
-                createTag: true,
-                tagName: '%VERSION%',
-                tagMessage: '%VERSION%',
-                push: true,
-                pushTo: 'origin'
-            }
         }
     });
 
     grunt.registerTask('default', ['concat:build', 'connect', 'watch']);
     grunt.registerTask('build', ['jshint:src', 'concat:build', 'uglify:build']);
     grunt.registerTask('deploy', ['build', 'gh-pages:deploy']);
-    grunt.registerTask('release', ['deploy', 'bump']);
 };
