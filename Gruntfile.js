@@ -11,13 +11,15 @@ module.exports = function(grunt) {
         'src/roundProgress.js',
     ];
 
+    var banner = '/* <%= pkg.name %>@<%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n';
+
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             options: {
-                banner: '/* <%= pkg.name %>@<%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: banner
             },
             build: {
                 src: files,
@@ -27,6 +29,7 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 separator: '\n',
+                banner: banner
             },
             build: {
                 src: files,
