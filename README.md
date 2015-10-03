@@ -8,7 +8,7 @@ AngularJS module that uses SVG to create a circular progressbar
 
 Include Angular and [roundProgress.min.js](https://raw.githubusercontent.com/crisbeto/angular-svg-round-progressbar/master/build/roundProgress.min.js) or [roundProgress.js](https://raw.githubusercontent.com/crisbeto/angular-svg-round-progressbar/master/build/roundProgress.js) in your page. You can use npm, bower, or a script-tag:
 
-`npm install angular-svg-progressbar`
+`npm install angular-svg-round-progressbar`
 
 or
 
