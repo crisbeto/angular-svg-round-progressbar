@@ -1,3 +1,4 @@
+/* angular-svg-round-progressbar@0.3.4 2015-10-03 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -77,7 +78,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
         if(!size) return ring;
 
-        var value       = val >= total ? total - 0.00001 : val;
+        var value       = val > 0 ? Math.min(val, total) : 0;
         var type        = isSemicircle ? 180 : 359.9999;
         var perc        = total === 0 ? 0 : (value / total) * type;
         var x           = size/2;
@@ -361,12 +362,12 @@ angular.module('angular-svg-round-progress')
 
                     var renderState = function(newValue, oldValue){
                         var max                 = service.toNumber(options.max || 0);
-                        var end                 = newValue > max ? max : (newValue < 0 || !newValue ? 0 : newValue);
+                        var end                 = newValue > 0 ? $window.Math.min(newValue, max) : 0;
                         var start               = (oldValue === end || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
                         var changeInValue       = end - start;
 
                         var easingAnimation     = service.animations[options.animation];
-                        var startTime           = new Date();
+                        var startTime           = new $window.Date();
                         var duration            = parseInt(options.duration) || 0;
                         var preventAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
