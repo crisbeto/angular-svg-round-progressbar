@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Angular SVG round progressbar demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <style>
         *{
@@ -16,8 +17,8 @@
 
         .cf:before,
         .cf:after {
-            content: " "; /* 1 */
-            display: table; /* 2 */
+            content: " ";
+            display: table;
         }
 
         .cf:after {
@@ -40,7 +41,7 @@
         .container{
             width: 100%;
             max-width: 960px;
-            margin:100px auto;
+            margin:50px auto 100px;
             text-align: center;
         }
 
@@ -54,11 +55,12 @@
             cursor: pointer;
             border-radius: 4px;
             text-align: center;
+            margin: 0 5px 5px 0;
         }
 
         form{
             text-align: left;
-            width: 350px;
+            max-width: 350px;
             margin: 30px auto;
         }
 
@@ -84,6 +86,24 @@
             position: fixed;
             top:5px;
             right:5px;
+        }
+
+        @media(max-width: 480px){
+            .back{
+                position: static;
+                display: block;
+                text-align: center;
+            }
+
+            input, select{
+                width: 100%;
+                margin-top: 5px;
+                float:none;
+            }
+
+            .container{
+                margin-top: 25px;
+            }
         }
     </style>
 </head>
