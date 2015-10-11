@@ -127,7 +127,8 @@
                 clockwise="clockwise"
                 responsive="responsive"
                 duration="{{ duration }}"
-                animation="{{ currentAnimation }}">
+                animation="{{ currentAnimation }}"
+                offset="{{ offset }}">
 
                 <svg>
                     <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
@@ -193,6 +194,11 @@
             </div>
 
             <div class="cf">
+                <label for="offset">Offset:</label>
+                <input id="offset" type="number" ng-model="offset"/>
+            </div>
+
+            <div class="cf">
                 <label for="duration">Duration:</label>
                 <input id="duration" type="number" ng-model="duration"/>
             </div>
@@ -239,11 +245,11 @@
     <script>
         'use strict';
 
-        angular.module('demo', ['angular-svg-round-progress'])
-        .controller('demoCtrl', ['$scope', '$interval', 'roundProgressService', function($scope, $interval, roundProgressService){
+        angular.module('demo', ['angular-svg-round-progress']).controller('demoCtrl', ['$scope', '$interval', 'roundProgressService', function($scope, $interval, roundProgressService){
 
             $scope.current =        27;
             $scope.max =            50;
+            $scope.offset =         0;
             $scope.timerCurrent =   0;
             $scope.uploadCurrent =  0;
             $scope.stroke =         15;

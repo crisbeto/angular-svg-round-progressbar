@@ -19,7 +19,8 @@ angular.module('angular-svg-round-progress')
                     bgcolor:        "@",
                     stroke:         "@",
                     duration:       "@",
-                    animation:      "@"
+                    animation:      "@",
+                    offset:         "@"
                 }
             };
 
@@ -41,10 +42,11 @@ angular.module('angular-svg-round-progress')
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
                         var responsive       = options.responsive;
+                        var offset           = parseInt(options.offset) || 0;
                         var radius           = parseInt(options.radius) || 0;
                         var stroke           = parseInt(options.stroke);
                         var diameter         = radius*2;
-                        var backgroundSize   = radius - (stroke/2);
+                        var backgroundSize   = radius - (stroke/2) - offset;
 
                         svg.css({
                             "top":          0,
@@ -99,7 +101,7 @@ angular.module('angular-svg-round-progress')
                         var preventAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
                         var radius              = options.radius;
-                        var circleSize          = radius - (options.stroke/2);
+                        var circleSize          = radius - (options.stroke/2) - options.offset;
                         var elementSize         = radius*2;
                         var isSemicircle        = options.semi;
 
@@ -144,7 +146,7 @@ angular.module('angular-svg-round-progress')
 
                     // properties that are used during animation. some of these overlap with
                     // the ones that are used for presentation
-                    scope.$watchGroup(['current', 'max', 'animation', 'duration', 'radius', 'stroke', 'semi'], function(newValue, oldValue){
+                    scope.$watchGroup(['current', 'max', 'animation', 'duration', 'radius', 'stroke', 'semi', 'offset'], function(newValue, oldValue){
                         renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
