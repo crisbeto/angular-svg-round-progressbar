@@ -42,6 +42,14 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         return ring.attr('d', d);
     };
 
+    service.isDirective = function(el){
+        if(el && el.length){
+            return (typeof el.attr('round-progress') !== 'undefined' || el[0].nodeName.toLowerCase() === 'round-progress');
+        }
+
+        return false;
+    };
+
     // Easing functions by Robert Penner
     // Source: http://www.robertpenner.com/easing/
     // License: http://www.robertpenner.com/easing_terms_of_use.html
