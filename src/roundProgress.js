@@ -33,7 +33,8 @@ angular.module('angular-svg-round-progress')
 
             return angular.extend(base, {
                 link: function(scope, element){
-                    var svg         = element.find('svg').eq(0);
+                    var isNested    = !element.hasClass('round-progress-wrapper');
+                    var svg         = isNested ? element : element.find('svg').eq(0);
                     var ring        = svg.find('path').eq(0);
                     var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
@@ -57,9 +58,18 @@ angular.module('angular-svg-round-progress')
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
                         });
 
-                        // note that we can't use .attr, because if jQuery is loaded, it lowercases all attributes
-                        // and viewBox is case-sensitive
-                        svg[0].setAttribute('viewBox', '0 0 ' + diameter + ' ' + (isSemicircle ? radius : diameter));
+                        // when nested, the element shouldn't define its own viewBox
+                        if(!isNested){
+                            // note that we can't use .attr, because if jQuery is loaded,
+                            // it lowercases all attributes and viewBox is case-sensitive
+                            svg[0].setAttribute('viewBox', '0 0 ' + diameter + ' ' + (isSemicircle ? radius : diameter));
+
+                            element.css({
+                                "width":            responsive ? "100%" : "auto",
+                                "position":         "relative",
+                                "padding-bottom":   responsive ? (isSemicircle ? "50%" : "100%") : 0
+                            });
+                        }
 
                         element.css({
                             "width":            responsive ? "100%" : "auto",
@@ -150,15 +160,27 @@ angular.module('angular-svg-round-progress')
                         renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
-                template:[
-                    '<div class="round-progress-wrapper">',
-                        '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
+                template: function(element){
+                    var parent = element.parent();
+                    var directiveName = 'round-progress';
+                    var template = [
+                        '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg">',
                             '<circle fill="none"/>',
                             '<path fill="none"/>',
-                            '<g ng-transclude></g>',
-                        '</svg>',
-                    '</div>'
-                ].join('\n')
-            });
+                            '<g ng-transclude width></g>',
+                        '</svg>'
+                    ];
 
+                    while(parent.length && typeof parent.attr(directiveName) === 'undefined' && parent[0].nodeName.toLowerCase() !== directiveName){
+                        parent = parent.parent();
+                    }
+
+                    if(!parent || !parent.length){
+                        template.unshift('<div class="round-progress-wrapper">');
+                        template.push('</div>');
+                    }
+
+                    return template.join('\n');
+                }
+            });
         }]);
