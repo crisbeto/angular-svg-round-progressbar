@@ -29,6 +29,7 @@ angular.module('someModule', ['angular-svg-round-progress'])
 
 * To edit the default values, change the options in the `roundProgressConfig` constant.
 * Since the `0.2.0` release this directive uses dynamic binding. For example, if you want to change the fill color at a certain value, you can use `color="{{ (current / max < 0.5) ? '#ff8080' : '#45ccce' }}"`.
+* Since the `0.3.6` release you can nest progressbar directives inside each other.
 
 | Name           | Description                                                                                               | Required  | Default value     | Possible values   |
 | ---            | ---                                                                                                       | ---       | ---               | ---               |

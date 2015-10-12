@@ -109,6 +109,59 @@
 </head>
 <body ng-controller="demoCtrl">
     <div class="container">
+        <h2>Clock example</h2>
+        <div class="progress-wrapper">
+            <div class="progress ng-cloak" ng-style="getStyle()">{{ time }}</div>
+            <div
+                round-progress
+                max="24"
+                current="hours"
+                color="#45ccce"
+                bgcolor="transparent"
+                radius="{{ radius*1.5 }}"
+                semi="isSemi"
+                rounded="rounded"
+                clockwise="clockwise"
+                responsive="responsive"
+                stroke="{{ stroke*1.5 }}"
+                animation="{{ currentAnimation }}">
+
+                <div
+                    round-progress
+                    max="59"
+                    current="minutes"
+                    color="#0971B2"
+                    bgcolor="transparent"
+                    radius="{{ radius*1.5 }}"
+                    semi="isSemi"
+                    rounded="rounded"
+                    clockwise="clockwise"
+                    responsive="responsive"
+                    stroke="{{ stroke*1.5 }}"
+                    animation="{{ currentAnimation }}"
+                    offset="inherit">
+
+
+                    <div
+                        round-progress
+                        max="59"
+                        current="seconds"
+                        color="#1485CC"
+                        bgcolor="transparent"
+                        radius="{{ radius*1.5 }}"
+                        semi="isSemi"
+                        rounded="rounded"
+                        clockwise="clockwise"
+                        responsive="responsive"
+                        stroke="{{ stroke*1.5 }}"
+                        animation="{{ currentAnimation }}"
+                        offset="inherit"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
         <a class="back" href="https://github.com/crisbeto/angular-svg-round-progressbar">Back to project repo</a>
 
         <h2>Sample progressbar</h2>
@@ -220,26 +273,6 @@
         </form>
     </div>
 
-    <div class="container">
-        <h2>Clock example</h2>
-        <div class="progress-wrapper">
-            <div class="progress ng-cloak" ng-style="getStyle()">{{ time }}</div>
-            <div
-                round-progress
-                max="59"
-                current="timerCurrent"
-                color="{{ getColor() }}"
-                bgcolor="{{ bgColor }}"
-                radius="{{ radius }}"
-                semi="isSemi"
-                rounded="rounded"
-                clockwise="clockwise"
-                responsive="responsive"
-                stroke="{{ stroke }}"
-                animation="{{ currentAnimation }}"></div>
-        </div>
-    </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
     <script src="roundProgress.js"></script>
     <script>
@@ -301,10 +334,14 @@
 
             $interval(function(){
                 var date = new Date();
-                var secs = date.getSeconds();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
 
-                $scope.timerCurrent = secs;
-                $scope.time = getPadded(date.getHours()) + ':' + getPadded(date.getMinutes()) + ':' + getPadded(secs);
+                $scope.hours = hours;
+                $scope.minutes = minutes;
+                $scope.seconds = seconds;
+                $scope.time = getPadded(hours) + ':' + getPadded(minutes) + ':' + getPadded(seconds);
             }, 1000);
         }]);
     </script>
