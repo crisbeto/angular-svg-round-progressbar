@@ -39,6 +39,7 @@ angular.module('angular-svg-round-progress')
                     var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
                     var lastAnimationId;
+                    var parentChangedListener;
 
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
@@ -151,6 +152,17 @@ angular.module('angular-svg-round-progress')
                         }
 
                         renderCircle();
+                        scope.$broadcast('$parentOffsetChanged');
+
+                        // it doesn't have to listen for changes on the parent unless it inherits
+                        if(options.offset === 'inherit' && !parentChangedListener){
+                            parentChangedListener = scope.$on('$parentOffsetChanged', function(){
+                                renderState(scope.current, scope.current, true);
+                                renderCircle();
+                            });
+                        }else if(options.offset !== 'inherit' && parentChangedListener){
+                            parentChangedListener();
+                        }
                     });
 
                     // properties that are used during animation. some of these overlap with
