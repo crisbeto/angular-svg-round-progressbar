@@ -22,6 +22,26 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         return isNumber(value) ? value : parseFloat((value + '').replace(',', '.'));
     };
 
+    service.getOffset = function(element, options){
+        var value = +options.offset || 0;
+
+        if(options.offset === 'inherit'){
+            var parent = element;
+            var parentScope;
+
+            while(!parent.hasClass('round-progress-wrapper')){
+                if(service.isDirective(parent)){
+                    parentScope = parent.scope().$parent;
+                    value += ((+parentScope.offset || 0) + (+parentScope.stroke || 0));
+                }
+
+                parent = parent.parent();
+            }
+        }
+
+        return value;
+    };
+
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
     service.updateState = function(val, total, R, ring, size, isSemicircle) {
 

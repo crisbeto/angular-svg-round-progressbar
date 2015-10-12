@@ -38,28 +38,6 @@ angular.module('angular-svg-round-progress')
                     var ring        = svg.find('path').eq(0);
                     var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
-                    // TODO:
-                    // - Needs to work when the parent has an offset
-                    // - Needs to listen for changes on parent
-                    var getOffset   = function(options){
-                        var ownOffset = +options.offset || 0;
-
-                        if(isNested){
-                            var parent = element;
-                            var sc;
-
-                            while(!parent.hasClass('round-progress-wrapper')){
-                                if(service.isDirective(parent)){
-                                    sc = parent.scope();
-                                    ownOffset += ((+sc.offset || 0) + (+sc.stroke || 0));
-                                }
-
-                                parent = parent.parent();
-                            }
-                        }
-
-                        return ownOffset;
-                    };
                     var lastAnimationId;
 
                     var renderCircle = function(){
@@ -68,7 +46,7 @@ angular.module('angular-svg-round-progress')
                         var radius           = +options.radius || 0;
                         var stroke           = +options.stroke;
                         var diameter         = radius*2;
-                        var backgroundSize   = radius - (stroke/2) - getOffset(options);
+                        var backgroundSize   = radius - (stroke/2) - service.getOffset(element, options);
 
                         svg.css({
                             "top":          0,
@@ -120,7 +98,7 @@ angular.module('angular-svg-round-progress')
                         });
                     };
 
-                    var renderState = function(newValue, oldValue){
+                    var renderState = function(newValue, oldValue, preventAnimationOverride){
                         var max                 = service.toNumber(options.max || 0);
                         var end                 = newValue > 0 ? $window.Math.min(newValue, max) : 0;
                         var start               = (oldValue === end || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
@@ -129,10 +107,10 @@ angular.module('angular-svg-round-progress')
                         var easingAnimation     = service.animations[options.animation];
                         var startTime           = new $window.Date();
                         var duration            = +options.duration || 0;
-                        var preventAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
+                        var preventAnimation    = preventAnimationOverride || (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
                         var radius              = options.radius;
-                        var circleSize          = radius - (options.stroke/2) - getOffset(options);
+                        var circleSize          = radius - (options.stroke/2) - service.getOffset(element, options);
                         var elementSize         = radius*2;
                         var isSemicircle        = options.semi;
 
@@ -166,7 +144,7 @@ angular.module('angular-svg-round-progress')
 
                     // properties that are used only for presentation
                     scope.$watchGroup(keys, function(newValue){
-                        for(var i = 0; i < newValue.length ; i++){
+                        for(var i = 0; i < newValue.length; i++){
                             if(typeof newValue[i] !== 'undefined'){
                                 options[keys[i]] = newValue[i];
                             }
