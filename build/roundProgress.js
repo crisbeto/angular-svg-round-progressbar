@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.3.5 2015-10-03 */
+/* angular-svg-round-progressbar@0.3.6 2015-10-12 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -46,7 +46,8 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     bgcolor:        "#eaeaea",
     stroke:         15,
     duration:       800,
-    animation:      "easeOutCubic"
+    animation:      "easeOutCubic",
+    offset:         0
 });
 
 'use strict';
@@ -73,6 +74,26 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         return isNumber(value) ? value : parseFloat((value + '').replace(',', '.'));
     };
 
+    service.getOffset = function(element, options){
+        var value = +options.offset || 0;
+
+        if(options.offset === 'inherit'){
+            var parent = element;
+            var parentScope;
+
+            while(!parent.hasClass('round-progress-wrapper')){
+                if(service.isDirective(parent)){
+                    parentScope = parent.scope().$parent;
+                    value += ((+parentScope.offset || 0) + (+parentScope.stroke || 0));
+                }
+
+                parent = parent.parent();
+            }
+        }
+
+        return value;
+    };
+
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
     service.updateState = function(val, total, R, ring, size, isSemicircle) {
 
@@ -91,6 +112,14 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         ].join(" ");
 
         return ring.attr('d', d);
+    };
+
+    service.isDirective = function(el){
+        if(el && el.length){
+            return (typeof el.attr('round-progress') !== 'undefined' || el[0].nodeName.toLowerCase() === 'round-progress');
+        }
+
+        return false;
     };
 
     // Easing functions by Robert Penner
@@ -292,7 +321,8 @@ angular.module('angular-svg-round-progress')
                     bgcolor:        "@",
                     stroke:         "@",
                     duration:       "@",
-                    animation:      "@"
+                    animation:      "@",
+                    offset:         "@"
                 }
             };
 
@@ -305,19 +335,21 @@ angular.module('angular-svg-round-progress')
 
             return angular.extend(base, {
                 link: function(scope, element){
-                    var svg         = element.find('svg').eq(0);
+                    var isNested    = !element.hasClass('round-progress-wrapper');
+                    var svg         = isNested ? element : element.find('svg').eq(0);
                     var ring        = svg.find('path').eq(0);
                     var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
                     var lastAnimationId;
+                    var parentChangedListener;
 
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
                         var responsive       = options.responsive;
-                        var radius           = parseInt(options.radius) || 0;
-                        var stroke           = parseInt(options.stroke);
+                        var radius           = +options.radius || 0;
+                        var stroke           = +options.stroke;
                         var diameter         = radius*2;
-                        var backgroundSize   = radius - (stroke/2);
+                        var backgroundSize   = radius - (stroke/2) - service.getOffset(element, options);
 
                         svg.css({
                             "top":          0,
@@ -328,9 +360,18 @@ angular.module('angular-svg-round-progress')
                             "overflow":     "hidden" // on some browsers the background overflows, if in semicircle mode
                         });
 
-                        // note that we can't use .attr, because if jQuery is loaded, it lowercases all attributes
-                        // and viewBox is case-sensitive
-                        svg[0].setAttribute('viewBox', '0 0 ' + diameter + ' ' + (isSemicircle ? radius : diameter));
+                        // when nested, the element shouldn't define its own viewBox
+                        if(!isNested){
+                            // note that we can't use .attr, because if jQuery is loaded,
+                            // it lowercases all attributes and viewBox is case-sensitive
+                            svg[0].setAttribute('viewBox', '0 0 ' + diameter + ' ' + (isSemicircle ? radius : diameter));
+
+                            element.css({
+                                "width":            responsive ? "100%" : "auto",
+                                "position":         "relative",
+                                "padding-bottom":   responsive ? (isSemicircle ? "50%" : "100%") : 0
+                            });
+                        }
 
                         element.css({
                             "width":            responsive ? "100%" : "auto",
@@ -360,7 +401,7 @@ angular.module('angular-svg-round-progress')
                         });
                     };
 
-                    var renderState = function(newValue, oldValue){
+                    var renderState = function(newValue, oldValue, preventAnimationOverride){
                         var max                 = service.toNumber(options.max || 0);
                         var end                 = newValue > 0 ? $window.Math.min(newValue, max) : 0;
                         var start               = (oldValue === end || oldValue < 0) ? 0 : (oldValue || 0); // fixes the initial animation
@@ -368,11 +409,11 @@ angular.module('angular-svg-round-progress')
 
                         var easingAnimation     = service.animations[options.animation];
                         var startTime           = new $window.Date();
-                        var duration            = parseInt(options.duration) || 0;
-                        var preventAnimation    = (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
+                        var duration            = +options.duration || 0;
+                        var preventAnimation    = preventAnimationOverride || (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
                         var radius              = options.radius;
-                        var circleSize          = radius - (options.stroke/2);
+                        var circleSize          = radius - (options.stroke/2) - service.getOffset(element, options);
                         var elementSize         = radius*2;
                         var isSemicircle        = options.semi;
 
@@ -406,30 +447,53 @@ angular.module('angular-svg-round-progress')
 
                     // properties that are used only for presentation
                     scope.$watchGroup(keys, function(newValue){
-                        for(var i = 0; i < newValue.length ; i++){
+                        for(var i = 0; i < newValue.length; i++){
                             if(typeof newValue[i] !== 'undefined'){
                                 options[keys[i]] = newValue[i];
                             }
                         }
 
                         renderCircle();
+                        scope.$broadcast('$parentOffsetChanged');
+
+                        // it doesn't have to listen for changes on the parent unless it inherits
+                        if(options.offset === 'inherit' && !parentChangedListener){
+                            parentChangedListener = scope.$on('$parentOffsetChanged', function(){
+                                renderState(scope.current, scope.current, true);
+                                renderCircle();
+                            });
+                        }else if(options.offset !== 'inherit' && parentChangedListener){
+                            parentChangedListener();
+                        }
                     });
 
                     // properties that are used during animation. some of these overlap with
                     // the ones that are used for presentation
-                    scope.$watchGroup(['current', 'max', 'animation', 'duration', 'radius', 'stroke', 'semi'], function(newValue, oldValue){
+                    scope.$watchGroup(['current', 'max', 'animation', 'duration', 'radius', 'stroke', 'semi', 'offset'], function(newValue, oldValue){
                         renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
-                template:[
-                    '<div class="round-progress-wrapper">',
-                        '<svg class="round-progress" xmlns="http://www.w3.org/2000/svg">',
+                template: function(element){
+                    var parent = element.parent();
+                    var directiveName = 'round-progress';
+                    var template = [
+                        '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg">',
                             '<circle fill="none"/>',
                             '<path fill="none"/>',
-                            '<g ng-transclude></g>',
-                        '</svg>',
-                    '</div>'
-                ].join('\n')
-            });
+                            '<g ng-transclude width></g>',
+                        '</svg>'
+                    ];
 
+                    while(parent.length && !service.isDirective(parent)){
+                        parent = parent.parent();
+                    }
+
+                    if(!parent || !parent.length){
+                        template.unshift('<div class="round-progress-wrapper">');
+                        template.push('</div>');
+                    }
+
+                    return template.join('\n');
+                }
+            });
         }]);
