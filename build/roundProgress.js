@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.3.6 2015-10-12 */
+/* angular-svg-round-progressbar@0.3.7 2015-10-13 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -83,7 +83,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
             while(!parent.hasClass('round-progress-wrapper')){
                 if(service.isDirective(parent)){
-                    parentScope = parent.scope().$parent;
+                    parentScope = parent.scope().$parent.getOptions();
                     value += ((+parentScope.offset || 0) + (+parentScope.stroke || 0));
                 }
 
@@ -342,6 +342,10 @@ angular.module('angular-svg-round-progress')
                     var options     = angular.copy(roundProgressConfig);
                     var lastAnimationId;
                     var parentChangedListener;
+
+                    scope.getOptions = function(){
+                        return options;
+                    };
 
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
