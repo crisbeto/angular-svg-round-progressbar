@@ -31,7 +31,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
 
             while(!parent.hasClass('round-progress-wrapper')){
                 if(service.isDirective(parent)){
-                    parentScope = parent.scope().$parent;
+                    parentScope = parent.scope().$parent.getOptions();
                     value += ((+parentScope.offset || 0) + (+parentScope.stroke || 0));
                 }
 

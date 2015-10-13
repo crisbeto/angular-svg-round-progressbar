@@ -41,6 +41,10 @@ angular.module('angular-svg-round-progress')
                     var lastAnimationId;
                     var parentChangedListener;
 
+                    scope.getOptions = function(){
+                        return options;
+                    };
+
                     var renderCircle = function(){
                         var isSemicircle     = options.semi;
                         var responsive       = options.responsive;
