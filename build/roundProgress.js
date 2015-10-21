@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.3.7 2015-10-13 */
+/* angular-svg-round-progressbar@0.3.8 2015-10-21 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -55,6 +55,20 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
 angular.module('angular-svg-round-progress').service('roundProgressService', [function(){
     var service = {};
     var isNumber = angular.isNumber;
+    var base = document.head.querySelector('base');
+
+    // fixes issues if the document has a <base> element
+    service.resolveColor = base && base.href ? function(value){
+        var hashIndex = value.indexOf('#');
+
+        if(hashIndex > -1 && value.indexOf('url') > -1){
+            return value.slice(0, hashIndex) + window.location.href + value.slice(hashIndex);
+        }
+
+        return value;
+    } : function(value){
+        return value;
+    };
 
     // credits to http://modernizr.com/ for the feature test
     service.isSupported = !!(document.createElementNS && document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect);
@@ -384,7 +398,7 @@ angular.module('angular-svg-round-progress')
                         });
 
                         ring.css({
-                            "stroke":           options.color,
+                            "stroke":           service.resolveColor(options.color),
                             "stroke-width":     stroke,
                             "stroke-linecap":   options.rounded ? "round": "butt"
                         });
@@ -400,7 +414,7 @@ angular.module('angular-svg-round-progress')
                             "cy":           radius,
                             "r":            backgroundSize >= 0 ? backgroundSize : 0
                         }).css({
-                            "stroke":       options.bgcolor,
+                            "stroke":       service.resolveColor(options.bgcolor),
                             "stroke-width": stroke
                         });
                     };
@@ -484,7 +498,7 @@ angular.module('angular-svg-round-progress')
                         '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg">',
                             '<circle fill="none"/>',
                             '<path fill="none"/>',
-                            '<g ng-transclude width></g>',
+                            '<g ng-transclude></g>',
                         '</svg>'
                     ];
 
