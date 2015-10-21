@@ -3,6 +3,20 @@
 angular.module('angular-svg-round-progress').service('roundProgressService', [function(){
     var service = {};
     var isNumber = angular.isNumber;
+    var base = document.head.querySelector('base');
+
+    // fixes issues if the document has a <base> element
+    service.resolveColor = base && base.href ? function(value){
+        var hashIndex = value.indexOf('#');
+
+        if(hashIndex > -1 && value.indexOf('url') > -1){
+            return value.slice(0, hashIndex) + window.location.href + value.slice(hashIndex);
+        }
+
+        return value;
+    } : function(value){
+        return value;
+    };
 
     // credits to http://modernizr.com/ for the feature test
     service.isSupported = !!(document.createElementNS && document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect);

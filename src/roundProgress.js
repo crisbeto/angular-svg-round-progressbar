@@ -82,7 +82,7 @@ angular.module('angular-svg-round-progress')
                         });
 
                         ring.css({
-                            "stroke":           options.color,
+                            "stroke":           service.resolveColor(options.color),
                             "stroke-width":     stroke,
                             "stroke-linecap":   options.rounded ? "round": "butt"
                         });
@@ -98,7 +98,7 @@ angular.module('angular-svg-round-progress')
                             "cy":           radius,
                             "r":            backgroundSize >= 0 ? backgroundSize : 0
                         }).css({
-                            "stroke":       options.bgcolor,
+                            "stroke":       service.resolveColor(options.bgcolor),
                             "stroke-width": stroke
                         });
                     };
@@ -182,7 +182,7 @@ angular.module('angular-svg-round-progress')
                         '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg">',
                             '<circle fill="none"/>',
                             '<path fill="none"/>',
-                            '<g ng-transclude width></g>',
+                            '<g ng-transclude></g>',
                         '</svg>'
                     ];
 
