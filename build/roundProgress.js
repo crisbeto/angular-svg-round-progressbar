@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.3.8 2015-10-21 */
+/* angular-svg-round-progressbar@0.3.9 2015-12-27 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -47,6 +47,7 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     stroke:         15,
     duration:       800,
     animation:      "easeOutCubic",
+    animationDelay: 0,
     offset:         0
 });
 
@@ -336,7 +337,8 @@ angular.module('angular-svg-round-progress')
                     stroke:         "@",
                     duration:       "@",
                     animation:      "@",
-                    offset:         "@"
+                    offset:         "@",
+                    animationDelay: "@"
                 }
             };
 
@@ -354,7 +356,8 @@ angular.module('angular-svg-round-progress')
                     var ring        = svg.find('path').eq(0);
                     var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
-                    var lastAnimationId;
+                    var lastAnimationId = 0;
+                    var lastTimeoutId;
                     var parentChangedListener;
 
                     scope.getOptions = function(){
@@ -426,7 +429,6 @@ angular.module('angular-svg-round-progress')
                         var changeInValue       = end - start;
 
                         var easingAnimation     = service.animations[options.animation];
-                        var startTime           = new $window.Date();
                         var duration            = +options.duration || 0;
                         var preventAnimation    = preventAnimationOverride || (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
@@ -435,27 +437,37 @@ angular.module('angular-svg-round-progress')
                         var elementSize         = radius*2;
                         var isSemicircle        = options.semi;
 
-                        // stops some expensive animating if the value is above the max or under 0
-                        if(preventAnimation){
-                            service.updateState(end, max, circleSize, ring, elementSize, isSemicircle);
+                        var doAnimation = function(){
+                            // stops some expensive animating if the value is above the max or under 0
+                            if(preventAnimation){
+                                service.updateState(end, max, circleSize, ring, elementSize, isSemicircle);
+                            }else{
+                                var startTime = new $window.Date();
+                                var id = ++lastAnimationId;
+
+                                (function animation(){
+                                    var currentTime = $window.Math.min(new Date() - startTime, duration);
+
+                                    service.updateState(
+                                        easingAnimation(currentTime, start, changeInValue, duration),
+                                        max,
+                                        circleSize,
+                                        ring,
+                                        elementSize,
+                                        isSemicircle);
+
+                                    if(id === lastAnimationId && currentTime < duration){
+                                        $window.requestAnimationFrame(animation);
+                                    }
+                                })();
+                            }
+                        };
+
+                        if(options.animationDelay > 0){
+                            $window.clearTimeout(lastTimeoutId);
+                            $window.setTimeout(doAnimation, options.animationDelay);
                         }else{
-                            $window.cancelAnimationFrame(lastAnimationId);
-
-                            (function animation(){
-                                var currentTime = $window.Math.min(new Date() - startTime, duration);
-
-                                service.updateState(
-                                    easingAnimation(currentTime, start, changeInValue, duration),
-                                    max,
-                                    circleSize,
-                                    ring,
-                                    elementSize,
-                                    isSemicircle);
-
-                                if(currentTime < duration){
-                                    lastAnimationId = $window.requestAnimationFrame(animation);
-                                }
-                            })();
+                            doAnimation();
                         }
                     };
 
