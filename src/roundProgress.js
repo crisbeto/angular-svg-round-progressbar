@@ -39,7 +39,7 @@ angular.module('angular-svg-round-progress')
                     var ring        = svg.find('path').eq(0);
                     var background  = svg.find('circle').eq(0);
                     var options     = angular.copy(roundProgressConfig);
-                    var lastAnimationId;
+                    var lastAnimationId = 0;
                     var lastTimeoutId;
                     var parentChangedListener;
 
@@ -119,14 +119,14 @@ angular.module('angular-svg-round-progress')
                         var circleSize          = radius - (options.stroke/2) - service.getOffset(element, options);
                         var elementSize         = radius*2;
                         var isSemicircle        = options.semi;
+
                         var doAnimation = function(){
                             // stops some expensive animating if the value is above the max or under 0
                             if(preventAnimation){
                                 service.updateState(end, max, circleSize, ring, elementSize, isSemicircle);
                             }else{
-                                $window.cancelAnimationFrame(lastAnimationId);
-
                                 var startTime = new $window.Date();
+                                var id = ++lastAnimationId;
 
                                 (function animation(){
                                     var currentTime = $window.Math.min(new Date() - startTime, duration);
@@ -139,8 +139,8 @@ angular.module('angular-svg-round-progress')
                                         elementSize,
                                         isSemicircle);
 
-                                    if(currentTime < duration){
-                                        lastAnimationId = $window.requestAnimationFrame(animation);
+                                    if(id === lastAnimationId && currentTime < duration){
+                                        $window.requestAnimationFrame(animation);
                                     }
                                 })();
                             }
