@@ -128,7 +128,8 @@
                 responsive="responsive"
                 duration="{{ duration }}"
                 animation="{{ currentAnimation }}"
-                offset="{{ offset }}">
+                offset="{{ offset }}"
+                animation-delay="{{ animationDelay }}">
 
                 <svg>
                     <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
@@ -206,6 +207,11 @@
             <div class="cf">
                 <label for="animation">Animation:</label>
                 <select id="animation" ng-model="currentAnimation" ng-options="animation for animation in animations"></select>
+            </div>
+
+            <div class="cf">
+                <label for="delay">Animation delay:</label>
+                <input id="delay" type="number" ng-model="animationDelay"/>
             </div>
 
             <div class="cf">
@@ -295,6 +301,7 @@
             $scope.bgColor =        '#eaeaea';
             $scope.duration =       800;
             $scope.currentAnimation = 'easeOutCubic';
+            $scope.animationDelay = 0;
 
             $scope.increment = function(amount){
                 $scope.current+=(amount || 1);
