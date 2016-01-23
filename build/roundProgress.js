@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.3.9 2015-12-27 */
+/* angular-svg-round-progressbar@0.3.10 2016-01-23 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -331,6 +331,7 @@ angular.module('angular-svg-round-progress')
                     rounded:        "=",
                     clockwise:      "=",
                     responsive:     "=",
+                    onRender:       "=",
                     radius:         "@",
                     color:          "@",
                     bgcolor:        "@",
@@ -441,20 +442,23 @@ angular.module('angular-svg-round-progress')
                             // stops some expensive animating if the value is above the max or under 0
                             if(preventAnimation){
                                 service.updateState(end, max, circleSize, ring, elementSize, isSemicircle);
+
+                                if(options.onRender){
+                                    options.onRender(end, options, element);
+                                }
                             }else{
                                 var startTime = new $window.Date();
                                 var id = ++lastAnimationId;
 
                                 (function animation(){
                                     var currentTime = $window.Math.min(new Date() - startTime, duration);
+                                    var animateTo = easingAnimation(currentTime, start, changeInValue, duration);
 
-                                    service.updateState(
-                                        easingAnimation(currentTime, start, changeInValue, duration),
-                                        max,
-                                        circleSize,
-                                        ring,
-                                        elementSize,
-                                        isSemicircle);
+                                    service.updateState(animateTo, max, circleSize, ring, elementSize, isSemicircle);
+
+                                    if(options.onRender){
+                                        options.onRender(animateTo, options, element);
+                                    }
 
                                     if(id === lastAnimationId && currentTime < duration){
                                         $window.requestAnimationFrame(animation);
@@ -499,7 +503,7 @@ angular.module('angular-svg-round-progress')
 
                     // properties that are used during animation. some of these overlap with
                     // the ones that are used for presentation
-                    scope.$watchGroup(['current', 'max', 'animation', 'duration', 'radius', 'stroke', 'semi', 'offset'], function(newValue, oldValue){
+                    scope.$watchGroup(['current', 'max', 'radius', 'stroke', 'semi', 'offset'], function(newValue, oldValue){
                         renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
                     });
                 },
