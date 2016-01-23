@@ -113,7 +113,7 @@
 
         <h2>Sample progressbar</h2>
         <div class="progress-wrapper">
-            <div class="progress ng-cloak" ng-style="getStyle()">{{ current }}/{{ max }}</div>
+            <div class="progress ng-cloak" ng-style="getStyle()">{{ preciseCurrent || current }}/{{ max }}</div>
             <div
                 round-progress
                 max="max"
@@ -129,7 +129,8 @@
                 duration="{{ duration }}"
                 animation="{{ currentAnimation }}"
                 offset="{{ offset }}"
-                animation-delay="{{ animationDelay }}">
+                animation-delay="{{ animationDelay }}"
+                on-render="showPreciseCurrent">
 
                 <svg>
                     <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
@@ -284,7 +285,7 @@
     <script>
         'use strict';
 
-        angular.module('demo', ['angular-svg-round-progress']).controller('demoCtrl', ['$scope', '$interval', 'roundProgressService', function($scope, $interval, roundProgressService){
+        angular.module('demo', ['angular-svg-round-progress']).controller('demoCtrl', ['$scope', '$interval', '$timeout', '$window', 'roundProgressService', function($scope, $interval, $timeout, $window, roundProgressService){
 
             $scope.current =        27;
             $scope.max =            50;
@@ -333,6 +334,17 @@
 
             $scope.getColor = function(){
                 return $scope.gradient ? 'url(#gradient)' : $scope.currentColor;
+            };
+
+            $scope.showPreciseCurrent = function(amount){
+                $timeout(function(){
+                    if(amount <= 0){
+                        $scope.preciseCurrent = $scope.current;
+                    }else{
+                        var math = $window.Math;
+                        $scope.preciseCurrent = math.min(math.round(amount), $scope.max);
+                    }
+                });
             };
 
             var getPadded = function(val){
