@@ -19,10 +19,10 @@ or
 `<script src="http://crisbeto.github.io/angular-svg-round-progressbar/roundProgress.min.js"></script>`
 
 
-Add `angular-svg-round-progress` to your app's module dependencies:
+Add `angular-svg-round-progressbar` to your app's module dependencies:
 
 ```javascript
-angular.module('someModule', ['angular-svg-round-progress'])
+angular.module('someModule', ['angular-svg-round-progressbar'])
 ```
 
 ## Options

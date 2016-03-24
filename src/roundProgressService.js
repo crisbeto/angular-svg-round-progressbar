@@ -1,9 +1,12 @@
 'use strict';
 
-angular.module('angular-svg-round-progress').service('roundProgressService', [function(){
+angular.module('angular-svg-round-progressbar').service('roundProgressService', ['$window', function($window){
     var service = {};
     var isNumber = angular.isNumber;
     var base = document.head.querySelector('base');
+
+    // credits to http://modernizr.com/ for the feature test
+    service.isSupported = !!(document.createElementNS && document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect);
 
     // fixes issues if the document has a <base> element
     service.resolveColor = base && base.href ? function(value){
@@ -16,19 +19,6 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         return value;
     } : function(value){
         return value;
-    };
-
-    // credits to http://modernizr.com/ for the feature test
-    service.isSupported = !!(document.createElementNS && document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect);
-
-    // utility function
-    var polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
-        var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-
-        return {
-            x: centerX + (radius * Math.cos(angleInRadians)),
-            y: centerY + (radius * Math.sin(angleInRadians))
-        };
     };
 
     // deals with floats passed as strings
@@ -56,29 +46,31 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
         return value;
     };
 
+    service.getTimestamp = $window.performance && $window.performance.now ? function(){
+        return $window.performance.now();
+    } : function(){
+        return $window.Date.now();
+    };
+
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
-    service.updateState = function(val, total, R, ring, size, isSemicircle) {
+    service.updateState = function(current, total, pathRadius, element, elementRadius, isSemicircle) {
+        if(!elementRadius) return element;
 
-        if(!size) return ring;
-
-        var value       = val > 0 ? Math.min(val, total) : 0;
+        var value       = current > 0 ? Math.min(current, total) : 0;
         var type        = isSemicircle ? 180 : 359.9999;
         var perc        = total === 0 ? 0 : (value / total) * type;
-        var x           = size/2;
-        var start       = polarToCartesian(x, x, R, perc); // in this case x and y are the same
-        var end         = polarToCartesian(x, x, R, 0);
-        var arcSweep    = (perc <= 180 ? "0" : "1");
-        var d = [
-            "M", start.x, start.y,
-            "A", R, R, 0, arcSweep, 0, end.x, end.y
-        ].join(" ");
+        var start       = polarToCartesian(elementRadius, elementRadius, pathRadius, perc);
+        var end         = polarToCartesian(elementRadius, elementRadius, pathRadius, 0);
+        var arcSweep    = (perc <= 180 ? 0 : 1);
+        var d           = 'M ' + start + ' A ' + pathRadius + ' ' + pathRadius + ' 0 ' + arcSweep + ' 0 ' + end;
 
-        return ring.attr('d', d);
+        return element.attr('d', d);
     };
 
     service.isDirective = function(el){
         if(el && el.length){
-            return (typeof el.attr('round-progress') !== 'undefined' || el[0].nodeName.toLowerCase() === 'round-progress');
+            var directiveName = 'round-progress';
+            return (typeof el.attr(directiveName) !== 'undefined' || el[0].nodeName.toLowerCase() === directiveName);
         }
 
         return false;
@@ -258,6 +250,15 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
             return service.animations.easeOutBounce (t*2-d, 0, c, d) * 0.5 + c*0.5 + b;
         }
     };
+
+    // utility function
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+        var x = centerX + (radius * Math.cos(angleInRadians));
+        var y = centerY + (radius * Math.sin(angleInRadians));
+
+        return x + ' ' + y;
+    }
 
     return service;
 }]);
