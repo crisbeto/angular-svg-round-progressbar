@@ -124,8 +124,8 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                         var startTime = service.getTimestamp();
                         var id = ++lastAnimationId;
 
-                        $window.requestAnimationFrame(function animation(now){
-                            var currentTime = $window.Math.min((now || service.getTimestamp()) - startTime, duration);
+                        $window.requestAnimationFrame(function animation(){
+                            var currentTime = $window.Math.min(service.getTimestamp() - startTime, duration);
                             var animateTo = easingAnimation(currentTime, start, changeInValue, duration);
 
                             service.updateState(animateTo, max, circleSize, ring, radius, isSemicircle);

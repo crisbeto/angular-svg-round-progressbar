@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.1 2016-03-24 */
+/* angular-svg-round-progressbar@0.4.2 2016-03-30 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -104,10 +104,10 @@ angular.module('angular-svg-round-progressbar').service('roundProgressService', 
         return value;
     };
 
-    service.getTimestamp = $window.performance && $window.performance.now ? function(){
+    service.getTimestamp = ($window.performance && $window.performance.now && angular.isNumber($window.performance.now())) ? function(){
         return $window.performance.now();
     } : function(){
-        return $window.Date.now();
+        return new $window.Date().getTime();
     };
 
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
@@ -447,8 +447,8 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                         var startTime = service.getTimestamp();
                         var id = ++lastAnimationId;
 
-                        $window.requestAnimationFrame(function animation(now){
-                            var currentTime = $window.Math.min((now || service.getTimestamp()) - startTime, duration);
+                        $window.requestAnimationFrame(function animation(){
+                            var currentTime = $window.Math.min(service.getTimestamp() - startTime, duration);
                             var animateTo = easingAnimation(currentTime, start, changeInValue, duration);
 
                             service.updateState(animateTo, max, circleSize, ring, radius, isSemicircle);
