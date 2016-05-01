@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.2 2016-03-30 */
+/* angular-svg-round-progressbar@0.4.3 2016-05-01 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -34,9 +34,6 @@
 'use strict';
 
 angular.module('angular-svg-round-progressbar', []);
-angular.module('angular-svg-round-progress', ['angular-svg-round-progressbar']).run(['$log', function($log){
-    $log.warn('Hey there! In version 0.4.0 `angular-svg-round-progress` was renamed to `angular-svg-round-progressbar` in order to match the NPM and Bower package names. You\'re currently using a proxy module that will be gone on May 1st 2016. Please rename your module dependency accordingly.');
-}]);
 
 'use strict';
 
