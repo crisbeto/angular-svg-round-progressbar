@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.3 2016-05-01 */
+/* angular-svg-round-progressbar@0.4.4 2016-05-06 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -81,20 +81,19 @@ angular.module('angular-svg-round-progressbar').service('roundProgressService', 
         return isNumber(value) ? value : parseFloat((value + '').replace(',', '.'));
     };
 
-    service.getOffset = function(element, options){
+    service.getOffset = function(scope, options){
         var value = +options.offset || 0;
 
         if(options.offset === 'inherit'){
-            var parent = element;
-            var parentScope;
+            var parent = scope.$parent;
 
-            while(!parent.hasClass('round-progress-wrapper')){
-                if(service.isDirective(parent)){
-                    parentScope = parent.scope().$parent.getOptions();
-                    value += ((+parentScope.offset || 0) + (+parentScope.stroke || 0));
+            while(parent){
+                if(parent.hasOwnProperty('$$getRoundProgressOptions')){
+                    var opts = parent.$$getRoundProgressOptions();
+                    value += ((+opts.offset || 0) + (+opts.stroke || 0));
                 }
 
-                parent = parent.parent();
+                parent = parent.$parent;
             }
         }
 
@@ -120,15 +119,6 @@ angular.module('angular-svg-round-progressbar').service('roundProgressService', 
         var d           = 'M ' + start + ' A ' + pathRadius + ' ' + pathRadius + ' 0 ' + arcSweep + ' 0 ' + end;
 
         return element.attr('d', d);
-    };
-
-    service.isDirective = function(el){
-        if(el && el.length){
-            var directiveName = 'round-progress';
-            return (typeof el.attr(directiveName) !== 'undefined' || el[0].nodeName.toLowerCase() === directiveName);
-        }
-
-        return false;
     };
 
     // Easing functions by Robert Penner
@@ -362,7 +352,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             var lastTimeoutId;
             var parentChangedListener;
 
-            scope.getOptions = function(){
+            scope.$$getRoundProgressOptions = function(){
                 return options;
             };
 
@@ -372,7 +362,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                 var radius           = +options.radius || 0;
                 var stroke           = +options.stroke;
                 var diameter         = radius*2;
-                var backgroundSize   = radius - (stroke/2) - service.getOffset(element, options);
+                var backgroundSize   = radius - (stroke/2) - service.getOffset(scope, options);
 
                 svg.css({
                     top:          0,
@@ -429,8 +419,13 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                 var preventAnimation    = preventAnimationOverride || (newValue > max && oldValue > max) || (newValue < 0 && oldValue < 0) || duration < 25;
 
                 var radius              = service.toNumber(options.radius);
-                var circleSize          = radius - (options.stroke/2) - service.getOffset(element, options);
+                var circleSize          = radius - (options.stroke/2) - service.getOffset(scope, options);
                 var isSemicircle        = options.semi;
+
+                svg.attr({
+                    'aria-valuemax': max,
+                    'aria-valuenow': end
+                });
 
                 var doAnimation = function(){
                     // stops some expensive animating if the value is above the max or under 0
@@ -505,14 +500,18 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             var parent = element.parent();
             var directiveName = 'round-progress';
             var template = [
-                '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg">',
+                '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg" role="progressbar" aria-valuemin="0">',
                     '<circle fill="none"/>',
                     '<path fill="none"/>',
                     '<g ng-transclude></g>',
                 '</svg>'
             ];
 
-            while(parent.length && !service.isDirective(parent)){
+            while(
+                parent.length &&
+                parent[0].nodeName.toLowerCase() !== directiveName &&
+                typeof parent.attr(directiveName) === 'undefined'
+            ){
                 parent = parent.parent();
             }
 

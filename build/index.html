@@ -114,8 +114,7 @@
         <h2>Sample progressbar</h2>
         <div class="progress-wrapper">
             <div class="progress ng-cloak" ng-style="getStyle()">{{ preciseCurrent || current }}/{{ max }}</div>
-            <div
-                round-progress
+            <round-progress
                 max="max"
                 current="current"
                 color="{{ getColor() }}"
@@ -138,7 +137,7 @@
                         <stop offset="95%" stop-color="gold"/>
                     </linearGradient>
                 </svg>
-            </div>
+            </round-progress>
         </div>
 
         <button ng-click="increment();">Increment</button>
@@ -231,8 +230,7 @@
         <h2>Clock example</h2>
         <div class="progress-wrapper">
             <div class="progress ng-cloak" ng-style="getStyle()">{{ time }}</div>
-            <div
-                round-progress
+            <round-progress
                 max="24"
                 current="hours"
                 color="#45ccce"
@@ -245,8 +243,7 @@
                 stroke="{{ stroke*1.5 }}"
                 animation="{{ currentAnimation }}">
 
-                <div
-                    round-progress
+                <round-progress
                     max="59"
                     current="minutes"
                     color="#0971B2"
@@ -261,8 +258,7 @@
                     offset="inherit">
 
 
-                    <div
-                        round-progress
+                    <round-progress
                         max="59"
                         current="seconds"
                         color="#1485CC"
@@ -274,9 +270,9 @@
                         responsive="responsive"
                         stroke="{{ stroke*1.5 }}"
                         animation="{{ currentAnimation }}"
-                        offset="inherit"></div>
-                    </div>
-            </div>
+                        offset="inherit"></round-progress>
+                </round-progress>
+            </round-progress>
         </div>
     </div>
 

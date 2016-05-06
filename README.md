@@ -53,8 +53,7 @@ angular.module('someModule', ['angular-svg-round-progressbar'])
 ### Example:
 
 ```html
-<div
-    round-progress
+<round-progress
     max="max"
     current="current"
     color="#45ccce"
@@ -67,7 +66,7 @@ angular.module('someModule', ['angular-svg-round-progressbar'])
     responsive="false"
     duration="800"
     animation="easeInOutQuart"
-    animation-delay="0"></div>
+    animation-delay="0"></round-progress>
 ```
 
 ## Browser support

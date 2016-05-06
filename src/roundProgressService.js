@@ -26,20 +26,19 @@ angular.module('angular-svg-round-progressbar').service('roundProgressService', 
         return isNumber(value) ? value : parseFloat((value + '').replace(',', '.'));
     };
 
-    service.getOffset = function(element, options){
+    service.getOffset = function(scope, options){
         var value = +options.offset || 0;
 
         if(options.offset === 'inherit'){
-            var parent = element;
-            var parentScope;
+            var parent = scope.$parent;
 
-            while(!parent.hasClass('round-progress-wrapper')){
-                if(service.isDirective(parent)){
-                    parentScope = parent.scope().$parent.getOptions();
-                    value += ((+parentScope.offset || 0) + (+parentScope.stroke || 0));
+            while(parent){
+                if(parent.hasOwnProperty('$$getRoundProgressOptions')){
+                    var opts = parent.$$getRoundProgressOptions();
+                    value += ((+opts.offset || 0) + (+opts.stroke || 0));
                 }
 
-                parent = parent.parent();
+                parent = parent.$parent;
             }
         }
 
@@ -65,15 +64,6 @@ angular.module('angular-svg-round-progressbar').service('roundProgressService', 
         var d           = 'M ' + start + ' A ' + pathRadius + ' ' + pathRadius + ' 0 ' + arcSweep + ' 0 ' + end;
 
         return element.attr('d', d);
-    };
-
-    service.isDirective = function(el){
-        if(el && el.length){
-            var directiveName = 'round-progress';
-            return (typeof el.attr(directiveName) !== 'undefined' || el[0].nodeName.toLowerCase() === directiveName);
-        }
-
-        return false;
     };
 
     // Easing functions by Robert Penner
