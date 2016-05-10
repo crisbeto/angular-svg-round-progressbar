@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.4 2016-05-06 */
+/* angular-svg-round-progressbar@0.4.4 2016-05-10 */
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 'use strict';
@@ -323,6 +323,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             clockwise:      '=',
             responsive:     '=',
             onRender:       '=',
+            showCurrent:    '=',
             radius:         '@',
             color:          '@',
             bgcolor:        '@',
@@ -500,6 +501,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             var parent = element.parent();
             var directiveName = 'round-progress';
             var template = [
+                '<span ng-if="showCurrent" style="color:{{color}};font-weight:700;font-size:20px;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);">{{current}}</span>',
                 '<svg class="'+ directiveName +'" xmlns="http://www.w3.org/2000/svg" role="progressbar" aria-valuemin="0">',
                     '<circle fill="none"/>',
                     '<path fill="none"/>',
