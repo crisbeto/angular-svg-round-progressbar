@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.4 2016-07-04 */
+/* angular-svg-round-progressbar@0.4.5 2016-07-04 */
 (function(){
   "use strict";
 // shim layer with setTimeout fallback
