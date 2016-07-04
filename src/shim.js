@@ -1,7 +1,5 @@
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-'use strict';
-
 (function() {
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
@@ -27,5 +25,4 @@
             window.clearTimeout(id);
         };
     }
-
 }());

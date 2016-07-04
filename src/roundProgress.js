@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$window', 'roundProgressService', 'roundProgressConfig', function($window, service, roundProgressConfig){
     var base = {
         restrict: 'EA',

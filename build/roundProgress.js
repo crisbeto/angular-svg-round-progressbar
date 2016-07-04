@@ -1,8 +1,8 @@
-/* angular-svg-round-progressbar@0.4.4 2016-05-06 */
+/* angular-svg-round-progressbar@0.4.4 2016-07-04 */
+(function(){
+  "use strict";
 // shim layer with setTimeout fallback
 // credit Erik Möller and http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-'use strict';
-
 (function() {
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
@@ -28,14 +28,9 @@
             window.clearTimeout(id);
         };
     }
-
 }());
 
-'use strict';
-
 angular.module('angular-svg-round-progressbar', []);
-
-'use strict';
 
 angular.module('angular-svg-round-progressbar').constant('roundProgressConfig', {
     max:            50,
@@ -52,8 +47,6 @@ angular.module('angular-svg-round-progressbar').constant('roundProgressConfig', 
     animationDelay: 0,
     offset:         0
 });
-
-'use strict';
 
 angular.module('angular-svg-round-progressbar').service('roundProgressService', ['$window', function($window){
     var service = {};
@@ -308,8 +301,6 @@ angular.module('angular-svg-round-progressbar').service('roundProgressService', 
     return service;
 }]);
 
-'use strict';
-
 angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$window', 'roundProgressService', 'roundProgressConfig', function($window, service, roundProgressConfig){
     var base = {
         restrict: 'EA',
@@ -524,3 +515,5 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
         }
     });
 }]);
+
+ })();

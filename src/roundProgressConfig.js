@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('angular-svg-round-progressbar').constant('roundProgressConfig', {
     max:            50,
     semi:           false,

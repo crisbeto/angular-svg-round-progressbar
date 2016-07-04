@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('angular-svg-round-progressbar').service('roundProgressService', ['$window', function($window){
     var service = {};
     var isNumber = angular.isNumber;
