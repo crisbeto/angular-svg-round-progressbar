@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.5 2016-07-04 */
+/* angular-svg-round-progressbar@0.4.6 2016-07-06 */
 (function(){
   "use strict";
 // shim layer with setTimeout fallback
@@ -333,7 +333,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
     }
 
     return angular.extend(base, {
-        link: function(scope, element){
+        link: function(scope, element, attrs){
             var isNested    = !element.hasClass('round-progress-wrapper');
             var svg         = isNested ? element : element.find('svg').eq(0);
             var ring        = svg.find('path').eq(0);
@@ -456,7 +456,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             };
 
             var keys = Object.keys(base.scope).filter(function(key){
-                return key !== 'current';
+                return optionIsSpecified(key) && key !== 'current';
             });
 
             // properties that are used only for presentation
@@ -483,9 +483,20 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
 
             // properties that are used during animation. some of these overlap with
             // the ones that are used for presentation
-            scope.$watchGroup(['current', 'max', 'radius', 'stroke', 'semi', 'offset'], function(newValue, oldValue){
+            scope.$watchGroup([
+                'current',
+                'max',
+                'radius',
+                'stroke',
+                'semi',
+                'offset'
+            ].filter(optionIsSpecified), function(newValue, oldValue){
                 renderState(service.toNumber(newValue[0]), service.toNumber(oldValue[0]));
             });
+
+            function optionIsSpecified(name) {
+                return attrs.hasOwnProperty(name);
+            }
         },
         template: function(element){
             var parent = element.parent();
