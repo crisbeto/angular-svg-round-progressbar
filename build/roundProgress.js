@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.6 2016-07-06 */
+/* angular-svg-round-progressbar@0.4.6 2016-08-16 */
 (function(){
   "use strict";
 // shim layer with setTimeout fallback
@@ -528,3 +528,4 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
 }]);
 
  })();
+module.exports = 'angular-svg-round-progressbar';

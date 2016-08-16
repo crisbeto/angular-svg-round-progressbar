@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         ''
     ].join('\n');
 
-    var footer = '\n })();';
+    var footer = '\n })();\nmodule.exports = \'angular-svg-round-progressbar\';';
 
     require('load-grunt-tasks')(grunt);
 
