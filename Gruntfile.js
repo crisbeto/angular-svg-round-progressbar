@@ -18,7 +18,6 @@ module.exports = function(grunt) {
     var footer = '\n })();';
 
     require('load-grunt-tasks')(grunt);
-    grunt.loadNpmTasks('grunt-file-creator');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -86,19 +85,10 @@ module.exports = function(grunt) {
                     open: true
                 }
             }
-        },
-        'file-creator': {
-            'index': {
-                'build/index.js': function(fs, fd, done) {
-                    fs.writeSync(fd, 'require(\'./roundProgress.min\');\n');
-                    fs.writeSync(fd, 'module.exports = \'angular-svg-round-progressbar\'');
-                    done();
-                }
-            }
         }
     });
 
     grunt.registerTask('default', ['concat:build', 'connect', 'watch']);
-    grunt.registerTask('build', ['jshint:src', 'concat:build', 'uglify:build', 'file-creator']);
+    grunt.registerTask('build', ['jshint:src', 'concat:build', 'uglify:build']);
     grunt.registerTask('deploy', ['build', 'gh-pages:deploy']);
 };
