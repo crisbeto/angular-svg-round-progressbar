@@ -1,2 +1,2 @@
-require('./roundProgress.min');
-module.exports = 'angular-svg-round-progressbar'
+require('./roundProgress.min.js');
+module.exports = 'angular-svg-round-progressbar';
