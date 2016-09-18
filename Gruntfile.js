@@ -47,7 +47,13 @@ module.exports = function(grunt) {
                 base: 'build'
             },
             deploy: {
-                src: ['index.html','roundProgress.js', 'roundProgress.min.js']
+                src: [
+                    'index.html',
+                    'demo.css',
+                    'demo.js',
+                    'roundProgress.js',
+                    'roundProgress.min.js'
+                ]
             }
         },
         jshint: {

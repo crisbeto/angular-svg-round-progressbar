@@ -1,0 +1,111 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #fafafa;
+}
+
+h2{
+    margin: 0 0 40px;
+}
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.progress-wrapper{
+    position: relative;
+    margin:20px auto;
+    font-size: 40px;
+}
+
+.progress{
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.container{
+    width: 100%;
+    max-width: 650px;
+    margin: 40px auto 80px;
+    text-align: center;
+    padding: 40px;
+    background: #fff;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+}
+
+button{
+    display: inline-block;
+    padding: 10px 20px;
+    background: #45ccce;
+    color:#fff;
+    font-size: 16px;
+    border:none;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0 5px 5px 0;
+}
+
+form{
+    text-align: left;
+    max-width: 350px;
+    margin: 30px auto;
+}
+
+form > div{
+    margin-bottom: 15px;
+}
+
+input, select{
+    float:right;
+    padding: 5px;
+    width: 150px;
+}
+
+input[type="checkbox"]{
+    width: auto;
+}
+
+input[type="color"]{
+    height: 30px;
+}
+
+.back{
+    position: fixed;
+    top:5px;
+    right:5px;
+}
+
+.ng-cloak{
+    display: none;
+}
+
+@media(max-width: 480px){
+    .back{
+        position: static;
+        display: block;
+        text-align: center;
+    }
+
+    input, select{
+        width: 100%;
+        margin-top: 5px;
+        float:none;
+    }
+
+    .container{
+        margin-top: 25px;
+    }
+}
