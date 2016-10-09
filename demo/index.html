@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Angular SVG round progressbar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <my-app>Loading...</my-app>
+
+    <script src="vendor/core-js/client/shim.min.js"></script>
+    <script src="vendor/zone.js/dist/zone.js"></script>
+    <script src="vendor/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+
+    <script>
+      System.import('systemjs.config.js').then(function() {
+        System.import('main');
+      }).catch(function(err) {
+        throw err;
+      });
+    </script>
+  </body>
+</html>

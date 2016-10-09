@@ -1,6 +1,7 @@
-bower_components/
 node_modules/
 .DS_Store
-.grunt/
 .idea/
 npm-debug.log
+dist/
+demo/vendor/
+demo/app/
