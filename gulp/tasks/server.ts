@@ -5,8 +5,13 @@ const gulpServer = require('gulp-server-livereload');
 // Creates a dev server.
 export default function server(source: string) {
   return () => src(source).pipe(gulpServer({
-    livereload: true,
     fallback: 'index.html',
-    port: 1337
+    port: 1337,
+    livereload: {
+      enable: true,
+      filter: (filename: string, cb: Function) => {
+        cb(/\.[css|html|js]/.test(filename));
+      }
+    }
   }));
 }
