@@ -11,8 +11,6 @@
     "target": "es5",
     "stripInternal": true,
     "baseUrl": ".",
-    "paths": {
-      "*": ["src/*"]
-    }
+    "paths": { "*": ["src/*"] }
   }
 }
