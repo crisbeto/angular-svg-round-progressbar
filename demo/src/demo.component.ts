@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
     <h1>{{ typedStuff }}</h1>
     <input [(ngModel)]="typedStuff" />
     <input type="text" [placeholder]="typedStuff" />
+
+    <round-progress></round-progress>
    `
 })
 export class DemoComponent {

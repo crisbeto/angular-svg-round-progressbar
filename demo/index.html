@@ -18,7 +18,7 @@
       System.import('systemjs.config.js').then(function() {
         System.import('main');
       }).catch(function(err) {
-        throw err;
+        console.error(err);
       });
     </script>
   </body>
