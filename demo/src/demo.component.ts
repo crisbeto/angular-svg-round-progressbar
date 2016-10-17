@@ -3,13 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'demo',
   template: `
-    <h1>{{ typedStuff }}</h1>
-    <input [(ngModel)]="typedStuff" />
-    <input type="text" [placeholder]="typedStuff" />
-
-    <round-progress></round-progress>
+    <input [(ngModel)]="current" type="number"/>
+    <round-progress [current]="current"></round-progress>
    `
 })
 export class DemoComponent {
-  private typedStuff = 'Hello world';
+  private current: number = 57;
 };
