@@ -62,7 +62,7 @@ export class RoundProgressComponent implements OnChanges {
       const self = this;
       const changeInValue = to - from;
       const duration = self.duration;
-      const ease = self._easingFunctions[self.easing];
+      const ease = self._easingFunctions[self.animation];
       const startTime = self._service.getTimestamp();
       const id = ++self._lastAnimationId;
 
@@ -106,7 +106,7 @@ export class RoundProgressComponent implements OnChanges {
   max: number;
 
   @Input()
-  easing: string = 'easeOutCubic';
+  animation: string = 'easeOutCubic';
 
   @Input()
   duration: number = 500;
