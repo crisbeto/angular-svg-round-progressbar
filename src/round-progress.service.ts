@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
 const BASE: HTMLBaseElement = document.head.querySelector('base');
+const HAS_PERF =
+  window.performance &&
+  window.performance.now &&
+  typeof window.performance.now() === 'number';
 
 @Injectable()
 export class RoundProgressService {
@@ -36,11 +40,7 @@ export class RoundProgressService {
    * @return {number}
    */
   getTimestamp(): number {
-    if (window.performance && window.performance.now) {
-      return window.performance.now();
-    }
-
-    return Date.now();
+    return HAS_PERF ? window.performance.now() : Date.now();
   }
 
   /**
