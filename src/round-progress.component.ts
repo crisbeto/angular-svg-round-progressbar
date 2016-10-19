@@ -21,12 +21,12 @@ import { RoundProgressEase } from './round-progress.ease';
         [attr.cx]="radius"
         [attr.cy]="radius"
         [attr.r]="radius - stroke / 2"
-        [style.stroke]="background"
+        [style.stroke]="_service.resolveColor(background)"
         [style.stroke-width]="stroke"/>
 
       <path
         fill="none"
-        [attr.stroke]="color"
+        [attr.stroke]="_service.resolveColor(color)"
         [attr.stroke-width]="stroke"
         [attr.d]="_path"/>
     </svg>
