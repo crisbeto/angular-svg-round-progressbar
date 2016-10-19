@@ -6,6 +6,8 @@ import { RoundProgressEase } from './round-progress.ease';
 // - turn all the public properties into @Input-s
 // - look into ngStyle for the inline styles
 // - default config values
+// - look into different change detection strategy to reduce DOM manipulations. currently they
+// happen for each frame of the animation.
 @Component({
   selector: 'round-progress',
   template: `
@@ -13,8 +15,7 @@ import { RoundProgressEase } from './round-progress.ease';
       xmlns="http://www.w3.org/2000/svg"
       [style.width]="_diameter + 'px'"
       [style.height]="_diameter + 'px'"
-      [attr.viewBox]="'0 0 ' + _diameter + ' ' + _diameter"
-      role="progressbar">
+      [attr.viewBox]="'0 0 ' + _diameter + ' ' + _diameter">
 
       <circle
         fill="none"
@@ -30,7 +31,12 @@ import { RoundProgressEase } from './round-progress.ease';
         [attr.stroke-width]="stroke"
         [attr.d]="_path"/>
     </svg>
-  `
+  `,
+  host: {
+    role: 'progressbar',
+    '[attr.aria-valuemin]': 'current',
+    '[attr.aria-valuemax]': 'max',
+  }
 })
 export class RoundProgressComponent implements OnChanges {
   @Input()
