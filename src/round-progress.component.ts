@@ -16,6 +16,14 @@ import { RoundProgressEase } from './round-progress.ease';
       [attr.viewBox]="'0 0 ' + _diameter + ' ' + _diameter"
       role="progressbar">
 
+      <circle
+        fill="none"
+        [attr.cx]="radius"
+        [attr.cy]="radius"
+        [attr.r]="radius - stroke / 2"
+        [style.stroke]="background"
+        [style.stroke-width]="stroke"/>
+
       <path
         fill="none"
         [attr.stroke]="color"
@@ -36,6 +44,7 @@ export class RoundProgressComponent implements OnChanges {
   duration: number = 500;
   stroke: number = 15;
   color: string = '#f00';
+  background: string = '#ccc';
 
   private _path: string;
   private _lastAnimationId: number = 0;
