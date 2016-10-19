@@ -3,7 +3,6 @@ import { RoundProgressService } from './round-progress.service';
 import { RoundProgressEase } from './round-progress.ease';
 
 // TODO:
-// - turn all the public properties into @Input-s
 // - look into ngStyle for the inline styles
 // - default config values
 // - look into different change detection strategy to reduce DOM manipulations. currently they
@@ -39,19 +38,6 @@ import { RoundProgressEase } from './round-progress.ease';
   }
 })
 export class RoundProgressComponent implements OnChanges {
-  @Input()
-  current: number;
-
-  @Input()
-  radius: number;
-
-  max: number = 100;
-  easing: string = 'easeOutCubic';
-  duration: number = 500;
-  stroke: number = 15;
-  color: string = '#f00';
-  background: string = '#ccc';
-
   private _path: string;
   private _lastAnimationId: number = 0;
 
@@ -109,4 +95,28 @@ export class RoundProgressComponent implements OnChanges {
       this._setPath(this.current);
     }
   }
+
+  @Input()
+  current: number;
+
+  @Input()
+  radius: number;
+
+  @Input()
+  max: number;
+
+  @Input()
+  easing: string = 'easeOutCubic';
+
+  @Input()
+  duration: number = 500;
+
+  @Input()
+  stroke: number = 15;
+
+  @Input()
+  color: string = '#45CCCE';
+
+  @Input()
+  background: string = '#EAEAEA';
 }
