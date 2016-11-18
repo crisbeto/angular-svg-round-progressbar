@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, NgZone, ElementRef } from '@angular/core';
 import { RoundProgressService } from './round-progress.service';
 import { RoundProgressEase } from './round-progress.ease';
 
@@ -12,8 +12,6 @@ import { RoundProgressEase } from './round-progress.ease';
   template: `
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      [style.width]="_diameter + 'px'"
-      [style.height]="_diameter + 'px'"
       [attr.viewBox]="'0 0 ' + _diameter + ' ' + _diameter">
 
       <circle
@@ -27,18 +25,40 @@ import { RoundProgressEase } from './round-progress.ease';
       <path
         fill="none"
         [attr.stroke]="_service.resolveColor(color)"
-        [attr.stroke-width]="stroke"
-        [attr.d]="_path"/>
+        [attr.stroke-width]="stroke"/>
     </svg>
   `,
   host: {
     role: 'progressbar',
     '[attr.aria-valuemin]': 'current',
     '[attr.aria-valuemax]': 'max',
-  }
+    '[style.width]': "responsive ? '' : _diameter + 'px'",
+    '[style.height]': "responsive ? '' : _diameter + 'px'",
+    '[class.responsive]': 'responsive'
+  },
+  styles: [
+    `:host {
+      display: block;
+      position: relative;
+    }`,
+    `svg {
+      overflow: hidden;
+    }`,
+    `:host.responsive {
+      width: 100%;
+      padding-bottom: 100%;
+    }`,
+    `:host.responsive > svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }`
+  ]
 })
 export class RoundProgressComponent implements OnChanges {
-  private _path: string;
+  private _path: SVGPathElement;
   private _lastAnimationId: number = 0;
 
   get _diameter(): number {
@@ -47,7 +67,9 @@ export class RoundProgressComponent implements OnChanges {
 
   constructor(
     private _service: RoundProgressService,
-    private _easingFunctions: RoundProgressEase
+    private _easingFunctions: RoundProgressEase,
+    private _ngZone: NgZone,
+    private _element: ElementRef
   ) {}
 
   /**
@@ -58,16 +80,20 @@ export class RoundProgressComponent implements OnChanges {
       from = 0;
     }
 
-    if (to >= 0 && to <= this.max) {
-      const self = this;
-      const changeInValue = to - from;
-      const duration = self.duration;
-      const ease = self._easingFunctions[self.animation];
-      const startTime = self._service.getTimestamp();
-      const id = ++self._lastAnimationId;
+    to = this._clamp(to);
+    from = this._clamp(from);
 
+    const self = this;
+    const changeInValue = to - from;
+    const duration = self.duration;
+    const ease = self._easingFunctions[self.animation];
+    const startTime = self._service.getTimestamp();
+    const id = ++self._lastAnimationId;
+
+    // Avoid firing change detection for each of the animation frames.
+    self._ngZone.runOutsideAngular(() => {
       requestAnimationFrame(function animation(){
-        var currentTime = Math.min(self._service.getTimestamp() - startTime, duration);
+        let currentTime = Math.min(self._service.getTimestamp() - startTime, duration);
 
         self._setPath(ease(currentTime, from, changeInValue, duration));
 
@@ -75,9 +101,7 @@ export class RoundProgressComponent implements OnChanges {
           requestAnimationFrame(animation);
         }
       });
-    } else {
-      this._setPath(to);
-    }
+    });
   }
 
   /**
@@ -85,7 +109,22 @@ export class RoundProgressComponent implements OnChanges {
    * @param {number} value Current value to be rendered.
    */
   private _setPath(value: number): void {
-    this._path = this._service.getArc(value, this.max, this.radius - this.stroke / 2, this.radius);
+    if (!this._path) {
+      this._path = this._element.nativeElement.querySelector('path');
+    }
+
+    this._path.setAttribute('d',
+      this._service.getArc(value, this.max, this.radius - this.stroke / 2, this.radius)
+    );
+  }
+
+  /**
+   * Clamps a value between the maximum and 0.
+   * @param {number} value
+   * @return {number}
+   */
+  private _clamp(value: number): number {
+    return Math.max(0, Math.min(value || 0, this.max));
   }
 
   ngOnChanges(changes): void {
@@ -96,27 +135,13 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
-  @Input()
-  current: number;
-
-  @Input()
-  radius: number;
-
-  @Input()
-  max: number;
-
-  @Input()
-  animation: string = 'easeOutCubic';
-
-  @Input()
-  duration: number = 500;
-
-  @Input()
-  stroke: number = 15;
-
-  @Input()
-  color: string = '#45CCCE';
-
-  @Input()
-  background: string = '#EAEAEA';
+  @Input() current: number;
+  @Input() radius: number;
+  @Input() max: number;
+  @Input() animation: string = 'easeOutCubic';
+  @Input() duration: number = 500;
+  @Input() stroke: number = 15;
+  @Input() color: string = '#45CCCE';
+  @Input() background: string = '#EAEAEA';
+  @Input() responsive: boolean = false;
 }
