@@ -25,7 +25,8 @@ import { RoundProgressEase } from './round-progress.ease';
       <path
         fill="none"
         [attr.stroke]="_service.resolveColor(color)"
-        [attr.stroke-width]="stroke"/>
+        [attr.stroke-width]="stroke"
+        [attr.transform]="getPathTransform()"/>
     </svg>
   `,
   host: {
@@ -106,7 +107,6 @@ export class RoundProgressComponent implements OnChanges {
 
   /**
    * Sets the path dimensions.
-   * @param {number} value Current value to be rendered.
    */
   private _setPath(value: number): void {
     if (!this._path) {
@@ -120,11 +120,18 @@ export class RoundProgressComponent implements OnChanges {
 
   /**
    * Clamps a value between the maximum and 0.
-   * @param {number} value
-   * @return {number}
    */
   private _clamp(value: number): number {
     return Math.max(0, Math.min(value || 0, this.max));
+  }
+
+  /**
+   * Determines the SVG transforms for the <path> node.
+   */
+  getPathTransform(): string {
+    if (!this.clockwise) {
+      return `scale(-1, 1) translate(-${this._diameter} 0)`;
+    }
   }
 
   ngOnChanges(changes): void {
@@ -144,4 +151,5 @@ export class RoundProgressComponent implements OnChanges {
   @Input() color: string = '#45CCCE';
   @Input() background: string = '#EAEAEA';
   @Input() responsive: boolean = false;
+  @Input() clockwise: boolean = true;
 }
