@@ -1,4 +1,4 @@
-/* angular-svg-round-progressbar@0.4.8 2016-09-18 */
+/* angular-svg-round-progressbar@0.4.8 2016-12-06 */
 (function(){
   "use strict";
 // shim layer with setTimeout fallback
@@ -314,6 +314,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             clockwise:      '=',
             responsive:     '=',
             onRender:       '=',
+            showMax:        '=',
             radius:         '@',
             color:          '@',
             bgcolor:        '@',
@@ -336,6 +337,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
         link: function(scope, element, attrs){
             var isNested    = !element.hasClass('round-progress-wrapper');
             var svg         = isNested ? element : element.find('svg').eq(0);
+			var progress    = element.find('div').eq(0);
             var ring        = svg.find('path').eq(0);
             var background  = svg.find('circle').eq(0);
             var options     = angular.copy(roundProgressConfig);
@@ -370,10 +372,19 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                     // it lowercases all attributes and viewBox is case-sensitive
                     svg[0].setAttribute('viewBox', '0 0 ' + diameter + ' ' + (isSemicircle ? radius : diameter));
                 }
-
+                
+                progress.css({
+                    position: 'absolute',
+                    top: '50%',
+                    bottom: 'auto',
+                    left: '50%',
+                    transform: 'translateY(-50%) translateX(-50%)'
+                });
+                
                 element.css({
-                    width:           responsive ? '100%' : 'auto',
+                    width:           responsive ? '100%' : options.radius*2 + 'px',
                     position:        'relative',
+                    margin:          '0 auto 0 auto',
                     paddingBottom:   responsive ? (isSemicircle ? '50%' : '100%') : 0
                 });
 
@@ -435,6 +446,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                             var animateTo = easingAnimation(currentTime, start, changeInValue, duration);
 
                             service.updateState(animateTo, max, circleSize, ring, radius, isSemicircle);
+                            progress.html( (options.showMax) ? parseInt(animateTo)+'/'+max : parseInt(animateTo) );
 
                             if(options.onRender){
                                 options.onRender(animateTo, options, element);
@@ -518,7 +530,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             }
 
             if(!parent || !parent.length){
-                template.unshift('<div class="round-progress-wrapper">');
+                template.unshift('<div class="round-progress-wrapper"><div class="round-progress-value"></div>');
                 template.push('</div>');
             }
 
