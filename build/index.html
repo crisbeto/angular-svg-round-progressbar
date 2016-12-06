@@ -132,6 +132,7 @@
         <div class="progress-wrapper">
             <div class="progress ng-cloak" ng-style="getStyle()">{{ time }}</div>
             <round-progress
+                show-value="false"
                 max="24"
                 current="hours"
                 color="#45ccce"
@@ -145,6 +146,7 @@
                 animation="{{ currentAnimation }}">
 
                 <round-progress
+                    show-value="false"
                     max="59"
                     current="minutes"
                     color="#0971B2"
@@ -158,8 +160,8 @@
                     animation="{{ currentAnimation }}"
                     offset="inherit">
 
-
                     <round-progress
+                        show-value="false"
                         max="59"
                         current="seconds"
                         color="#1485CC"
