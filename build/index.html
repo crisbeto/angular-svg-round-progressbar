@@ -14,7 +14,6 @@
 
         <h2>Sample progressbar</h2>
         <div class="progress-wrapper">
-            <div class="progress ng-cloak" ng-style="getStyle()">{{ preciseCurrent || current }}/{{ max }}</div>
             <round-progress
                 max="max"
                 current="current"
@@ -30,7 +29,8 @@
                 animation="{{ currentAnimation }}"
                 offset="{{ offset }}"
                 animation-delay="{{ animationDelay }}"
-                on-render="showPreciseCurrent">
+                on-render=""
+                show-max="true">
 
                 <svg>
                     <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
