@@ -339,7 +339,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
         link: function(scope, element, attrs){
             var isNested    = !element.hasClass('round-progress-wrapper');
             var svg         = isNested ? element : element.find('svg').eq(0);
-			var progress    = element.find('div').eq(0);
+            var progress    = element.find('div').eq(0);
             var ring        = svg.find('path').eq(0);
             var background  = svg.find('circle').eq(0);
             var options     = angular.copy(roundProgressConfig);
