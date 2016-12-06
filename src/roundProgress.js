@@ -11,6 +11,7 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
             clockwise:      '=',
             responsive:     '=',
             onRender:       '=',
+            showValue:      '=',
             showMax:        '=',
             radius:         '@',
             color:          '@',
@@ -143,7 +144,10 @@ angular.module('angular-svg-round-progressbar').directive('roundProgress', ['$wi
                             var animateTo = easingAnimation(currentTime, start, changeInValue, duration);
 
                             service.updateState(animateTo, max, circleSize, ring, radius, isSemicircle);
-                            progress.html( (options.showMax) ? parseInt(animateTo)+'/'+max : parseInt(animateTo) );
+                            
+                            if (options.showValue){
+                                progress.html( (options.showMax) ? parseInt(animateTo)+'/'+max : parseInt(animateTo) );
+                            }
 
                             if(options.onRender){
                                 options.onRender(animateTo, options, element);
