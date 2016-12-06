@@ -21,12 +21,22 @@ h2{
     clear: both;
 }
 
+.round-progress-wrapper{
+    margin: 20px auto !important;
+}
+
+.round-progress-value{
+    color: #bbb;
+    font-weight: 100;
+    font-size: 40px;
+    line-height: 1;
+}
+
 .progress-wrapper{
     position: relative;
     margin:20px auto;
     font-size: 40px;
 }
-
 .progress{
     position: absolute;
     color: #bbb;
