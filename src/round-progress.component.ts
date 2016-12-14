@@ -3,7 +3,6 @@ import { RoundProgressService } from './round-progress.service';
 import { RoundProgressEase } from './round-progress.ease';
 
 // TODO:
-// - look into ngStyle for the inline styles
 // - default config values
 // - look into different change detection strategy to reduce DOM manipulations. currently they
 // happen for each frame of the animation.
@@ -24,8 +23,7 @@ import { RoundProgressEase } from './round-progress.ease';
 
       <path
         fill="none"
-        [attr.stroke]="_service.resolveColor(color)"
-        [attr.stroke-width]="stroke"
+        [ngStyle]="getPathStyles()"
         [attr.transform]="getPathTransform()"/>
     </svg>
   `,
@@ -134,6 +132,21 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
+  /**
+   * Determines the inline styles for the <path> node.
+   */
+  getPathStyles() {
+    // TODO:
+    // - look into a way of re-using this object
+    // - add something similar for the background circle
+    let output = {
+      'stroke': this._service.resolveColor(this.color),
+      'stroke-width': this.stroke
+    };
+
+    return output;
+  }
+
   ngOnChanges(changes): void {
     if (changes.current) {
       this._animateChange(changes.current.previousValue, changes.current.currentValue);
@@ -152,4 +165,5 @@ export class RoundProgressComponent implements OnChanges {
   @Input() background: string = '#EAEAEA';
   @Input() responsive: boolean = false;
   @Input() clockwise: boolean = true;
+  @Input() semicircle: boolean = false;
 }

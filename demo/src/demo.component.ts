@@ -8,12 +8,14 @@ import { Component } from '@angular/core';
       [radius]="radius"
       [max]="max"
       [responsive]="responsive"
-      [clockwise]="clockwise"></round-progress>
+      [clockwise]="clockwise"
+      [semicircle]="semicircle"></round-progress>
 
     <input [(ngModel)]="current" type="number" step="10"/>
     <input [(ngModel)]="radius" type="number" step="10"/>
     <input [(ngModel)]="responsive" type="checkbox"/>
     <input [(ngModel)]="clockwise" type="checkbox"/>
+    <input [(ngModel)]="semicircle" type="checkbox"/>
    `
 })
 export class DemoComponent {
@@ -22,4 +24,5 @@ export class DemoComponent {
   max = 100;
   responsive = false;
   clockwise = true;
+  semicircle = true;
 };
