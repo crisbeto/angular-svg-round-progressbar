@@ -9,10 +9,9 @@ import {
 } from '@angular/core';
 
 import { RoundProgressService } from './round-progress.service';
+import { RoundProgressConfig } from './round-progress.config';
 import { RoundProgressEase } from './round-progress.ease';
 
-// TODO:
-// - default config values
 @Component({
   selector: 'round-progress',
   template: `
@@ -68,6 +67,7 @@ export class RoundProgressComponent implements OnChanges {
   constructor(
     private _service: RoundProgressService,
     private _easingFunctions: RoundProgressEase,
+    private _defaults: RoundProgressConfig,
     private _ngZone: NgZone,
     private _element: ElementRef
   ) {}
@@ -175,18 +175,18 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
-  @Input() current: number;
-  @Input() radius: number;
-  @Input() max: number;
-  @Input() animation: string = 'easeOutCubic';
-  @Input() animationDelay: number;
-  @Input() duration: number = 500;
-  @Input() stroke: number = 15;
-  @Input() color: string = '#45CCCE';
-  @Input() background: string = '#EAEAEA';
-  @Input() responsive: boolean = false;
-  @Input() clockwise: boolean = true;
-  @Input() semicircle: boolean = false;
-  @Input() rounded: boolean = false;
-  @Output() onRender: EventEmitter<number> = new EventEmitter();
+  @Input() current:          number;
+  @Input() max:              number;
+  @Input() radius:           number = this._defaults.get('radius');
+  @Input() animation:        string = this._defaults.get('animation');
+  @Input() animationDelay:   number = this._defaults.get('animationDelay');
+  @Input() duration:         number = this._defaults.get('duration');
+  @Input() stroke:           number = this._defaults.get('stroke');
+  @Input() color:            string = this._defaults.get('color');
+  @Input() background:       string = this._defaults.get('background');
+  @Input() responsive:       boolean = this._defaults.get('responsive');
+  @Input() clockwise:        boolean = this._defaults.get('clockwise');
+  @Input() semicircle:       boolean = this._defaults.get('semicircle');
+  @Input() rounded:          boolean = this._defaults.get('rounded');
+  @Output() onRender:        EventEmitter<number> = new EventEmitter();
 }
