@@ -28,7 +28,7 @@ export class RoundProgressConfig {
     clockwise: true,
     semicircle: false,
     rounded: false
-  }
+  };
 
   /** Configures the defaults. */
   setDefaults(config: RoundProgressDefaults): RoundProgressDefaults {

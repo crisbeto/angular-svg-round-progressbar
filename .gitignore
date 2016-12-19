@@ -1,6 +1,7 @@
 node_modules/
 .DS_Store
 .idea/
+.vscode/
 npm-debug.log
 dist/
 demo/vendor/
