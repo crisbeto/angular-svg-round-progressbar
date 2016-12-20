@@ -94,14 +94,15 @@ export class YourModule {
 * Chrome 31+
 * Safari 5.1+
 * and pretty much any browser that supports SVG
-\* **Note:** Some older browsers may require (a [polyfill for `requestAnimationFrame`](https://gist.github.com/paulirish/1579671)).
+
+**Note:** Some older browsers may require (a [polyfill for `requestAnimationFrame`](https://gist.github.com/paulirish/1579671)).
 [Read more about the `requestAnimationFrame` browser support.](http://caniuse.com/#feat=requestanimationframe)
 
 
 ## Development
 *  `npm install` to install development dependencies
 *  `gulp` to run a development server. Not mandatory(you can run the build/index.html directly), but more convenient.
-*  `grunt module:build` to build minified demo in build/
+*  `gulp module:build` to build minified demo in build/
 
 ## Credits
 * [Modernizr](http://modernizr.com/) for the SVG support test
