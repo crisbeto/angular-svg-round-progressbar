@@ -14,13 +14,15 @@ Afterwards you need to import the `RoundProgressModule` in your module:
 
 ```typescript
 import { NgModule } from '@angular/core';
-import { RoundProgressModule } from 'round-progress';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
 
 @NgModule({
   imports: [RoundProgressModule]
 })
 export class YourModule {};
 ```
+
+If you're using SystemJS as your module loader, there is also a UMD bundle at `./node_modules/angular-svg-round-progressbar/dist/round-progress.umd.js`.
 
 ## Options
 | Name           | Description                                                                                               | Required  | Default value     | Possible values   |
