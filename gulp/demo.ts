@@ -23,4 +23,8 @@ task('demo:watch', () => {
 
 task('demo:server', server(DEMO));
 
-task('demo:deploy', () => src(join(DEMO, '**/*')).pipe(ghPages()));
+task('demo:gh-pages', () => src(join(DEMO, '**/*')).pipe(ghPages()));
+
+task('demo:deploy', (done: any) => {
+  runSequence('demo:build', 'demo:gh-pages', done);
+});
