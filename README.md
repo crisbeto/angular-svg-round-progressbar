@@ -3,6 +3,8 @@ Angular module that uses SVG to create a circular progressbar
 
 ## [Demo](http://crisbeto.github.io/angular-svg-round-progressbar/)
 
+## [Click here for the Angular 1.x version](https://github.com/crisbeto/angular-svg-round-progressbar/tree/angular-1.x)
+
 ## Install
 First you have to install the module through npm:
 
