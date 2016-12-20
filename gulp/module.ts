@@ -16,6 +16,11 @@ task('module:watch', () => {
 });
 
 task('module:ts', compileTs(join(SRC, '**/*.ts'), DIST));
+
 task('module:build', (done: any) => {
   runSequence('module:clean', 'module:ts', done);
+});
+
+task('deploy', (done: any) => {
+  runSequence('module:build', 'demo:deploy', done);
 });

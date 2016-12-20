@@ -2,6 +2,7 @@ node_modules/
 .DS_Store
 .idea/
 .vscode/
+.publish/
 npm-debug.log
 dist/
 demo/dist/
