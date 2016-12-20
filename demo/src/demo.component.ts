@@ -21,6 +21,7 @@ export class DemoComponent {
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
   animations: string[] = [];
+  gradient: boolean = false;
 
   constructor(private _ease: RoundProgressEase) {
     // Kinda hacky way to get all of the easing functions at run-time, because it can
@@ -33,7 +34,6 @@ export class DemoComponent {
   }
 
   // TODO:
-  // - add the gradient example
   // - add the current progress overlay
   increment(amount = 1) {
     this.current += amount;
