@@ -10,7 +10,7 @@ const src = join(SRC, '**/*.ts');
 
 task('module:clean', clean(DIST));
 
-task('module:ts:demo', compileTs(join(SRC, '**/*.ts'), null, DEMO_DIST));
+task('module:ts:demo', compileTs(join(SRC, '**/*.ts'), DEMO_DIST));
 
 task('module:watch', () => {
   watch(join(SRC, '**/*.ts'), ['module:ts:demo']);
