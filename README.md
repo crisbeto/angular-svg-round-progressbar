@@ -89,11 +89,14 @@ export class YourModule {
 ```
 
 ## Browser support
-* Internet Explorer 9+ (IE9 needs a [polyfill for `requestAnimationFrame`](https://gist.github.com/paulirish/1579671))
+* Internet Explorer 9+
 * Firefox 28.0+
 * Chrome 31+
 * Safari 5.1+
 * and pretty much any browser that supports SVG
+\* **Note:** Some older browsers may require (a [polyfill for `requestAnimationFrame`](https://gist.github.com/paulirish/1579671)).
+[Read more about the `requestAnimationFrame` browser support.](http://caniuse.com/#feat=requestanimationframe)
+
 
 ## Development
 *  `npm install` to install development dependencies
