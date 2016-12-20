@@ -53,7 +53,7 @@
 
     <!-- <div class="cf">
       <label for="gradient">Gradient:</label>
-      <input id="gradient" type="checkbox" [(ngModel)]="gradient"/>
+      <input id="gradient" type="checkbox" [(ngModel)]="gradient" name="gradient"/>
     </div> -->
 
     <div class="cf">
@@ -81,11 +81,12 @@
       <input id="duration" name="duration" type="number" [(ngModel)]="duration"/>
     </div>
 
-    <!-- <div class="cf">
+    <div class="cf">
       <label for="animation">Animation:</label>
-      <select id="animation" [(ngModel)]="currentAnimation"
-      ng-options="animation for animation in animations"></select>
-    </div> -->
+      <select id="animation" [(ngModel)]="animation" name="animation">
+        <option *ngFor="let animation of animations" [ngValue]="animation">{{ animation }}</option>
+      </select>
+    </div>
 
     <div class="cf">
       <label for="animationDelay">Animation delay:</label>
