@@ -22,6 +22,7 @@ export class DemoComponent {
   animationDelay: number = 0;
   animations: string[] = [];
   gradient: boolean = false;
+  realCurrent: number = 0;
 
   constructor(private _ease: RoundProgressEase) {
     // Kinda hacky way to get all of the easing functions at run-time, because it can
@@ -33,9 +34,22 @@ export class DemoComponent {
     }
   }
 
-  // TODO:
-  // - add the current progress overlay
   increment(amount = 1) {
     this.current += amount;
+  }
+
+  getOverlayStyle() {
+    let isSemi = this.semicircle;
+    let transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
+
+    return {
+      'top': isSemi ? 'auto' : '50%',
+      'bottom': isSemi ? '5%' : 'auto',
+      'left': '50%',
+      'transform': transform,
+      '-moz-transform': transform,
+      '-webkit-transform': transform,
+      'font-size': this.radius / 3.5 + 'px'
+    };
   }
 };

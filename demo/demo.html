@@ -6,6 +6,8 @@
   <h2>Sample progressbar</h2>
 
   <div class="progress-wrapper">
+    <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}/{{ max }}</div>
+
     <round-progress
       [current]="current"
       [max]="max"

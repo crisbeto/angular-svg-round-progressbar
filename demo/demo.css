@@ -27,7 +27,7 @@ h2{
   font-size: 40px;
 }
 
-.progress{
+.current{
   position: absolute;
   color: #bbb;
   font-weight: 100;
