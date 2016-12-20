@@ -12,7 +12,7 @@ import { RoundProgressConfig } from './round-progress.config';
   exports: [RoundProgressComponent],
   providers: [RoundProgressService, RoundProgressEase, RoundProgressConfig]
 })
-export class RoundProgress {};
+export class RoundProgressModule {};
 
 export { RoundProgressComponent } from './round-progress.component';
 export { RoundProgressService } from './round-progress.service';

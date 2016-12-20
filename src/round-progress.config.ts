@@ -17,7 +17,7 @@ export interface RoundProgressDefaults {
 @Injectable()
 export class RoundProgressConfig {
   private _options: RoundProgressDefaults = {
-    radius: 50,
+    radius: 125,
     animation: 'easeOutCubic',
     animationDelay: null,
     duration: 500,

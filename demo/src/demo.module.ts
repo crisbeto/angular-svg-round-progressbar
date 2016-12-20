@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { DemoComponent } from './demo.component';
-import { RoundProgress } from 'round-progress';
+import { RoundProgressModule } from 'round-progress';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, RoundProgress],
+  imports: [BrowserModule, FormsModule, RoundProgressModule],
   declarations: [DemoComponent],
   bootstrap: [DemoComponent]
 })
-export class DemoModule {};
+export class DemoModule { };

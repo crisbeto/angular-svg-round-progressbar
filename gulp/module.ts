@@ -15,7 +15,6 @@ task('module:watch', () => {
   watch(join(SRC, '**/*.ts'), ['module:ts:demo']);
 });
 
-// unused for now
 task('module:ts', compileTs(join(SRC, '**/*.ts'), DIST));
 task('module:build', (done: any) => {
   runSequence('module:clean', 'module:ts', done);
