@@ -1,4 +1,4 @@
-import * as gulp from 'gulp';
+import { task, watch } from 'gulp';
 import { join } from 'path';
 
 import { DEMO } from './constants';
@@ -9,11 +9,11 @@ import copy from './tasks/copy';
 
 const runSequence = require('run-sequence');
 
-gulp.task('demo:clean', clean(join(DEMO, '{vendor,dist}')));
+task('demo:clean', clean(join(DEMO, '{vendor,dist}')));
 
-gulp.task('demo:ts', compileTs(join(DEMO, 'src/**/*.ts'), join(DEMO, 'dist')));
+task('demo:ts', compileTs(join(DEMO, 'src/**/*.ts'), join(DEMO, 'dist')));
 
-gulp.task('demo:assets', copy(
+task('demo:assets', copy(
   'node_modules',
   join(DEMO, 'vendor'),
   [
@@ -25,12 +25,12 @@ gulp.task('demo:assets', copy(
   ]
 ));
 
-gulp.task('demo:build', (done: any) => {
+task('demo:build', (done: any) => {
   runSequence('demo:clean', 'demo:assets', 'demo:ts', done);
 });
 
-gulp.task('demo:watch', () => {
-  gulp.watch(join(DEMO, 'src/**/*.ts'), ['demo:ts']);
+task('demo:watch', () => {
+  watch(join(DEMO, 'src/**/*.ts'), ['demo:ts']);
 });
 
-gulp.task('demo:server', server(DEMO));
+task('demo:server', server(DEMO));

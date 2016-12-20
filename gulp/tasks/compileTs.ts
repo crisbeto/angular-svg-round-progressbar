@@ -1,4 +1,4 @@
-import * as gulp from 'gulp';
+import { src, dest } from 'gulp';
 
 const gulpTs = require('gulp-typescript');
 const gulpSourcemaps = require('gulp-sourcemaps');
@@ -11,14 +11,12 @@ export default function compileTs(source: string, ...targets) {
       typescript: require('typescript')
     });
 
-    let pipe = gulp.src(source)
-      .pipe(gulpSourcemaps.init())
-      .pipe(gulpTs(tsProject));
+    let pipe = src(source).pipe(gulpSourcemaps.init()).pipe(gulpTs(tsProject));
 
     return targets.map(target => {
       return merge(
-        pipe.dts.pipe(gulp.dest(target)),
-        pipe.pipe(gulpSourcemaps.write('.')).pipe(gulp.dest(target))
+        pipe.dts.pipe(dest(target)),
+        pipe.pipe(gulpSourcemaps.write('.')).pipe(dest(target))
       );
     });
   };
