@@ -1,0 +1,115 @@
+<div class="container">
+  <a class="back" href="https://github.com/crisbeto/angular-svg-round-progressbar">
+    Back to project repo
+  </a>
+
+  <h2>Sample progressbar</h2>
+
+  <div class="progress-wrapper">
+    <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}/{{ max }}</div>
+
+    <round-progress
+      [current]="current"
+      [max]="max"
+      [stroke]="stroke"
+      [radius]="radius"
+      [semicircle]="semicircle"
+      [rounded]="rounded"
+      [responsive]="responsive"
+      [clockwise]="clockwise"
+      [color]="gradient ? 'url(#gradient)' : color"
+      [background]="background"
+      [duration]="duration"
+      [animation]="animation"
+      [animationDelay]="animationDelay"></round-progress>
+  </div>
+
+  <button (click)="increment();">Increment</button>
+  <button (click)="increment(-1);">Decrement</button>
+
+  <button (click)="increment(10);">Increment 10</button>
+  <button (click)="increment(-10);">Decrement 10</button>
+
+  <form>
+    <h3>Customize!</h3>
+
+    <div class="cf">
+      <label for="semicircle">Semicircle:</label>
+      <input id="semicircle" name="semicircle" type="checkbox" [(ngModel)]="semicircle"/>
+    </div>
+
+    <div class="cf">
+      <label for="responsive">Responsive:</label>
+      <input id="responsive" name="responsive" type="checkbox" [(ngModel)]="responsive"/>
+    </div>
+
+    <div class="cf">
+      <label for="rounded">Rounded:</label>
+      <input id="rounded" name="rounded" type="checkbox" [(ngModel)]="rounded"/>
+    </div>
+
+    <div class="cf">
+      <label for="clockwise">Clockwise:</label>
+      <input id="clockwise" name="clockwise" type="checkbox" [(ngModel)]="clockwise"/>
+    </div>
+
+    <div class="cf">
+      <label for="gradient">Gradient:</label>
+      <input id="gradient" type="checkbox" [(ngModel)]="gradient" name="gradient"/>
+    </div>
+
+    <div class="cf">
+      <label for="current">Current:</label>
+      <input id="current" name="current" type="number" [(ngModel)]="current"/>
+    </div>
+
+    <div class="cf">
+      <label for="max">Max:</label>
+      <input id="max" name="max" type="number" [(ngModel)]="max"/>
+    </div>
+
+    <div class="cf">
+      <label for="stroke">Stroke:</label>
+      <input id="stroke" name="stroke" type="number" [(ngModel)]="stroke"/>
+    </div>
+
+    <div class="cf">
+      <label for="radius">Radius:</label>
+      <input id="radius" name="radius" type="number" [(ngModel)]="radius"/>
+    </div>
+
+    <div class="cf">
+      <label for="duration">Duration:</label>
+      <input id="duration" name="duration" type="number" [(ngModel)]="duration"/>
+    </div>
+
+    <div class="cf">
+      <label for="animation">Animation:</label>
+      <select id="animation" [(ngModel)]="animation" name="animation">
+        <option *ngFor="let animation of animations" [ngValue]="animation">{{ animation }}</option>
+      </select>
+    </div>
+
+    <div class="cf">
+      <label for="animationDelay">Animation delay:</label>
+      <input id="animationDelay" name="animationDelay" type="number" [(ngModel)]="animationDelay"/>
+    </div>
+
+    <div class="cf">
+      <label for="color">Color:</label>
+      <input id="color" name="color" type="color" [(ngModel)]="color"/>
+    </div>
+
+    <div class="cf">
+      <label for="background">Background color:</label>
+      <input id="background" name="background" type="color" [(ngModel)]="background"/>
+    </div>
+  </form>
+</div>
+
+<svg>
+  <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="5%"  stop-color="green"/>
+    <stop offset="95%" stop-color="gold"/>
+  </linearGradient>
+</svg>

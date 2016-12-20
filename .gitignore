@@ -1,6 +1,9 @@
-bower_components/
 node_modules/
 .DS_Store
-.grunt/
 .idea/
+.vscode/
+.publish/
 npm-debug.log
+dist/
+demo/dist/
+demo/round-progress/
