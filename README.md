@@ -1,8 +1,8 @@
 # Angular SVG round progressbar
 
-AngularJS module that uses SVG to create a circular progressbar
+Angular 1.x module that uses SVG to create a circular progressbar.
 
-## [Demo](http://crisbeto.github.io/angular-svg-round-progressbar/)
+## [Click here for the Angular 2+ version](https://github.com/crisbeto/angular-svg-round-progressbar/tree/master)
 
 ## Install
 
@@ -10,16 +10,27 @@ Include Angular and [roundProgress.min.js](https://raw.githubusercontent.com/cri
 
 **npm**
 
-`npm install angular-svg-round-progressbar`
+```bash
+npm install angular-svg-round-progressbar@<1.0.0
+```
 
 **bower**
 
-`bower install angular-svg-round-progressbar`
+```bash
+bower install angular-svg-round-progressbar#0.4.8
+```
 
 **cdn**
 
-`<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-svg-round-progressbar/0.4.4/roundProgress.min.js"></script>`
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-svg-round-progressbar/0.4.8/roundProgress.min.js"></script>
+```
 
+**Note:** Windows users with NPM may need to run it as:
+
+```bash
+npm install angular-svg-round-progressbar@^^^<1.0.0
+```
 
 Add `angular-svg-round-progressbar` to your app's module dependencies:
 
