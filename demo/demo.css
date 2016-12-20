@@ -96,6 +96,17 @@ input[type='color']{
   display: none;
 }
 
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #bbb;
+}
+
 @media(max-width: 480px){
   .back{
     position: static;
