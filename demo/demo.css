@@ -109,13 +109,17 @@ input[type='color']{
 
 @media(max-width: 650px){
   body {
-    padding: 25px;
+    padding: 12.5px;
   }
 
   .back {
     position: static;
     display: block;
     text-align: center;
+  }
+
+  h2, .back {
+    margin-bottom: 20px;
   }
 
   input, select {
@@ -126,5 +130,6 @@ input[type='color']{
 
   .container {
     margin: 0 auto 50px;
+    padding: 25px;
   }
 }
