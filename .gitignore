@@ -6,4 +6,5 @@ node_modules/
 npm-debug.log
 dist/
 demo/dist/
+demo/vendor/
 demo/round-progress/
