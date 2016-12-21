@@ -107,20 +107,24 @@ input[type='color']{
   color: #bbb;
 }
 
-@media(max-width: 480px){
-  .back{
+@media(max-width: 650px){
+  body {
+    padding: 25px;
+  }
+
+  .back {
     position: static;
     display: block;
     text-align: center;
   }
 
-  input, select{
+  input, select {
     width: 100%;
     margin-top: 5px;
-    float:none;
+    float: none;
   }
 
-  .container{
-    margin-top: 25px;
+  .container {
+    margin: 0 auto 50px;
   }
 }
