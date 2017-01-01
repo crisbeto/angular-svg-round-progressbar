@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
-const BASE: HTMLBaseElement = document.head.querySelector('base');
+const HAS_DOCUMENT = typeof document !== 'undefined';
+const BASE: HTMLBaseElement = HAS_DOCUMENT && document.head.querySelector('base');
 const HAS_PERF =
+  typeof window !== 'undefined' &&
   window.performance &&
   window.performance.now &&
   typeof window.performance.now() === 'number';
@@ -13,6 +15,7 @@ export class RoundProgressService {
 
   constructor() {
     this.supportsSvg = !!(
+      HAS_DOCUMENT &&
       document.createElementNS &&
       document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect
     );

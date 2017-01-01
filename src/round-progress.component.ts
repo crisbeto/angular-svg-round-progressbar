@@ -4,8 +4,9 @@ import {
   Output,
   OnChanges,
   NgZone,
-  ElementRef,
   EventEmitter,
+  ViewChild,
+  Renderer,
 } from '@angular/core';
 
 import { RoundProgressService } from './round-progress.service';
@@ -25,6 +26,7 @@ import { RoundProgressEase } from './round-progress.ease';
         [style.stroke-width]="stroke"/>
 
       <path
+        #path
         fill="none"
         [style.stroke-width]="stroke"
         [style.stroke]="_service.resolveColor(color)"
@@ -33,7 +35,7 @@ import { RoundProgressEase } from './round-progress.ease';
     </svg>
   `,
   host: {
-    role: 'progressbar',
+    'role': 'progressbar',
     '[attr.aria-valuemin]': 'current',
     '[attr.aria-valuemax]': 'max',
     '[style.width]': "responsive ? '' : _diameter + 'px'",
@@ -61,7 +63,7 @@ import { RoundProgressEase } from './round-progress.ease';
   ]
 })
 export class RoundProgressComponent implements OnChanges {
-  private _path: SVGPathElement;
+  @ViewChild('path') private _path;
   private _lastAnimationId: number = 0;
 
   constructor(
@@ -69,7 +71,7 @@ export class RoundProgressComponent implements OnChanges {
     private _easingFunctions: RoundProgressEase,
     private _defaults: RoundProgressConfig,
     private _ngZone: NgZone,
-    private _element: ElementRef
+    private _renderer: Renderer
   ) {}
 
   /** Animates a change in the current value. */
@@ -115,12 +117,10 @@ export class RoundProgressComponent implements OnChanges {
 
   /** Sets the path dimensions. */
   private _setPath(value: number): void {
-    if (!this._path) {
-      this._path = this._element.nativeElement.querySelector('path');
+    if (this._path) {
+      this._renderer.setElementAttribute(this._path.nativeElement, 'd', this._service.getArc(value,
+          this.max, this.radius - this.stroke / 2, this.radius, this.semicircle));
     }
-
-    this._path.setAttribute('d', this._service.getArc(value, this.max,
-        this.radius - this.stroke / 2, this.radius, this.semicircle));
   }
 
   /** Clamps a value between the maximum and 0. */
