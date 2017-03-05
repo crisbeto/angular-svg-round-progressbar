@@ -5,7 +5,9 @@ const gulpSourcemaps = require('gulp-sourcemaps');
 const merge = require('merge2');
 
 // Compiles TypeScript files.
-export default function compileTs(source: string, target: string, overrides?: any) {
+export default function compileTs(source: string, target: string, overrides?: any,
+  tsConfig = './tsconfig.json') {
+
   return () => {
     const config: any = {};
 
@@ -13,7 +15,7 @@ export default function compileTs(source: string, target: string, overrides?: an
       Object.keys(overrides).forEach(key => config[key] = overrides[key]);
     }
 
-    const tsProject = gulpTs.createProject('./tsconfig.json', config);
+    const tsProject = gulpTs.createProject(tsConfig, config);
     const pipe = src(source).pipe(gulpSourcemaps.init()).pipe(tsProject());
 
     return merge(

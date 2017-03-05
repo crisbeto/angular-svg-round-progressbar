@@ -12,7 +12,12 @@ const runSequence = require('run-sequence');
 
 task('demo:clean', clean(join(DEMO, '{vendor,dist}')));
 
-task('demo:ts', compileTs(join(DEMO, 'src/**/*.ts'), join(DEMO, 'dist')));
+task('demo:ts', compileTs(
+  join(DEMO, 'src/**/*.ts'),
+  join(DEMO, 'dist'),
+  null,
+  join(DEMO, 'tsconfig.json')
+));
 
 task('demo:assets', copy(
  'node_modules',

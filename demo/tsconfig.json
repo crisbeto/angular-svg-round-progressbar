@@ -10,6 +10,11 @@
     "sourceMap": true,
     "target": "es5",
     "stripInternal": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "round-progress": [
+        "./round-progress"
+      ]
+    }
   }
 }

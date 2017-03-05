@@ -10,7 +10,7 @@ System.config({
       'vendor/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 
     'main': 'dist/main.js',
-    'round-progress': 'round-progress/round-progress.js'
+    'round-progress': 'round-progress/index.js'
   },
   packages: {
     'rxjs': { main: 'index' },
