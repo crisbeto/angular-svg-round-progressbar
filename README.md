@@ -15,8 +15,8 @@ npm install angular-svg-round-progressbar --save
 Afterwards you need to import the `RoundProgressModule` in your module:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import {NgModule} from '@angular/core';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 @NgModule({
   imports: [RoundProgressModule]
@@ -55,8 +55,8 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
 <round-progress
     [current]="current"
     [max]="max"
-    [color]="#45ccce"
-    [background]="#eaeaea"
+    [color]="'#45ccce'"
+    [background]="'#eaeaea'"
     [radius]="125"
     [stroke]="20"
     [semicircle]="true"
@@ -64,7 +64,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [clockwise]="false"
     [responsive]="false"
     [duration]="800"
-    [animation]="easeInOutQuart"
+    [animation]="'easeInOutQuart'"
     [animationDelay]="0"
     (onRender)="doSomethingWithCurrentValue($event)"></round-progress>
 ```
@@ -76,8 +76,8 @@ service. Whenever an option isn't defined on a `round-progress` element, it's va
 from the defaults.
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { RoundProgressModule, RoundProgressConfig } from 'round-progress';
+import {NgModule} from '@angular/core';
+import {RoundProgressModule, RoundProgressConfig} from 'round-progress';
 
 @NgModule({
   imports: [RoundProgressModule]

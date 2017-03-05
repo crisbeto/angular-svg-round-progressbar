@@ -63,7 +63,6 @@ import {RoundProgressEase} from './round-progress.ease';
   ]
 })
 export class RoundProgressComponent implements OnChanges {
-  @ViewChild('path') private _path;
   private _lastAnimationId: number = 0;
 
   constructor(
@@ -175,6 +174,7 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
+  @ViewChild('path')         _path;
   @Input() current:          number;
   @Input() max:              number;
   @Input() radius:           number = this._defaults.get('radius');
