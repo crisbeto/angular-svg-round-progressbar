@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
 const HAS_DOCUMENT = typeof document !== 'undefined';

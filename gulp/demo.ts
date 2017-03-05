@@ -1,7 +1,7 @@
-import { src, task, watch } from 'gulp';
-import { join } from 'path';
+import {src, task, watch} from 'gulp';
+import {join} from 'path';
 
-import { DEMO } from './constants';
+import {DEMO} from './constants';
 import compileTs from './tasks/compileTs';
 import clean from './tasks/clean';
 import server from './tasks/server';

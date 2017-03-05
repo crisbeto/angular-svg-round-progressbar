@@ -33,6 +33,7 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@angular/forms": "^2.0.0",
     "@angular/platform-browser": "^2.0.0",
     "@angular/platform-browser-dynamic": "^2.0.2",
     "@types/glob": "^5.0.29",
@@ -44,13 +45,13 @@
     "gulp-sass": "^2.3.2",
     "gulp-server-livereload": "^1.8.2",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-typescript": "^2.13.6",
+    "gulp-typescript": "^3.1.5",
     "merge2": "^1.0.2",
     "node-sass": "^3.4.2",
     "run-sequence": "^1.2.2",
     "systemjs": "0.19.38",
-    "ts-node": "^0.7.3",
+    "ts-node": "^2.0.0",
     "tslint": "^3.13.0",
-    "typescript": "^2.0.2"
+    "typescript": "^2.1.0"
   }
 }

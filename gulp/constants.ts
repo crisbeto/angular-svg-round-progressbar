@@ -1,4 +1,4 @@
-import { join } from 'path';
+import {join} from 'path';
 
 export const SRC = './src';
 export const DIST = './dist';

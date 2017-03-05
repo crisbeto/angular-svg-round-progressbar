@@ -1,4 +1,4 @@
-import { src } from 'gulp';
+import {src} from 'gulp';
 
 const gulpServer = require('gulp-server-livereload');
 

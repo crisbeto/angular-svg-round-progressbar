@@ -9,9 +9,9 @@ import {
   Renderer,
 } from '@angular/core';
 
-import { RoundProgressService } from './round-progress.service';
-import { RoundProgressConfig } from './round-progress.config';
-import { RoundProgressEase } from './round-progress.ease';
+import {RoundProgressService} from './round-progress.service';
+import {RoundProgressConfig} from './round-progress.config';
+import {RoundProgressEase} from './round-progress.ease';
 
 @Component({
   selector: 'round-progress',

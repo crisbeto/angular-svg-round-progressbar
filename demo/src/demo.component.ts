@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { RoundProgressEase } from 'round-progress';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {RoundProgressEase} from 'round-progress';
 
 @Component({
   selector: 'demo',

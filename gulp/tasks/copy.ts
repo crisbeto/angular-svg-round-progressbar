@@ -1,5 +1,5 @@
-import { src, dest }  from 'gulp';
-import { join } from 'path';
+import {src, dest}  from 'gulp';
+import {join} from 'path';
 
 const merge = require('merge2');
 
