@@ -18,7 +18,7 @@ import {RoundProgressEase} from './round-progress.ease';
   template: `
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_viewBox">
       <circle
-        fill="none"
+        [attr.fill]="fill"
         [attr.cx]="radius"
         [attr.cy]="radius"
         [attr.r]="radius - stroke / 2"
@@ -32,6 +32,8 @@ import {RoundProgressEase} from './round-progress.ease';
         [style.stroke]="_service.resolveColor(color)"
         [style.stroke-linecap]="rounded ? 'round' : ''"
         [attr.transform]="getPathTransform()"/>
+
+      <ng-content></ng-content>
     </svg>
   `,
   host: {
@@ -183,6 +185,7 @@ export class RoundProgressComponent implements OnChanges {
   @Input() duration:         number = this._defaults.get('duration');
   @Input() stroke:           number = this._defaults.get('stroke');
   @Input() color:            string = this._defaults.get('color');
+  @Input() fill:             string = this._defaults.get('fill');
   @Input() background:       string = this._defaults.get('background');
   @Input() responsive:       boolean = this._defaults.get('responsive');
   @Input() clockwise:        boolean = this._defaults.get('clockwise');

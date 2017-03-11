@@ -16,6 +16,7 @@ export class DemoComponent {
   responsive: boolean = false;
   clockwise: boolean = true;
   color: string = '#45ccce';
+  fill: string = 'none';
   background: string = '#eaeaea';
   duration: number = 800;
   animation: string = 'easeOutCubic';
