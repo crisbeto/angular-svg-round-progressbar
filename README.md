@@ -57,7 +57,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [current]="current"
     [max]="max"
     [color]="'#45ccce'"
-    [background]="'none'"
+    [fill]="'none'"
     [background]="'#eaeaea'"
     [radius]="125"
     [stroke]="20"
