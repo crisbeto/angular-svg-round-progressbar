@@ -9,16 +9,16 @@ import {
   Renderer,
 } from '@angular/core';
 
-import {RoundProgressService} from './round-progress.service';
-import {RoundProgressConfig} from './round-progress.config';
-import {RoundProgressEase} from './round-progress.ease';
+import { RoundProgressService } from './round-progress.service';
+import { RoundProgressConfig } from './round-progress.config';
+import { RoundProgressEase } from './round-progress.ease';
 
 @Component({
   selector: 'round-progress',
   template: `
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_viewBox">
       <circle
-        fill="none"
+        [attr.fill]="fill"
         [attr.cx]="radius"
         [attr.cy]="radius"
         [attr.r]="radius - stroke / 2"
@@ -32,6 +32,8 @@ import {RoundProgressEase} from './round-progress.ease';
         [style.stroke]="_service.resolveColor(color)"
         [style.stroke-linecap]="rounded ? 'round' : ''"
         [attr.transform]="getPathTransform()"/>
+
+      <ng-content></ng-content>
     </svg>
   `,
   host: {
@@ -71,7 +73,7 @@ export class RoundProgressComponent implements OnChanges {
     private _defaults: RoundProgressConfig,
     private _ngZone: NgZone,
     private _renderer: Renderer
-  ) {}
+  ) { }
 
   /** Animates a change in the current value. */
   private _animateChange(from: number, to: number): void {
@@ -93,7 +95,7 @@ export class RoundProgressComponent implements OnChanges {
         const startTime = self._service.getTimestamp();
         const id = ++self._lastAnimationId;
 
-        requestAnimationFrame(function animation(){
+        requestAnimationFrame(function animation() {
           let currentTime = Math.min(self._service.getTimestamp() - startTime, duration);
           let value = ease(currentTime, from, changeInValue, duration);
 
@@ -118,7 +120,7 @@ export class RoundProgressComponent implements OnChanges {
   private _setPath(value: number): void {
     if (this._path) {
       this._renderer.setElementAttribute(this._path.nativeElement, 'd', this._service.getArc(value,
-          this.max, this.radius - this.stroke / 2, this.radius, this.semicircle));
+        this.max, this.radius - this.stroke / 2, this.radius, this.semicircle));
     }
   }
 
@@ -174,19 +176,20 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
-  @ViewChild('path')         _path;
-  @Input() current:          number;
-  @Input() max:              number;
-  @Input() radius:           number = this._defaults.get('radius');
-  @Input() animation:        string = this._defaults.get('animation');
-  @Input() animationDelay:   number = this._defaults.get('animationDelay');
-  @Input() duration:         number = this._defaults.get('duration');
-  @Input() stroke:           number = this._defaults.get('stroke');
-  @Input() color:            string = this._defaults.get('color');
-  @Input() background:       string = this._defaults.get('background');
-  @Input() responsive:       boolean = this._defaults.get('responsive');
-  @Input() clockwise:        boolean = this._defaults.get('clockwise');
-  @Input() semicircle:       boolean = this._defaults.get('semicircle');
-  @Input() rounded:          boolean = this._defaults.get('rounded');
-  @Output() onRender:        EventEmitter<number> = new EventEmitter();
+  @ViewChild('path') _path;
+  @Input() current: number;
+  @Input() max: number;
+  @Input() radius: number = this._defaults.get('radius');
+  @Input() animation: string = this._defaults.get('animation');
+  @Input() animationDelay: number = this._defaults.get('animationDelay');
+  @Input() duration: number = this._defaults.get('duration');
+  @Input() stroke: number = this._defaults.get('stroke');
+  @Input() color: string = this._defaults.get('color');
+  @Input() fill: string = this._defaults.get('fill');
+  @Input() background: string = this._defaults.get('background');
+  @Input() responsive: boolean = this._defaults.get('responsive');
+  @Input() clockwise: boolean = this._defaults.get('clockwise');
+  @Input() semicircle: boolean = this._defaults.get('semicircle');
+  @Input() rounded: boolean = this._defaults.get('rounded');
+  @Output() onRender: EventEmitter<number> = new EventEmitter();
 }
