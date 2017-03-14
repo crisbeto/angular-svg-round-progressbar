@@ -2,7 +2,7 @@ import {src, task, watch} from 'gulp';
 import {join} from 'path';
 
 import {DEMO} from './constants';
-import compileTs from './tasks/compileTs';
+// import compileTs from './tasks/compileTs';
 import clean from './tasks/clean';
 import server from './tasks/server';
 import copy from './tasks/copy';
@@ -12,12 +12,12 @@ const runSequence = require('run-sequence');
 
 task('demo:clean', clean(join(DEMO, '{vendor,dist}')));
 
-task('demo:ts', compileTs(
-  join(DEMO, 'src/**/*.ts'),
-  join(DEMO, 'dist'),
-  null,
-  join(DEMO, 'tsconfig.json')
-));
+// task('demo:ts', compileTs(
+//   join(DEMO, 'src/**/*.ts'),
+//   join(DEMO, 'dist'),
+//   null,
+//   join(DEMO, 'tsconfig.json')
+// ));
 
 task('demo:assets', copy(
  'node_modules',

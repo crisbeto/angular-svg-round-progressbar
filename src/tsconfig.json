@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "declaration": true,
     "emitDecoratorMetadata": true,
@@ -9,6 +10,12 @@
     "noEmitOnError": true,
     "sourceMap": true,
     "target": "es5",
-    "stripInternal": true
+    "stripInternal": true,
+    "rootDir": "./",
+    "outDir": "../dist"
+  },
+  "angularCompilerOptions": {
+    "genDir": "../dist",
+    "skipTemplateCodegen": true
   }
 }

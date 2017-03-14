@@ -1,1 +1,0 @@
-{"summaries":[{"symbol":{"__symbol":0},"metadata":{"__symbolic":"function","parameters":["targets"],"value":{"__symbolic":"error","message":"Function call not supported","line":6,"character":9}}}],"symbols":[{"__symbol":0,"name":"cleanTask","filePath":"/Users/kkostadinov/projects/angular-svg-round-progressbar/gulp/tasks/clean.d.ts"}]}
