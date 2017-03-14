@@ -1,26 +1,21 @@
-import {src, dest} from 'gulp';
+import * as child_process from 'child_process';
 
-const gulpTs = require('gulp-typescript');
-const gulpSourcemaps = require('gulp-sourcemaps');
-const merge = require('merge2');
+const resolveBin = require('resolve-bin');
 
 // Compiles TypeScript files.
 export default function compileTs(source: string, target: string, overrides?: any,
   tsConfig = './tsconfig.json') {
 
-  return () => {
-    const config: any = {};
+  return (done: any) => {
+    resolveBin('@angular/compiler-cli', { executable: 'ngc' }, (err: Error, ngc: string) => {
+      const childProcess = child_process.spawn('node', [ngc, '-p', tsConfig]);
 
-    if (overrides) {
-      Object.keys(overrides).forEach(key => config[key] = overrides[key]);
-    }
+      childProcess.stdout.on('data', (data: string) => process.stdout.write(data));
+      childProcess.stderr.on('data', (data: string) => process.stderr.write(data));
 
-    const tsProject = gulpTs.createProject(tsConfig, config);
-    const pipe = src(source).pipe(gulpSourcemaps.init()).pipe(tsProject());
-
-    return merge(
-      pipe.dts.pipe(dest(target)),
-      pipe.pipe(gulpSourcemaps.write('.')).pipe(dest(target))
-    );
+      childProcess.on('close', (code: number) => {
+        done(code === 0 ? code : 'Process failed with code ' + code);
+      });
+    });
   };
 }

@@ -1,0 +1,1 @@
+{"summaries":[{"symbol":{"__symbol":0},"metadata":{"__symbolic":"function","parameters":["root","target","files"],"value":{"__symbolic":"error","message":"Function call not supported","line":7,"character":9}}}],"symbols":[{"__symbol":0,"name":"copy","filePath":"/Users/kkostadinov/projects/angular-svg-round-progressbar/gulp/tasks/copy.d.ts"}]}

@@ -1,0 +1,1 @@
+{"summaries":[{"symbol":{"__symbol":0},"metadata":{"__symbolic":"function","parameters":["source"],"value":{"__symbolic":"error","message":"Function call not supported","line":6,"character":9}}}],"symbols":[{"__symbol":0,"name":"server","filePath":"/Users/kkostadinov/projects/angular-svg-round-progressbar/gulp/tasks/server.d.ts"}]}
