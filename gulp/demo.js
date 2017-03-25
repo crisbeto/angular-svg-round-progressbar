@@ -7,17 +7,12 @@ const DEMO = require('./constants').DEMO;
 const clean = require('./tasks/clean');
 const server = require('./tasks/server');
 const copy = require('./tasks/copy');
-
-// import compileTs from './tasks/compileTs';
+const compile = require('./tasks/compile');
 
 gulp.task('demo:clean', clean(path.join(DEMO, '{vendor,dist}')));
-
-// gulp.task('demo:ts', compileTs(
-//   path.join(DEMO, 'src/**/*.ts'),
-//   path.join(DEMO, 'dist'),
-//   null,
-//   path.join(DEMO, 'tsconfig.json')
-// ));
+gulp.task('demo:server', server(DEMO));
+gulp.task('demo:gh-pages', () => gulp.src(path.join(DEMO, '**/*')).pipe(ghPages()));
+gulp.task('demo:ts', compile.tsc(DEMO));
 
 gulp.task('demo:assets', copy(
  'node_modules',
@@ -38,10 +33,6 @@ gulp.task('demo:build', done => {
 gulp.task('demo:watch', () => {
   gulp.watch(path.join(DEMO, 'src/**/*.ts'), ['demo:ts']);
 });
-
-gulp.task('demo:server', server(DEMO));
-
-gulp.task('demo:gh-pages', () => gulp.src(path.join(DEMO, '**/*')).pipe(ghPages()));
 
 gulp.task('demo:deploy', done => {
   runSequence('demo:build', 'demo:gh-pages', done);

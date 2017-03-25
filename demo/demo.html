@@ -8,7 +8,7 @@
   <div class="progress-wrapper">
     <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}/{{ max }}</div>
 
-    <!--<round-progress
+    <round-progress
       [current]="current"
       [max]="max"
       [stroke]="stroke"
@@ -21,7 +21,7 @@
       [background]="background"
       [duration]="duration"
       [animation]="animation"
-      [animationDelay]="animationDelay"></round-progress>-->
+      [animationDelay]="animationDelay"></round-progress>
   </div>
 
   <button (click)="increment();">Increment</button>

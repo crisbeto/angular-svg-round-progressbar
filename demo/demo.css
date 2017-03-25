@@ -2,12 +2,12 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: #fafafa;
 }
 
-h2{
+h2 {
   margin: 0 0 40px;
 }
 
@@ -21,13 +21,13 @@ h2{
   clear: both;
 }
 
-.progress-wrapper{
+.progress-wrapper {
   position: relative;
   margin: 20px auto;
   font-size: 40px;
 }
 
-.current{
+.current {
   position: absolute;
   color: #bbb;
   font-weight: 100;
@@ -38,7 +38,7 @@ round-progress {
   margin: auto;
 }
 
-.container{
+.container {
   width: 100%;
   max-width: 650px;
   margin: 40px auto 80px;
@@ -49,7 +49,7 @@ round-progress {
   border-radius: 4px;
 }
 
-button{
+button {
   display: inline-block;
   padding: 10px 20px;
   background: #45ccce;
@@ -62,38 +62,34 @@ button{
   margin: 0 5px 5px 0;
 }
 
-form{
+form {
   text-align: left;
   max-width: 350px;
   margin: 30px auto;
 }
 
-form > div{
+form > div {
   margin-bottom: 15px;
 }
 
-input, select{
+input, select {
   float: right;
   padding: 5px;
   width: 150px;
 }
 
-input[type='checkbox']{
+input[type='checkbox'] {
   width: auto;
 }
 
-input[type='color']{
+input[type='color'] {
   height: 30px;
 }
 
-.back{
+.back {
   position: fixed;
   top: 5px;
   right: 5px;
-}
-
-.ng-cloak{
-  display: none;
 }
 
 .loading {
@@ -107,7 +103,7 @@ input[type='color']{
   color: #bbb;
 }
 
-@media(max-width: 650px){
+@media (max-width: 650px) {
   body {
     padding: 12.5px;
   }

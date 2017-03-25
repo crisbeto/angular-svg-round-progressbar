@@ -1,12 +1,9 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-// import {RoundProgressEase} from 'round-progress';
+import {RoundProgressEase} from 'round-progress';
 
 @Component({
   selector: 'demo',
-  // templateUrl: './demo.html',
-  template: `
-    <div>ffs</div>
-  `,
+  templateUrl: './demo.html',
   encapsulation: ViewEncapsulation.None
 })
 export class DemoComponent {
@@ -27,15 +24,15 @@ export class DemoComponent {
   gradient: boolean = false;
   realCurrent: number = 0;
 
-  // constructor(private _ease: RoundProgressEase) {
-  //   // Kinda hacky way to get all of the easing functions at run-time, because it can
-  //   // technically fetch something from up the prototype chain.
-  //   for (let prop in _ease) {
-  //     if (prop.toLowerCase().indexOf('ease') > -1) {
-  //       this.animations.push(prop);
-  //     };
-  //   }
-  // }
+  constructor(private _ease: RoundProgressEase) {
+    // Kinda hacky way to get all of the easing functions at run-time, because it can
+    // technically fetch something from up the prototype chain.
+    for (let prop in _ease) {
+      if (prop.toLowerCase().indexOf('ease') > -1) {
+        this.animations.push(prop);
+      };
+    }
+  }
 
   increment(amount = 1) {
     this.current += amount;
