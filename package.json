@@ -53,7 +53,6 @@
     "resolve-bin": "^0.4.0",
     "run-sequence": "^1.2.2",
     "systemjs": "0.19.38",
-    "ts-node": "^2.0.0",
     "tslint": "^3.13.0",
     "typescript": "~2.0.10"
   }
