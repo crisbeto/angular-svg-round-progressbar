@@ -22,14 +22,14 @@ import {RoundProgressEase} from './round-progress.ease';
         [attr.cx]="radius"
         [attr.cy]="radius"
         [attr.r]="radius - stroke / 2"
-        [style.stroke]="_service.resolveColor(background)"
+        [style.stroke]="resolveColor(background)"
         [style.stroke-width]="stroke"/>
 
       <path
         #path
         fill="none"
         [style.stroke-width]="stroke"
-        [style.stroke]="_service.resolveColor(color)"
+        [style.stroke]="resolveColor(color)"
         [style.stroke-linecap]="rounded ? 'round' : ''"
         [attr.transform]="getPathTransform()"/>
     </svg>
@@ -138,6 +138,11 @@ export class RoundProgressComponent implements OnChanges {
     } else if (!this.clockwise) {
       return `scale(-1, 1) translate(-${diameter} 0)`;
     }
+  }
+
+  /** Resolves a color through the service. */
+  resolveColor(color: string): string {
+    return this._service.resolveColor(color);
   }
 
   /** Change detection callback. */

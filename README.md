@@ -77,7 +77,7 @@ from the defaults.
 
 ```typescript
 import {NgModule} from '@angular/core';
-import {RoundProgressModule, RoundProgressConfig} from 'round-progress';
+import {RoundProgressModule, RoundProgressConfig} from 'angular-svg-round-progressbar';
 
 @NgModule({
   imports: [RoundProgressModule]
