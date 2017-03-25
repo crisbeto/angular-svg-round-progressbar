@@ -1,33 +1,33 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject, Optional} from '@angular/core';
+import {DOCUMENT} from '@angular/platform-browser';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
-const HAS_DOCUMENT = typeof document !== 'undefined';
-const BASE: HTMLBaseElement = HAS_DOCUMENT && document.head.querySelector('base');
-const HAS_PERF =
-  typeof window !== 'undefined' &&
-  window.performance &&
-  window.performance.now &&
-  typeof window.performance.now() === 'number';
 
 @Injectable()
 export class RoundProgressService {
-  supportsSvg: boolean;
+  private _base: HTMLBaseElement;
+  private _hasPerf: boolean;
+  public supportsSvg: boolean;
 
-  constructor() {
+  constructor(@Optional() @Inject(DOCUMENT) document: any) {
     this.supportsSvg = !!(
-      HAS_DOCUMENT &&
+      document &&
       document.createElementNS &&
       document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect
     );
+
+    this._base = document && document.head.querySelector('base');
+    this._hasPerf = typeof window !== 'undefined' &&
+                    window.performance &&
+                    window.performance.now &&
+                    typeof window.performance.now() === 'number';
   }
 
   /**
    * Resolves a SVG color against the page's `base` tag.
-   * @param  {string} color
-   * @return {string}
    */
   resolveColor(color: string): string {
-    if (BASE && BASE.href) {
+    if (this._base && this._base.href) {
       let hashIndex = color.indexOf('#');
 
       if (hashIndex > -1 && color.indexOf('url') > -1) {
@@ -40,20 +40,18 @@ export class RoundProgressService {
 
   /**
    * Generates a timestamp.
-   * @return {number}
    */
   getTimestamp(): number {
-    return HAS_PERF ? window.performance.now() : Date.now();
+    return this._hasPerf ? window.performance.now() : Date.now();
   }
 
   /**
    * Generates the value for an SVG arc.
-   * @param  {number}  current       Current value.
-   * @param  {number}  total         Maximum value.
-   * @param  {number}  pathRadius    Radius of the SVG path.
-   * @param  {number}  elementRadius Radius of the SVG container.
-   * @param  {boolean=false} isSemicircle  Whether the element should be a semicircle.
-   * @return {string}
+   * @param current       Current value.
+   * @param total         Maximum value.
+   * @param pathRadius    Radius of the SVG path.
+   * @param elementRadius Radius of the SVG container.
+   * @param isSemicircle  Whether the element should be a semicircle.
    */
   getArc(current: number, total: number, pathRadius: number,
          elementRadius: number, isSemicircle = false): string {
@@ -70,10 +68,9 @@ export class RoundProgressService {
 
   /**
    * Converts polar cooradinates to Cartesian.
-   * @param  {number} elementRadius  Radius of the wrapper element.
-   * @param  {number} pathRadius     Radius of the path being described.
-   * @param  {number} angleInDegrees Degree to be converted.
-   * @return {string}
+   * @param elementRadius  Radius of the wrapper element.
+   * @param pathRadius     Radius of the path being described.
+   * @param angleInDegrees Degree to be converted.
    */
   private _polarToCartesian(elementRadius: number, pathRadius: number,
     angleInDegrees: number): string {
