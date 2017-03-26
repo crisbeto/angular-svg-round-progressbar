@@ -2,15 +2,14 @@ const spawn = require('child_process').spawn;
 const path = require('path');
 const resolveBin = require('resolve-bin');
 
-function runCompiler(source, name, executable, config) {
+function runCompiler(source, name, executable, overrides) {
   return new Promise((resolve, reject) => {
     resolveBin(name, {executable}, (err, bin) => {
       const tsconfig = path.join(source, 'tsconfig.json');
-      const extras = config ? Object.keys(config).reduce((accumulator, key) => {
-        return accumulator.concat(key, config[key])
-      }, []) : [];
-
-      const childProcess = spawn('node', [bin, '-p', tsconfig].concat(extras));
+      const args = Object.keys(overrides || {}).reduce((accumulator, key) => {
+        return accumulator.concat(key, overrides[key])
+      }, [bin, '-p', tsconfig]);
+      const childProcess = spawn('node', args);
 
       childProcess.stdout.on('data', data => process.stdout.write(data));
       childProcess.stderr.on('data', data => process.stderr.write(data));
