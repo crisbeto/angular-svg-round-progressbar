@@ -4,6 +4,6 @@ const runSequence = require('run-sequence');
 require('./gulp/demo');
 require('./gulp/module');
 
-gulp.task('default', ['demo:build', 'module:ts:demo'], done => {
-  runSequence('demo:watch', 'module:watch', 'demo:server', done);
+gulp.task('default', done => {
+  runSequence('module:watch', 'demo:watch', 'demo:server', done);
 });

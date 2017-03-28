@@ -30,7 +30,7 @@ gulp.task('demo:build', done => {
   runSequence('demo:clean', 'demo:assets', 'demo:ts', done);
 });
 
-gulp.task('demo:watch', () => {
+gulp.task('demo:watch', ['demo:ts'], () => {
   gulp.watch(path.join(DEMO, 'src/**/*.ts'), ['demo:ts']);
 });
 

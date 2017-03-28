@@ -67,7 +67,7 @@ export class RoundProgressComponent implements OnChanges {
 
   constructor(
     private _service: RoundProgressService,
-    private _easingFunctions: RoundProgressEase,
+    private _easing: RoundProgressEase,
     private _defaults: RoundProgressConfig,
     private _ngZone: NgZone,
     private _renderer: Renderer
@@ -85,7 +85,6 @@ export class RoundProgressComponent implements OnChanges {
     const self = this;
     const changeInValue = to - from;
     const duration = self.duration;
-    const ease = self._easingFunctions[self.animation];
 
     // Avoid firing change detection for each of the animation frames.
     self._ngZone.runOutsideAngular(() => {
@@ -95,7 +94,7 @@ export class RoundProgressComponent implements OnChanges {
 
         requestAnimationFrame(function animation(){
           let currentTime = Math.min(self._service.getTimestamp() - startTime, duration);
-          let value = ease(currentTime, from, changeInValue, duration);
+          let value = self._easing[self.animation](currentTime, from, changeInValue, duration);
 
           self._setPath(value);
           self.onRender.emit(value);
