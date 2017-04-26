@@ -18,6 +18,7 @@
       [responsive]="responsive"
       [clockwise]="clockwise"
       [color]="gradient ? 'url(#gradient)' : color"
+      [fill]="fill"
       [background]="background"
       [duration]="duration"
       [animation]="animation"
@@ -98,6 +99,11 @@
     <div class="cf">
       <label for="color">Color:</label>
       <input id="color" name="color" type="color" [(ngModel)]="color"/>
+    </div>
+
+    <div class="cf">
+      <label for="fill">Fill color:</label>
+      <input id="fill" name="fill" type="color" [(ngModel)]="fill"/>
     </div>
 
     <div class="cf">
