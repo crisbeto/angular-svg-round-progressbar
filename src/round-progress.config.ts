@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export interface RoundProgressDefaults {
   radius?: number;
@@ -7,6 +7,7 @@ export interface RoundProgressDefaults {
   duration?: number;
   stroke?: number;
   color?: string;
+  fill?: string;
   background?: string;
   responsive?: boolean;
   clockwise?: boolean;
@@ -23,6 +24,7 @@ export class RoundProgressConfig {
     duration: 500,
     stroke: 15,
     color: '#45CCCE',
+    fill: 'none',
     background: '#EAEAEA',
     responsive: false,
     clockwise: true,
