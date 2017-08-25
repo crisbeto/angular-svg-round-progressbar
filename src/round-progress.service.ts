@@ -58,7 +58,7 @@ export class RoundProgressService {
 
     let value = Math.max(0, Math.min(current || 0, total));
     let maxAngle = isSemicircle ? 180 : 359.9999;
-    let percentage = (value / total) * maxAngle;
+    let percentage = total === 0 ? maxAngle :  (value / total) * maxAngle;
     let start = this._polarToCartesian(elementRadius, pathRadius, percentage);
     let end = this._polarToCartesian(elementRadius, pathRadius, 0);
     let arcSweep = (percentage <= 180 ? 0 : 1);
