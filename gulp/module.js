@@ -20,7 +20,7 @@ gulp.task('module:ts:umd', compile.tsc(constants.SRC, {
   '--module': 'system'
 }));
 
-gulp.task('module:watch', ['module:build'], () => {
+gulp.task('module:watch', ['module:build', 'module:ts:demo'], () => {
   gulp.watch(path.join(constants.SRC, '**/*.ts'), ['module:ts:demo']);
 });
 
