@@ -71,25 +71,29 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
 
 ### Configuring the default values
 The module comes with some pre-configured options for things like colors, size, stroke etc. If these
-don't match your app's design, you can change the global defaults by using the `RoundProgressConfig`
-service. Whenever an option isn't defined on a `round-progress` element, it's value will be taken
-from the defaults.
+don't match your app's design, you can change the global defaults by providing a new value for the
+`ROUND_PROGRESS_DEFAULTS` injection token. Whenever an option isn't defined on a `round-progress`
+element, it's value will be taken from the defaults.
 
 ```typescript
 import {NgModule} from '@angular/core';
-import {RoundProgressModule, RoundProgressConfig} from 'angular-svg-round-progressbar';
+import {
+  RoundProgressModule,
+  RoundProgressConfig,
+  ROUND_PROGRESS_DEFAULTS
+  } from 'angular-svg-round-progressbar';
 
 @NgModule({
-  imports: [RoundProgressModule]
-})
-export class YourModule {
-  constructor(private _config: RoundProgressConfig) {
-    _config.setDefaults({
+  imports: [RoundProgressModule],
+  providers: [{
+    provide: ROUND_PROGRESS_DEFAULTS,
+    useValue: {
       color: '#f00',
       background: '#0f0'
-    });
-  }
-};
+    }
+  }]
+})
+export class YourModule {};
 ```
 
 ## Browser support

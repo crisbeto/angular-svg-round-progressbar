@@ -1,4 +1,24 @@
-import {Injectable} from '@angular/core';
+import {InjectionToken, Provider} from '@angular/core';
+
+export const ROUND_PROGRESS_DEFAULTS =
+    new InjectionToken<RoundProgressDefaults>('ROUND_PROGRESS_DEFAULTS');
+
+export const ROUND_PROGRESS_DEFAULTS_PROVIDER: Provider = {
+  provide: ROUND_PROGRESS_DEFAULTS,
+  useValue: {
+    radius: 125,
+    animation: 'easeOutCubic',
+    animationDelay: null,
+    duration: 500,
+    stroke: 15,
+    color: '#45CCCE',
+    background: '#EAEAEA',
+    responsive: false,
+    clockwise: true,
+    semicircle: false,
+    rounded: false
+  }
+};
 
 export interface RoundProgressDefaults {
   radius?: number;
@@ -12,31 +32,4 @@ export interface RoundProgressDefaults {
   clockwise?: boolean;
   semicircle?: boolean;
   rounded?: boolean;
-}
-
-@Injectable()
-export class RoundProgressConfig {
-  private _options: RoundProgressDefaults = {
-    radius: 125,
-    animation: 'easeOutCubic',
-    animationDelay: null,
-    duration: 500,
-    stroke: 15,
-    color: '#45CCCE',
-    background: '#EAEAEA',
-    responsive: false,
-    clockwise: true,
-    semicircle: false,
-    rounded: false
-  };
-
-  /** Configures the defaults. */
-  setDefaults(config: RoundProgressDefaults): RoundProgressDefaults {
-    return Object.assign(this._options, config);
-  }
-
-  /** Fetches a value from the defaults. */
-  get(key: string) {
-    return this._options[key];
-  }
 }

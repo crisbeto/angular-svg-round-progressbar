@@ -1,6 +1,7 @@
 System.config({
   map: {
     'rxjs': 'vendor/rxjs',
+    'rxjs/operators': 'vendor/rxjs/operators',
     '@angular/core': 'vendor/@angular/core/bundles/core.umd.js',
     '@angular/common': 'vendor/@angular/common/bundles/common.umd.js',
     '@angular/compiler': 'vendor/@angular/compiler/bundles/compiler.umd.js',
@@ -14,6 +15,7 @@ System.config({
   },
   packages: {
     'rxjs': { main: 'index' },
+    'rxjs/operators': { main: 'index' },
     '.': { defaultExtension: 'js' }
   }
 });

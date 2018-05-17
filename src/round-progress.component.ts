@@ -7,10 +7,11 @@ import {
   EventEmitter,
   ViewChild,
   Renderer,
+  Inject,
 } from '@angular/core';
 
 import {RoundProgressService} from './round-progress.service';
-import {RoundProgressConfig} from './round-progress.config';
+import {ROUND_PROGRESS_DEFAULTS, RoundProgressDefaults} from './round-progress.config';
 import {RoundProgressEase} from './round-progress.ease';
 
 @Component({
@@ -68,7 +69,7 @@ export class RoundProgressComponent implements OnChanges {
   constructor(
     private _service: RoundProgressService,
     private _easing: RoundProgressEase,
-    private _defaults: RoundProgressConfig,
+    @Inject(ROUND_PROGRESS_DEFAULTS) private _defaults: RoundProgressDefaults,
     private _ngZone: NgZone,
     private _renderer: Renderer
   ) {}
@@ -181,16 +182,16 @@ export class RoundProgressComponent implements OnChanges {
   @ViewChild('path')         _path;
   @Input() current:          number;
   @Input() max:              number;
-  @Input() radius:           number = this._defaults.get('radius');
-  @Input() animation:        string = this._defaults.get('animation');
-  @Input() animationDelay:   number = this._defaults.get('animationDelay');
-  @Input() duration:         number = this._defaults.get('duration');
-  @Input() stroke:           number = this._defaults.get('stroke');
-  @Input() color:            string = this._defaults.get('color');
-  @Input() background:       string = this._defaults.get('background');
-  @Input() responsive:       boolean = this._defaults.get('responsive');
-  @Input() clockwise:        boolean = this._defaults.get('clockwise');
-  @Input() semicircle:       boolean = this._defaults.get('semicircle');
-  @Input() rounded:          boolean = this._defaults.get('rounded');
+  @Input() radius:           number = this._defaults.radius;
+  @Input() animation:        string = this._defaults.animation;
+  @Input() animationDelay:   number = this._defaults.animationDelay;
+  @Input() duration:         number = this._defaults.duration;
+  @Input() stroke:           number = this._defaults.stroke;
+  @Input() color:            string = this._defaults.color;
+  @Input() background:       string = this._defaults.background;
+  @Input() responsive:       boolean = this._defaults.responsive;
+  @Input() clockwise:        boolean = this._defaults.clockwise;
+  @Input() semicircle:       boolean = this._defaults.semicircle;
+  @Input() rounded:          boolean = this._defaults.rounded;
   @Output() onRender:        EventEmitter<number> = new EventEmitter();
 }
