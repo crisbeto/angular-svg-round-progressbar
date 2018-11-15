@@ -1,13 +1,13 @@
 import {
-  Component,
-  Input,
-  Output,
-  OnChanges,
-  NgZone,
-  EventEmitter,
-  ViewChild,
-  Renderer,
-  Inject,
+    Component,
+    Input,
+    Output,
+    OnChanges,
+    NgZone,
+    EventEmitter,
+    ViewChild,
+    Renderer,
+    Inject, OnInit,
 } from '@angular/core';
 
 import {RoundProgressService} from './round-progress.service';
@@ -22,9 +22,9 @@ import {RoundProgressEase} from './round-progress.ease';
         fill="none"
         [attr.cx]="radius"
         [attr.cy]="radius"
-        [attr.r]="radius - stroke / 2"
+        [attr.r]="radius - strokeBackground / 2"
         [style.stroke]="resolveColor(background)"
-        [style.stroke-width]="stroke"/>
+        [style.stroke-width]="strokeBackground"/>
 
       <path
         #path
@@ -63,7 +63,7 @@ import {RoundProgressEase} from './round-progress.ease';
     }`
   ]
 })
-export class RoundProgressComponent implements OnChanges {
+export class RoundProgressComponent implements OnChanges, OnInit {
   private _lastAnimationId: number = 0;
 
   constructor(
@@ -154,6 +154,13 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
+  /** On init callback */
+  ngOnInit(): void {
+    if (this.strokeBackground == undefined){
+        this.strokeBackground = this.stroke;
+    }
+  }
+
   /** Diameter of the circle. */
   get _diameter(): number {
     return this.radius * 2;
@@ -187,6 +194,7 @@ export class RoundProgressComponent implements OnChanges {
   @Input() animationDelay:   number = this._defaults.animationDelay;
   @Input() duration:         number = this._defaults.duration;
   @Input() stroke:           number = this._defaults.stroke;
+  @Input() strokeBackground?: number;
   @Input() color:            string = this._defaults.color;
   @Input() background:       string = this._defaults.background;
   @Input() responsive:       boolean = this._defaults.responsive;
