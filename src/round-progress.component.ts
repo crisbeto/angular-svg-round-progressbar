@@ -211,7 +211,7 @@ export class RoundProgressComponent implements OnChanges, OnInit {
   @Input() rounded:          boolean = this._defaults.rounded;
   @Input() strokeBackground?: number;
   @Input() internalCircle:   boolean = this._defaults.internalCircle;
-  @Input() internalCircleRadius: string = this._defaults.internalCircleRadius;
+  @Input() internalCircleRadius: number = this._defaults.internalCircleRadius;
   @Input() internalCircleColor?: string;
   @Output() onRender:        EventEmitter<number> = new EventEmitter();
 }
