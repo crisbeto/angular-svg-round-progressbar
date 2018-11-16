@@ -60,6 +60,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [background]="'#eaeaea'"
     [radius]="125"
     [stroke]="20"
+    [strokeBackground]="10"
     [semicircle]="true"
     [rounded]="true"
     [clockwise]="false"
