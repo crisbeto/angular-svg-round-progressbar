@@ -18,11 +18,17 @@ import {RoundProgressEase} from './round-progress.ease';
   selector: 'round-progress',
   template: `
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_viewBox">
+      <circle *ngIf="internalCircle"
+        [attr.fill]="internalCircleColor"
+        [attr.cx]="radius"
+        [attr.cy]="radius"
+        [attr.r]="internalCircleRadius"/>
+        
       <circle
         fill="none"
         [attr.cx]="radius"
         [attr.cy]="radius"
-        [attr.r]="radius - strokeBackground / 2"
+        [attr.r]="radius - stroke / 2"
         [style.stroke]="resolveColor(background)"
         [style.stroke-width]="strokeBackground"/>
 
@@ -156,8 +162,11 @@ export class RoundProgressComponent implements OnChanges, OnInit {
 
   /** On init callback */
   ngOnInit(): void {
-    if (this.strokeBackground == undefined){
+    if (this.strokeBackground == undefined) {
         this.strokeBackground = this.stroke;
+    }
+    if (this.internalCircleColor == undefined) {
+        this.internalCircleColor = this.color;
     }
   }
 
@@ -194,12 +203,15 @@ export class RoundProgressComponent implements OnChanges, OnInit {
   @Input() animationDelay:   number = this._defaults.animationDelay;
   @Input() duration:         number = this._defaults.duration;
   @Input() stroke:           number = this._defaults.stroke;
-  @Input() strokeBackground?: number;
   @Input() color:            string = this._defaults.color;
   @Input() background:       string = this._defaults.background;
   @Input() responsive:       boolean = this._defaults.responsive;
   @Input() clockwise:        boolean = this._defaults.clockwise;
   @Input() semicircle:       boolean = this._defaults.semicircle;
   @Input() rounded:          boolean = this._defaults.rounded;
+  @Input() strokeBackground?: number;
+  @Input() internalCircle:   boolean = this._defaults.internalCircle;
+  @Input() internalCircleRadius: string = this._defaults.internalCircleRadius;
+  @Input() internalCircleColor?: string;
   @Output() onRender:        EventEmitter<number> = new EventEmitter();
 }

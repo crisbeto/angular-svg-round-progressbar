@@ -22,6 +22,9 @@ export class DemoComponent {
   animationDelay: number = 0;
   animations: string[] = [];
   gradient: boolean = false;
+  internalCircle: boolean = true;
+  internalColor: string = '#eaeaea';
+  internalRadius: number = 90;
   realCurrent: number = 0;
 
   constructor(private _ease: RoundProgressEase) {
