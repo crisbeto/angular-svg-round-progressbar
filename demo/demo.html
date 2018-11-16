@@ -6,8 +6,6 @@
   <h2>Sample progressbar</h2>
 
   <div class="progress-wrapper">
-    <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}/{{ max }}</div>
-
     <round-progress
       [current]="current"
       [max]="max"
@@ -21,7 +19,13 @@
       [background]="background"
       [duration]="duration"
       [animation]="animation"
+      [strokeBackground]="strokeBackground"
+      [internalCircle]="internalCircle"
+      [internalCircleColor]="internalColor"
+      [internalCircleRadius]="internalRadius"
       [animationDelay]="animationDelay"></round-progress>
+
+      <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}/{{ max }}</div>
   </div>
 
   <button (click)="increment();">Increment</button>
@@ -74,6 +78,11 @@
     </div>
 
     <div class="cf">
+      <label for="strokeBackground">Background stroke:</label>
+      <input id="strokeBackground" name="strokeBackground" type="number" [(ngModel)]="strokeBackground"/>
+    </div>
+
+    <div class="cf">
       <label for="radius">Radius:</label>
       <input id="radius" name="radius" type="number" [(ngModel)]="radius"/>
     </div>
@@ -104,6 +113,22 @@
       <label for="background">Background color:</label>
       <input id="background" name="background" type="color" [(ngModel)]="background"/>
     </div>
+
+    <div class="cf">
+      <label for="internalCircle">Internal circle:</label>
+      <input id="internalCircle" name="internalCircle" type="checkbox" [(ngModel)]="internalCircle"/>
+    </div>
+
+    <div class="cf">
+      <label for="internalRadius">Internal circle radius:</label>
+      <input id="internalRadius" name="internalRadius" type="number" [(ngModel)]="internalRadius"/>
+    </div>
+
+    <div class="cf">
+      <label for="internalColor">Internal circle color:</label>
+      <input id="internalColor" name="internalColor" type="color" [(ngModel)]="internalColor"/>
+    </div>
+
   </form>
 </div>
 

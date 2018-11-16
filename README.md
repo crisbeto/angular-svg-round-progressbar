@@ -35,6 +35,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
 | `color`        | The color of the `current` value on the circle.                                                           | No        | `#45ccce`         | `string`          |
 | `background`   | Color of the circle's background.                                                                         | No        | `#eaeaea`         | `string`          |
 | `stroke`       | Specifies the circle's thickness.                                                                         | No        | `15`              | `number`          |
+| `strokeBackground` | Specifies the background circle's thickness.                                                          | No        | the stroke value  | `number`          |
 | `semicircle`   | Whether the progressbar should be a full circle or a semicircle.                                          | No        | `false`           | `boolean`         |
 | `clockwise`    | Whether the progressbar should rotate clockwise or counter-clockwise.                                     | No        | `true`            | `boolean`         |
 | `responsive`   | Whether the progressbar should fit inside its parent container. **Note** Turning this option on will override the specified radius in order to make the circle fit in its parent. The radius to stroke ratio won't change.                                     | No        | `false`            | `boolean`           |
@@ -43,6 +44,9 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
 | `animationDelay` | Milliseconds to wait before starting an animation.                                                     | No         | `0`               | `number`          |
 | `onRender`     | Callback function that gets executed every time the circle is animated. The function gets called with the current progress as it is being animated.                                | No        | `undefined`       | `Function`         |
 | `animation`    | The easing function that will be used when animating.                                                     | No        | easeOutCubic      | linearEase <br> easeInQuad <br> easeOutQuad <br> easeInOutQuad <br> easeInCubic <br> easeOutCubic <br> easeInOutCubic <br> easeInQuart <br> easeOutQuart <br> easeInOutQuart <br> easeInQuint <br> easeOutQuint <br> easeInOutQuint <br> easeInSine <br> easeOutSine <br> easeInOutSine <br> easeInExpo <br> easeOutExpo <br> easeInOutExpo <br> easeInCirc <br> easeOutCirc <br> easeInOutCirc <br> easeInElastic <br> easeOutElastic <br> easeInOutElastic <br> easeInBack <br> easeOutBack <br> easeInOutBack <br> easeInBounce <br> easeOutBounce <br> easeInOutBounce <br> |
+| `internalCircle` | Whether the internal circle should be visible.                                                     | No        | `true`      | `boolean` |
+| `internalCircleColor` | The color of the internal circle.                                                     | No        | the color parameter      | `string` |
+| `internalCircleRadius` | Radius of the internal circle.                                                     | No        | `100`      | `string` |
 
 
 ### Minimal example:
@@ -59,6 +63,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [background]="'#eaeaea'"
     [radius]="125"
     [stroke]="20"
+    [strokeBackground]="10"
     [semicircle]="true"
     [rounded]="true"
     [clockwise]="false"
@@ -66,6 +71,9 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [duration]="800"
     [animation]="'easeInOutQuart'"
     [animationDelay]="0"
+    [internalCircle]="true"
+    [internalCircleColor]="#eaeaea"
+    [internalCircleRadius]="90"
     (onRender)="doSomethingWithCurrentValue($event)"></round-progress>
 ```
 

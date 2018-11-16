@@ -1,13 +1,13 @@
 import {
-  Component,
-  Input,
-  Output,
-  OnChanges,
-  NgZone,
-  EventEmitter,
-  ViewChild,
-  Renderer,
-  Inject,
+    Component,
+    Input,
+    Output,
+    OnChanges,
+    NgZone,
+    EventEmitter,
+    ViewChild,
+    Renderer,
+    Inject, OnInit,
 } from '@angular/core';
 
 import {RoundProgressService} from './round-progress.service';
@@ -18,13 +18,19 @@ import {RoundProgressEase} from './round-progress.ease';
   selector: 'round-progress',
   template: `
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_viewBox">
+      <circle *ngIf="internalCircle"
+        [attr.fill]="internalCircleColor"
+        [attr.cx]="radius"
+        [attr.cy]="radius"
+        [attr.r]="internalCircleRadius"/>
+        
       <circle
         fill="none"
         [attr.cx]="radius"
         [attr.cy]="radius"
         [attr.r]="radius - stroke / 2"
         [style.stroke]="resolveColor(background)"
-        [style.stroke-width]="stroke"/>
+        [style.stroke-width]="strokeBackground"/>
 
       <path
         #path
@@ -63,7 +69,7 @@ import {RoundProgressEase} from './round-progress.ease';
     }`
   ]
 })
-export class RoundProgressComponent implements OnChanges {
+export class RoundProgressComponent implements OnChanges, OnInit {
   private _lastAnimationId: number = 0;
 
   constructor(
@@ -154,6 +160,16 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
+  /** On init callback */
+  ngOnInit(): void {
+    if (this.strokeBackground == undefined) {
+        this.strokeBackground = this.stroke;
+    }
+    if (this.internalCircleColor == undefined) {
+        this.internalCircleColor = this.color;
+    }
+  }
+
   /** Diameter of the circle. */
   get _diameter(): number {
     return this.radius * 2;
@@ -193,5 +209,9 @@ export class RoundProgressComponent implements OnChanges {
   @Input() clockwise:        boolean = this._defaults.clockwise;
   @Input() semicircle:       boolean = this._defaults.semicircle;
   @Input() rounded:          boolean = this._defaults.rounded;
+  @Input() strokeBackground?: number;
+  @Input() internalCircle:   boolean = this._defaults.internalCircle;
+  @Input() internalCircleRadius: number = this._defaults.internalCircleRadius;
+  @Input() internalCircleColor?: string;
   @Output() onRender:        EventEmitter<number> = new EventEmitter();
 }

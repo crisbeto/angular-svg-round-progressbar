@@ -12,16 +12,20 @@ export class DemoComponent {
   stroke: number = 15;
   radius: number = 125;
   semicircle: boolean = false;
-  rounded: boolean = false;
+  rounded: boolean = true;
   responsive: boolean = false;
   clockwise: boolean = true;
   color: string = '#45ccce';
   background: string = '#eaeaea';
+  strokeBackground: number = 10;
   duration: number = 800;
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
   animations: string[] = [];
   gradient: boolean = false;
+  internalCircle: boolean = true;
+  internalColor: string = '#eaeaea';
+  internalRadius: number = 100;
   realCurrent: number = 0;
 
   constructor(private _ease: RoundProgressEase) {
