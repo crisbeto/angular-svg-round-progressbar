@@ -19,6 +19,7 @@
       [background]="background"
       [duration]="duration"
       [animation]="animation"
+      [strokeBackground]="strokeBackground"
       [internalCircle]="internalCircle"
       [internalCircleColor]="internalColor"
       [internalCircleRadius]="internalRadius"
@@ -74,6 +75,11 @@
     <div class="cf">
       <label for="stroke">Stroke:</label>
       <input id="stroke" name="stroke" type="number" [(ngModel)]="stroke"/>
+    </div>
+
+    <div class="cf">
+      <label for="strokeBackground">Background stroke:</label>
+      <input id="strokeBackground" name="strokeBackground" type="number" [(ngModel)]="strokeBackground"/>
     </div>
 
     <div class="cf">
