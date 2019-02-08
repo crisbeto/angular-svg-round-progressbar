@@ -14,10 +14,30 @@ import {RoundProgressService} from './round-progress.service';
 import {ROUND_PROGRESS_DEFAULTS, RoundProgressDefaults} from './round-progress.config';
 import {RoundProgressEase} from './round-progress.ease';
 
+const GRAD_STROKE = "gradFill";
+const DIRECTIONS = ["top", "right", "bottom", "left"];
+const X1_POS = [0, 0, 0, 100];
+const X2_POS = [0, 100, 0, 0];
+const Y1_POS = [100, 0, 0, 0];
+const Y2_POS = [0, 0, 100, 0];
+
+
 @Component({
   selector: 'round-progress',
   template: `
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_viewBox">
+      <defs>
+        <linearGradient 
+          id="${GRAD_STROKE}" 
+          [attr.x1]="resolveGradCorner('x1')"
+          [attr.x2]="resolveGradCorner('x2')"
+          [attr.y1]="resolveGradCorner('y1')"
+          [attr.y2]="resolveGradCorner('y2')"
+          >
+          <stop offset="0%" [style.stop-color]="gradStartColor" style="stop-opacity:1" />
+          <stop offset="100%" [style.stop-color]="gradEndColor" style="stop-opacity:1" />
+        </linearGradient>
+      </defs>
       <circle
         fill="none"
         [attr.cx]="radius"
@@ -30,9 +50,9 @@ import {RoundProgressEase} from './round-progress.ease';
         #path
         fill="none"
         [style.stroke-width]="stroke"
-        [style.stroke]="resolveColor(color)"
         [style.stroke-linecap]="rounded ? 'round' : ''"
-        [attr.transform]="getPathTransform()"/>
+        [attr.transform]="getPathTransform()"
+        [attr.stroke]="resolveStroke()"/>
     </svg>
   `,
   host: {
@@ -145,6 +165,30 @@ export class RoundProgressComponent implements OnChanges {
     return this._service.resolveColor(color);
   }
 
+  /** Resolves the color or the linear gradient for the progress stroke  */
+  resolveStroke(){
+    return !this._useGrad ? this.resolveColor(this.color) : `url(#${GRAD_STROKE})`;
+  }
+
+  /** Resolves linear gradient direction */
+  resolveGradCorner(corner): string{
+    if (!this._useGrad) return "0%";
+    let index = DIRECTIONS.indexOf(this.gradDirection);
+    if (index < 0) index = DIRECTIONS.indexOf(this._defaults.gradDirection);
+    let perc = 0;
+    switch (corner){
+      case 'x1':
+        perc = X1_POS[index]; break;
+      case 'x2':
+        perc = X2_POS[index]; break;
+      case 'y1':
+        perc = Y1_POS[index]; break;
+      case 'y2':
+        perc = Y2_POS[index]; break;
+    }
+    return perc+"%";
+  }
+
   /** Change detection callback. */
   ngOnChanges(changes): void {
     if (changes.current) {
@@ -179,6 +223,11 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
+  get _useGrad():boolean {
+    return this.gradStartColor!==undefined && this.gradEndColor!==undefined;
+  }
+
+
   @ViewChild('path')         _path;
   @Input() current:          number;
   @Input() max:              number;
@@ -188,6 +237,9 @@ export class RoundProgressComponent implements OnChanges {
   @Input() duration:         number = this._defaults.duration;
   @Input() stroke:           number = this._defaults.stroke;
   @Input() color:            string = this._defaults.color;
+  @Input() gradStartColor:   string;
+  @Input() gradEndColor:     string;
+  @Input() gradDirection:    string = this._defaults.gradDirection;
   @Input() background:       string = this._defaults.background;
   @Input() responsive:       boolean = this._defaults.responsive;
   @Input() clockwise:        boolean = this._defaults.clockwise;

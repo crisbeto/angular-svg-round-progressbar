@@ -12,6 +12,7 @@ export const ROUND_PROGRESS_DEFAULTS_PROVIDER: Provider = {
     duration: 500,
     stroke: 15,
     color: '#45CCCE',
+    gradDirection: 'left',
     background: '#EAEAEA',
     responsive: false,
     clockwise: true,
@@ -27,6 +28,7 @@ export interface RoundProgressDefaults {
   duration?: number;
   stroke?: number;
   color?: string;
+  gradDirection?:string;
   background?: string;
   responsive?: boolean;
   clockwise?: boolean;
