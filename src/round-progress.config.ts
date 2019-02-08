@@ -28,8 +28,6 @@ export interface RoundProgressDefaults {
   duration?: number;
   stroke?: number;
   color?: string;
-  gradStartColor?: string;
-  gradEndColor?: string;
   gradDirection?:string;
   background?: string;
   responsive?: boolean;
