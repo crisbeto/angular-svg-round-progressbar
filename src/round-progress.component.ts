@@ -160,7 +160,7 @@ export class RoundProgressComponent implements OnChanges {
     }
   }
 
-  /** Resolves the color or the linear gradient for the fill  */
+  /** Resolves the color or the linear gradient for the progress stroke  */
   resolveStroke(){
     return !this._useGrad ? this._service.resolveColor(this.color) : `url(#${GRAD_STROKE})`;
   }
