@@ -4,7 +4,6 @@ node_modules/
 .vscode/
 .publish/
 npm-debug.log
-dist/
 demo/dist/
 demo/vendor/
 demo/round-progress/
