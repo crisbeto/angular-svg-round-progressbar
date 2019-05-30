@@ -24,10 +24,10 @@ export class DemoComponent {
   gradient: boolean = false;
   realCurrent: number = 0;
 
-  constructor(private _ease: RoundProgressEase) {
+  constructor(ease: RoundProgressEase) {
     // Kinda hacky way to get all of the easing functions at run-time, because it can
     // technically fetch something from up the prototype chain.
-    for (let prop in _ease) {
+    for (let prop in ease) {
       if (prop.toLowerCase().indexOf('ease') > -1) {
         this.animations.push(prop);
       };

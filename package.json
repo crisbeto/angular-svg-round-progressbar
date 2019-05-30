@@ -1,8 +1,10 @@
 {
   "name": "angular-svg-round-progressbar",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Angular module that uses SVG to create a circular progressbar",
-  "scripts": {},
+  "scripts": {
+    "lint": "tslint -p ./src/tsconfig.json"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/crisbeto/angular-svg-round-progressbar.git"
@@ -26,24 +28,23 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "peerDependencies": {
-    "@angular/compiler": "^6.0.0",
-    "@angular/common": "^6.0.0",
-    "@angular/core": "^6.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/common": "^8.0.0",
     "core-js": "^2.4.1",
-    "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "rxjs": "^6.4.0",
+    "zone.js": "^0.9.0"
   },
   "devDependencies": {
-    "@angular/compiler": "^6.0.0",
-    "@angular/common": "^6.0.0",
-    "@angular/core": "^6.0.0",
+    "@angular/compiler": "^8.0.0",
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
     "core-js": "^2.4.1",
-    "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26",
-    "@angular/compiler-cli": "^6.0.0",
-    "@angular/forms": "^6.0.0",
-    "@angular/platform-browser": "^6.0.0",
-    "@angular/platform-browser-dynamic": "^6.0.0",
+    "rxjs": "^6.4.0",
+    "zone.js": "^0.9.0",
+    "@angular/compiler-cli": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
+    "@angular/platform-browser-dynamic": "^8.0.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-gh-pages": "^0.5.4",
@@ -52,7 +53,8 @@
     "resolve-bin": "^0.4.0",
     "run-sequence": "^1.2.2",
     "systemjs": "0.19.38",
-    "tslint": "^3.13.0",
-    "typescript": "2.7.x"
+    "tslint": "^5.7.0",
+    "typescript": "~3.4.0",
+    "natives": "^1.1.3"
   }
 }

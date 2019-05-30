@@ -10,15 +10,15 @@ export class RoundProgressEase {
 
   linearEase(t: number, b: number, c: number, d: number): number {
     return c * t / d + b;
-  };
+  }
 
   easeInQuad(t: number, b: number, c: number, d: number): number {
     return c * (t /= d) * t + b;
-  };
+  }
 
   easeOutQuad(t: number, b: number, c: number, d: number): number {
     return -c * (t /= d) * (t - 2) + b;
-  };
+  }
 
   easeInOutQuad(t: number, b: number, c: number, d: number): number {
     if ((t /= d / 2) < 1) {
@@ -26,15 +26,15 @@ export class RoundProgressEase {
     }
 
     return -c / 2 * ((--t) * (t - 2) - 1) + b;
-  };
+  }
 
   easeInCubic(t: number, b: number, c: number, d: number): number {
     return c * (t /= d) * t * t + b;
-  };
+  }
 
   easeOutCubic(t: number, b: number, c: number, d: number): number {
     return c * ((t = t / d - 1) * t * t + 1) + b;
-  };
+  }
 
   easeInOutCubic(t: number, b: number, c: number, d: number): number {
     if ((t /= d / 2) < 1) {
@@ -42,15 +42,15 @@ export class RoundProgressEase {
     }
 
     return c / 2 * ((t -= 2) * t * t + 2) + b;
-  };
+  }
 
   easeInQuart(t: number, b: number, c: number, d: number): number {
     return c * (t /= d) * t * t * t + b;
-  };
+  }
 
   easeOutQuart(t: number, b: number, c: number, d: number): number {
     return -c * ((t = t / d - 1) * t * t * t - 1) + b;
-  };
+  }
 
   easeInOutQuart(t: number, b: number, c: number, d: number): number {
     if ((t /= d / 2) < 1) {
@@ -58,15 +58,15 @@ export class RoundProgressEase {
     }
 
     return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-  };
+  }
 
   easeInQuint(t: number, b: number, c: number, d: number): number {
     return c * (t /= d) * t * t * t * t + b;
-  };
+  }
 
   easeOutQuint(t: number, b: number, c: number, d: number): number {
     return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
-  };
+  }
 
   easeInOutQuint(t: number, b: number, c: number, d: number): number {
     if ((t /= d / 2) < 1) {
@@ -74,32 +74,32 @@ export class RoundProgressEase {
     }
 
     return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
-  };
+  }
 
   easeInSine(t: number, b: number, c: number, d: number): number {
     return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
-  };
+  }
 
   easeOutSine(t: number, b: number, c: number, d: number): number {
     return c * Math.sin(t / d * (Math.PI / 2)) + b;
-  };
+  }
 
   easeInOutSine(t: number, b: number, c: number, d: number): number {
     return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
-  };
+  }
 
   easeInExpo(t: number, b: number, c: number, d: number): number {
     return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
-  };
+  }
 
   easeOutExpo(t: number, b: number, c: number, d: number): number {
     return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-  };
+  }
 
   easeInOutExpo(t: number, b: number, c: number, d: number): number {
     if (t == 0) {
       return b;
-    };
+    }
 
     if (t == d) {
       return b + c;
@@ -110,15 +110,15 @@ export class RoundProgressEase {
     }
 
     return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
-  };
+  }
 
   easeInCirc(t: number, b: number, c: number, d: number): number {
     return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
-  };
+  }
 
   easeOutCirc(t: number, b: number, c: number, d: number): number {
     return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
-  };
+  }
 
   easeInOutCirc(t: number, b: number, c: number, d: number): number {
     if ((t /= d / 2) < 1) {
@@ -126,7 +126,7 @@ export class RoundProgressEase {
     }
 
     return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
-  };
+  }
 
   easeInElastic(t: number, b: number, c: number, d: number): number {
     let s = 1.70158;
@@ -149,7 +149,7 @@ export class RoundProgressEase {
     }
 
     return -(a * Math.pow(2, 10 * (t--)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-  };
+  }
 
   easeOutElastic(t: number, b: number, c: number, d: number): number {
     let s = 1.70158;
@@ -172,7 +172,7 @@ export class RoundProgressEase {
     }
 
     return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
-  };
+  }
 
   easeInOutElastic(t: number, b: number, c: number, d: number): number {
     let s = 1.70158;
@@ -201,15 +201,15 @@ export class RoundProgressEase {
 
     return a * Math.pow(2, -10 * (t -= 1)) *
       Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
-  };
+  }
 
   easeInBack(t: number, b: number, c: number, d: number, s = 1.70158): number {
     return c * (t /= d) * t * ((s + 1) * t - s) + b;
-  };
+  }
 
   easeOutBack(t: number, b: number, c: number, d: number, s = 1.70158): number {
     return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-  };
+  }
 
   easeInOutBack(t: number, b: number, c: number, d: number, s = 1.70158): number {
     if ((t /= d / 2) < 1) {
@@ -217,11 +217,11 @@ export class RoundProgressEase {
     }
 
     return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
-  };
+  }
 
   easeInBounce(t: number, b: number, c: number, d: number): number {
     return c - this.easeOutBounce(d - t, 0, c, d) + b;
-  };
+  }
 
   easeOutBounce(t: number, b: number, c: number, d: number): number {
     if ((t /= d) < (1 / 2.75)) {
@@ -233,7 +233,7 @@ export class RoundProgressEase {
     }
 
     return c * (7.5625 * (t -= (2.625 / 2.75)) * t + 0.984375) + b;
-  };
+  }
 
   easeInOutBounce(t: number, b: number, c: number, d: number): number {
     if (t < d / 2) {
@@ -241,7 +241,7 @@ export class RoundProgressEase {
     }
 
     return this.easeOutBounce(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
-  };
+  }
 }
 
 

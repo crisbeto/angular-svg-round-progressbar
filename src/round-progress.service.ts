@@ -1,9 +1,9 @@
 import {Injectable, Inject, Optional} from '@angular/core';
-import {DOCUMENT} from '@angular/platform-browser';
+import {DOCUMENT} from '@angular/common';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class RoundProgressService {
   private _base: HTMLBaseElement;
   private _hasPerf: boolean;
@@ -64,7 +64,7 @@ export class RoundProgressService {
     let arcSweep = (percentage <= 180 ? 0 : 1);
 
     return `M ${start} A ${pathRadius} ${pathRadius} 0 ${arcSweep} 0 ${end}`;
-  };
+  }
 
   /**
    * Converts polar cooradinates to Cartesian.
@@ -81,4 +81,4 @@ export class RoundProgressService {
 
     return x + ' ' + y;
   }
-};
+}
