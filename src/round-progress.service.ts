@@ -3,7 +3,7 @@ import {DOCUMENT} from '@angular/common';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class RoundProgressService {
   private _base: HTMLBaseElement;
   private _hasPerf: boolean;
