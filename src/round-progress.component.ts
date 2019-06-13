@@ -34,8 +34,8 @@ const Y2_POS = [0, 0, 100, 0];
           [attr.y1]="resolveGradCorner('y1')"
           [attr.y2]="resolveGradCorner('y2')"
           >
-          <stop offset="0%" [style.stop-color]="gradStartColor" style="stop-opacity:1" />
-          <stop offset="100%" [style.stop-color]="gradEndColor" style="stop-opacity:1" />
+          <stop offset="0%" [attr.stop-color]="gradStartColor" stop-opacity=".75" />
+          <stop offset="100%" [attr.stop-color]="gradEndColor" stop-opacity=".75" />
         </linearGradient>
       </defs>
       <circle
@@ -44,15 +44,23 @@ const Y2_POS = [0, 0, 100, 0];
         [attr.cy]="radius"
         [attr.r]="radius - stroke / 2"
         [style.stroke]="resolveColor(background)"
-        [style.stroke-width]="stroke"/>
-
+		[style.stroke-width]="stroke"/>
+		
       <path
         #path
         fill="none"
         [style.stroke-width]="stroke"
         [style.stroke-linecap]="rounded ? 'round' : ''"
         [attr.transform]="getPathTransform()"
-        [attr.stroke]="resolveStroke()"/>
+		[attr.stroke]="resolveStroke()"/>
+		
+		<circle 
+			*ngIf="endMarker"
+			[attr.fill]="resolveDotColor()" 
+			[attr.cx]="resolveDotX()" 
+			[attr.cy]="resolveDotY()" 
+			[attr.r]="stroke*0.8" 
+			style="stroke-width: 0;"></circle>
     </svg>
   `,
   host: {
@@ -170,6 +178,24 @@ export class RoundProgressComponent implements OnChanges {
     return !this._useGrad ? this.resolveColor(this.color) : `url(#${GRAD_STROKE})`;
   }
 
+  resolveDotColor(){
+	  return !this._useGrad ? this.resolveColor(this.color) : this.gradEndColor;
+  }
+
+  resolveDotX(){
+	const allCoords = this._service.getArc(this.current,
+		this.max, this.radius - this.stroke / 2, this.radius, this.semicircle);
+	const pathElements = allCoords.split(" ");
+	return pathElements[1];
+  }
+
+  resolveDotY(){
+	const allCoords = this._service.getArc(this.current,
+		this.max, this.radius - this.stroke / 2, this.radius, this.semicircle);
+	const pathElements = allCoords.split(" ");
+	return pathElements[2];
+  }
+
   /** Resolves linear gradient direction */
   resolveGradCorner(corner): string{
     if (!this._useGrad) return "0%";
@@ -245,5 +271,6 @@ export class RoundProgressComponent implements OnChanges {
   @Input() clockwise:        boolean = this._defaults.clockwise;
   @Input() semicircle:       boolean = this._defaults.semicircle;
   @Input() rounded:          boolean = this._defaults.rounded;
+  @Input() endMarker:          boolean = this._defaults.endMarker;
   @Output() onRender:        EventEmitter<number> = new EventEmitter();
 }

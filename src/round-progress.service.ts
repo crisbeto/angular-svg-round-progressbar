@@ -66,6 +66,10 @@ export class RoundProgressService {
     return `M ${start} A ${pathRadius} ${pathRadius} 0 ${arcSweep} 0 ${end}`;
   };
 
+  getDotCoords(){
+	  
+  }
+
   /**
    * Converts polar cooradinates to Cartesian.
    * @param elementRadius  Radius of the wrapper element.

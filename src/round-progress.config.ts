@@ -17,7 +17,8 @@ export const ROUND_PROGRESS_DEFAULTS_PROVIDER: Provider = {
     responsive: false,
     clockwise: true,
     semicircle: false,
-    rounded: false
+	rounded: false,
+	endMarker: false
   }
 };
 
@@ -34,4 +35,5 @@ export interface RoundProgressDefaults {
   clockwise?: boolean;
   semicircle?: boolean;
   rounded?: boolean;
+  endMarker?: boolean;
 }
