@@ -108,10 +108,10 @@ export class YourModule {};
 
 
 ## Development
-*  `npm install` to install development dependencies
-*  `gulp` to run a development server. Not mandatory(you can run the build/index.html directly), but more convenient.
-*  `gulp module:build` to build minified demo in build/
-*  `gulp deploy` to do a build and push the demo to the `gh-pages` branch
+*  `yarn` to install development dependencies
+*  `yarn gulp` to run a development server. Not mandatory(you can run the build/index.html directly), but more convenient.
+*  `yarn gulp module:build` to build minified demo in build/
+*  `yarn gulp deploy` to do a build and push the demo to the `gh-pages` branch
 
 ## Credits
 * [Modernizr](http://modernizr.com/) for the SVG support test
