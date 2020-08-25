@@ -1,119 +1,68 @@
-# Angular SVG round progressbar
-Angular module that uses SVG to create a circular progressbar
+<p align="center">
+ <img width="20%" height="20%" src="./logo.svg">
+</p>
 
-## [Demo](http://crisbeto.github.io/angular-svg-round-progressbar/)
+<br />
 
-## [Click here for the Angular 1.x version](https://github.com/crisbeto/angular-svg-round-progressbar/tree/angular-1.x)
+[![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
+[![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+[![ngneat](https://img.shields.io/badge/@-ngneat-383636?style=flat-square&labelColor=8f68d4)](https://github.com/ngneat/)
+<% if (!skipLib) {%>[![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()<% } %>
 
-## Install
-First you have to install the module through npm:
+> The Library Slogan
 
-```bash
-npm install angular-svg-round-progressbar --save
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda atque blanditiis cum delectus eligendi ipsam iste iure, maxime modi molestiae nihil obcaecati odit officiis pariatur quibusdam suscipit temporibus unde.
+Accusantium aliquid corporis cupiditate dolores eum exercitationem illo iure laborum minus nihil numquam odit officiis possimus quas quasi quos similique, temporibus veritatis? Exercitationem, iure magni nulla quo sapiente soluta. Esse?
+
+## Features
+
+- ✅ One
+- ✅ Two
+- ✅ Three
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [FAQ](#faq)
+
+## Installation
+
+### NPM
+
+`npm install <%= scopeWithName %> --save-dev`
+
+### Yarn
+
+`yarn add <%= scopeWithName %> --dev`
+
+## Usage
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda atque blanditiis cum delectus eligendi ipsam iste iure, maxime modi molestiae nihil obcaecati odit officiis pariatur quibusdam suscipit temporibus unde.
+
+```ts
+function helloWorld() {}
 ```
 
-Afterwards you need to import the `RoundProgressModule` in your module:
+## FAQ
 
-```typescript
-import {NgModule} from '@angular/core';
-import {RoundProgressModule} from 'angular-svg-round-progressbar';
+## How to ...
 
-@NgModule({
-  imports: [RoundProgressModule]
-})
-export class YourModule {};
-```
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda atque blanditiis cum delectus eligendi ips
 
-If you're using SystemJS as your module loader, there is also a UMD bundle at `./node_modules/angular-svg-round-progressbar/dist/round-progress.umd.js`.
+## Contributors ✨
 
-## Options
-| Name           | Description                                                                                               | Required  | Default value     | Possible values   |
-| ---            | ---                                                                                                       | ---       | ---               | ---               |
-| `current`      | The current progress. Limited by the `max` option.                                                        | Yes       | `undefined`       | `number`          |
-| `max`          | The progress' maximum value.                                                                              | Yes       | `undefined`       | `number`          |
-| `radius`       | Radius of the circle.                                                                                     | No        | `125`             | `number`          |
-| `color`        | The color of the `current` value on the circle.                                                           | No        | `#45ccce`         | `string`          |
-| `background`   | Color of the circle's background.                                                                         | No        | `#eaeaea`         | `string`          |
-| `stroke`       | Specifies the circle's thickness.                                                                         | No        | `15`              | `number`          |
-| `semicircle`   | Whether the progressbar should be a full circle or a semicircle.                                          | No        | `false`           | `boolean`         |
-| `clockwise`    | Whether the progressbar should rotate clockwise or counter-clockwise.                                     | No        | `true`            | `boolean`         |
-| `responsive`   | Whether the progressbar should fit inside its parent container. **Note** Turning this option on will override the specified radius in order to make the circle fit in its parent. The radius to stroke ratio won't change.                                     | No        | `false`            | `boolean`           |
-| `rounded`      | Whether the current progress ending should be rounded or straight.                                        | No        | `false`           | `boolean`           |
-| `duration`     | The duration of the animation. Pass 0 for no animation.                                                   | No        | `800`             | `number`          |
-| `animationDelay` | Milliseconds to wait before starting an animation.                                                     | No         | `0`               | `number`          |
-| `onRender`     | Callback function that gets executed every time the circle is animated. The function gets called with the current progress as it is being animated.                                | No        | `undefined`       | `Function`         |
-| `animation`    | The easing function that will be used when animating.                                                     | No        | easeOutCubic      | linearEase <br> easeInQuad <br> easeOutQuad <br> easeInOutQuad <br> easeInCubic <br> easeOutCubic <br> easeInOutCubic <br> easeInQuart <br> easeOutQuart <br> easeInOutQuart <br> easeInQuint <br> easeOutQuint <br> easeInOutQuint <br> easeInSine <br> easeOutSine <br> easeInOutSine <br> easeInExpo <br> easeOutExpo <br> easeInOutExpo <br> easeInCirc <br> easeOutCirc <br> easeInOutCirc <br> easeInElastic <br> easeOutElastic <br> easeInOutElastic <br> easeInBack <br> easeOutBack <br> easeInOutBack <br> easeInBounce <br> easeOutBounce <br> easeInOutBounce <br> |
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 
-### Minimal example:
-```html
-<round-progress [current]="current" [max]="max"></round-progress>
-```
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-### Full example:
-```html
-<round-progress
-    [current]="current"
-    [max]="max"
-    [color]="'#45ccce'"
-    [background]="'#eaeaea'"
-    [radius]="125"
-    [stroke]="20"
-    [semicircle]="true"
-    [rounded]="true"
-    [clockwise]="false"
-    [responsive]="false"
-    [duration]="800"
-    [animation]="'easeInOutQuart'"
-    [animationDelay]="0"
-    (onRender)="doSomethingWithCurrentValue($event)"></round-progress>
-```
-
-### Configuring the default values
-The module comes with some pre-configured options for things like colors, size, stroke etc. If these
-don't match your app's design, you can change the global defaults by providing a new value for the
-`ROUND_PROGRESS_DEFAULTS` injection token. Whenever an option isn't defined on a `round-progress`
-element, it's value will be taken from the defaults.
-
-```typescript
-import {NgModule} from '@angular/core';
-import {
-  RoundProgressModule,
-  RoundProgressConfig,
-  ROUND_PROGRESS_DEFAULTS
-  } from 'angular-svg-round-progressbar';
-
-@NgModule({
-  imports: [RoundProgressModule],
-  providers: [{
-    provide: ROUND_PROGRESS_DEFAULTS,
-    useValue: {
-      color: '#f00',
-      background: '#0f0'
-    }
-  }]
-})
-export class YourModule {};
-```
-
-## Browser support
-* Internet Explorer 9+
-* Firefox 28.0+
-* Chrome 31+
-* Safari 5.1+
-* and pretty much any browser that supports SVG
-
-**Note:** Some older browsers may require (a [polyfill for `requestAnimationFrame`](https://gist.github.com/paulirish/1579671)).
-[Read more about the `requestAnimationFrame` browser support.](http://caniuse.com/#feat=requestanimationframe)
-
-
-## Development
-*  `yarn` to install development dependencies
-*  `yarn gulp` to run a development server. Not mandatory(you can run the build/index.html directly), but more convenient.
-*  `yarn gulp module:build` to build minified demo in build/
-*  `yarn gulp deploy` to do a build and push the demo to the `gh-pages` branch
-
-## Credits
-* [Modernizr](http://modernizr.com/) for the SVG support test
-* [Robert Penner](http://www.robertpenner.com/easing/) for the easing function
-* [opsb](http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
