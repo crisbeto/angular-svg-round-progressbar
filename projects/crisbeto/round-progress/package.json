@@ -1,6 +1,6 @@
 {
   "name": "@crisbeto/round-progress",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "peerDependencies": {
     "@angular/common": "^10.0.12",
     "@angular/core": "^10.0.12"
