@@ -1,21 +1,49 @@
 {
   "name": "angular-svg-round-progressbar",
-  "version": "1.0.0",
+  "version": "4.0.0",
+  "keywords": [
+    "schematics",
+    "library",
+    "opensource",
+    "boilerplate",
+    "angular"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/crisbeto/angular-svg-round-progressbar/issues"
+  },
+  "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crisbeto/angular-svg-round-progressbar"
+  },
+  "author": {
+    "name": "Kristiyan Kostadinov",
+    "email": "crisbeto@github.com",
+    "url": "https://github.com/crisbeto"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4201",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "contributors:add": "all-contributors add",
     "hooks:pre-commit": "node hooks/pre-commit.js",
-    "commit": "git-cz",
+    "commit": "git add . && git-cz",
     "release:first": "npm run release -- --first-release",
-    "build:lib": "ng build @crisbeto/round-progress",
+    "build:lib": "ng build @crisbeto/round-progress --prod && npm run schematics:build && npm run copy",
     "test:lib": "ng test @crisbeto/round-progress",
     "release": "cd projects/crisbeto/round-progress && standard-version --infile ../../../CHANGELOG.md",
-    "test:lib:headless": "cross-env CI=true npm run test:lib"
+    "copy": "npm run schematics:copy && cp -r README.md dist/crisbeto/round-progress",
+    "schematics:build": "npm run build --prefix ./schematics",
+    "schematics:copy": "cp -r schematics/src/ dist/crisbeto/round-progress/schematics",
+    "test:lib:headless": "cross-env CI=true npm run test:lib",
+    "prettier:check": "prettier --check \"**\"",
+    "prettier": "prettier --write \"**\""
   },
   "private": true,
   "dependencies": {
@@ -73,14 +101,15 @@
   },
   "lint-staged": {
     "*.{js,json,css,scss,ts,html,component.html}": [
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -e $GIT_PARAMS",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "npm run hooks:pre-commit && lint-staged",
-      "pre-push": "npm run test:lib:headless"
+      "pre-push": "npm run --test:lib:headless"
     }
   }
 }

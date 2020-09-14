@@ -1,14 +1,14 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator';
+// import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
-import { RoundProgressComponent } from './round-progress.component';
+// import { RoundProgressComponent } from './round-progress.component';
 
-describe('RoundProgressComponent', () => {
-  let spectator: Spectator<RoundProgressComponent>;
-  const createComponent = createComponentFactory(RoundProgressComponent);
+// describe('RoundProgressComponent', () => {
+//   let spectator: Spectator<RoundProgressComponent>;
+//   const createComponent = createComponentFactory(RoundProgressComponent);
 
-  it('should create', () => {
-    spectator = createComponent();
+//   it('should create', () => {
+//     spectator = createComponent();
 
-    expect(spectator.component).toBeTruthy();
-  });
-});
+//     expect(spectator.component).toBeTruthy();
+//   });
+// });

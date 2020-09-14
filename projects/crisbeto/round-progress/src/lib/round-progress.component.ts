@@ -17,7 +17,8 @@ import { ROUND_PROGRESS_DEFAULTS, RoundProgressDefaults } from './round-progress
 import { RoundProgressEase } from './round-progress.ease';
 
 @Component({
-  selector: 'lib-roundprogress',
+  // tslint:disable-next-line: component-selector
+  selector: 'round-progress',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_getViewBox()">
@@ -72,7 +73,7 @@ import { RoundProgressEase } from './round-progress.ease';
 })
 export class RoundProgressComponent implements OnChanges {
   /** Reference to the underlying `path` node. */
-  @ViewChild('path', { static: false }) _path: ElementRef;
+  @ViewChild('path', { static: false }) path: ElementRef;
 
   /** Current value of the progress bar. */
   @Input() current: number;
@@ -81,48 +82,48 @@ export class RoundProgressComponent implements OnChanges {
   @Input() max: number;
 
   /** Radius of the circle. */
-  @Input() radius: number = this._defaults.radius;
+  @Input() radius: number = this.defaults.radius;
 
   /** Name of the easing function to use when animating. */
-  @Input() animation: string = this._defaults.animation;
+  @Input() animation: string = this.defaults.animation;
 
   /** Time in millisconds by which to delay the animation. */
-  @Input() animationDelay: number = this._defaults.animationDelay;
+  @Input() animationDelay: number = this.defaults.animationDelay;
 
   /** Duration of the animation. */
-  @Input() duration: number = this._defaults.duration;
+  @Input() duration: number = this.defaults.duration;
 
   /** Width of the circle's stroke. */
-  @Input() stroke: number = this._defaults.stroke;
+  @Input() stroke: number = this.defaults.stroke;
 
   /** Color of the circle. */
-  @Input() color: string = this._defaults.color;
+  @Input() color: string = this.defaults.color;
 
   /** Background color of the circle. */
-  @Input() background: string = this._defaults.background;
+  @Input() background: string = this.defaults.background;
 
   /** Whether the circle should take up the width of its parent. */
-  @Input() responsive: boolean = this._defaults.responsive;
+  @Input() responsive: boolean = this.defaults.responsive;
 
   /** Whether the circle is filling up clockwise. */
-  @Input() clockwise: boolean = this._defaults.clockwise;
+  @Input() clockwise: boolean = this.defaults.clockwise;
 
   /** Whether to render a semicircle. */
-  @Input() semicircle: boolean = this._defaults.semicircle;
+  @Input() semicircle: boolean = this.defaults.semicircle;
 
   /** Whether the tip of the progress should be rounded off. */
-  @Input() rounded: boolean = this._defaults.rounded;
+  @Input() rounded: boolean = this.defaults.rounded;
 
   /** Emits when a new value has been rendered. */
   @Output() onRender: EventEmitter<number> = new EventEmitter();
 
-  private _lastAnimationId = 0;
+  private lastAnimationId = 0;
 
   constructor(
-    private _service: RoundProgressService,
-    private _easing: RoundProgressEase,
-    @Inject(ROUND_PROGRESS_DEFAULTS) private _defaults: RoundProgressDefaults,
-    private _ngZone: NgZone
+    private service: RoundProgressService,
+    private easing: RoundProgressEase,
+    @Inject(ROUND_PROGRESS_DEFAULTS) private defaults: RoundProgressDefaults,
+    private ngZone: NgZone
   ) {}
 
   /** Animates a change in the current value. */
@@ -139,19 +140,19 @@ export class RoundProgressComponent implements OnChanges {
     const duration = self.duration;
 
     // Avoid firing change detection for each of the animation frames.
-    self._ngZone.runOutsideAngular(() => {
-      let start = () => {
-        const startTime = self._service.getTimestamp();
-        const id = ++self._lastAnimationId;
+    self.ngZone.runOutsideAngular(() => {
+      const start = () => {
+        const startTime = self.service.getTimestamp();
+        const id = ++self.lastAnimationId;
 
         requestAnimationFrame(function animation() {
-          let currentTime = Math.min(self._service.getTimestamp() - startTime, duration);
-          let value = self._easing[self.animation](currentTime, from, changeInValue, duration);
+          const currentTime = Math.min(self.service.getTimestamp() - startTime, duration);
+          const value = self.easing[self.animation](currentTime, from, changeInValue, duration);
 
           self._setPath(value);
           self.onRender.emit(value);
 
-          if (id === self._lastAnimationId && currentTime < duration) {
+          if (id === self.lastAnimationId && currentTime < duration) {
             requestAnimationFrame(animation);
           }
         });
@@ -167,9 +168,9 @@ export class RoundProgressComponent implements OnChanges {
 
   /** Sets the path dimensions. */
   private _setPath(value: number): void {
-    if (this._path) {
-      const arc = this._service.getArc(value, this.max, this.radius - this.stroke / 2, this.radius, this.semicircle);
-      this._path.nativeElement.setAttribute('d', arc);
+    if (this.path) {
+      const arc = this.service.getArc(value, this.max, this.radius - this.stroke / 2, this.radius, this.semicircle);
+      this.path.nativeElement.setAttribute('d', arc);
     }
   }
 
@@ -193,7 +194,7 @@ export class RoundProgressComponent implements OnChanges {
 
   /** Resolves a color through the service. */
   resolveColor(color: string): string {
-    return this._service.resolveColor(color);
+    return this.service.resolveColor(color);
   }
 
   /** Change detection callback. */

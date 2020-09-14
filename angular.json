@@ -108,7 +108,7 @@
       "projectType": "library",
       "root": "projects/crisbeto/round-progress",
       "sourceRoot": "projects/crisbeto/round-progress/src",
-      "prefix": "lib",
+      "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

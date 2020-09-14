@@ -1,13 +1,13 @@
-import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { RoundProgressService } from './round-progress.service';
+// import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+// import { RoundProgressService } from './round-progress.service';
 
-describe('RoundProgressService', () => {
-  let spectator: SpectatorService<RoundProgressService>;
-  const createService = createServiceFactory(RoundProgressService);
+// describe('RoundProgressService', () => {
+//   let spectator: SpectatorService<RoundProgressService>;
+//   const createService = createServiceFactory(RoundProgressService);
 
-  beforeEach(() => (spectator = createService()));
+//   beforeEach(() => (spectator = createService()));
 
-  it('should...', () => {
-    expect(spectator.service).toBeTruthy();
-  });
-});
+//   it('should...', () => {
+//     expect(spectator.service).toBeTruthy();
+//   });
+// });

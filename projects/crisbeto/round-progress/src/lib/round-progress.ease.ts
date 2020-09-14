@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RoundProgressEase {
   // t: current time (or position) of the neonate. This can be seconds or frames, steps,
   // seconds, ms, whatever – as long as the unit is the same as is used for the total time.
