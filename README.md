@@ -108,12 +108,30 @@ export class YourModule {};
 
 
 ## Development
-*  `yarn` to install development dependencies
-*  `yarn gulp` to run a development server. Not mandatory(you can run the build/index.html directly), but more convenient.
-*  `yarn gulp module:build` to build minified demo in build/
-*  `yarn gulp deploy` to do a build and push the demo to the `gh-pages` branch
+* `npm install` to install development dependencies
+* `npm run build:lib` to build the library
+* `npm run start` to start the demo
 
 ## Credits
 * [Modernizr](http://modernizr.com/) for the SVG support test
 * [Robert Penner](http://www.robertpenner.com/easing/) for the easing function
 * [opsb](http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://anglebrackets.dev/"><img src="https://avatars2.githubusercontent.com/u/1952116?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan</b></sub></a><br /><a href="https://github.com/@crisbeto/angular-svg-round-progressbar/commits?author=DuncanFaulkner" title="Code">💻</a> <a href="#maintenance-DuncanFaulkner" title="Maintenance">🚧</a> <a href="#platform-DuncanFaulkner" title="Packaging/porting to new platform">📦</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

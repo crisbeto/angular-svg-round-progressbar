@@ -1,0 +1,26 @@
+{
+  "projectName": "angular-svg-round-progressbar",
+  "projectOwner": "@crisbeto",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "DuncanFaulkner",
+      "name": "Duncan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1952116?v=4",
+      "profile": "https://anglebrackets.dev/",
+      "contributions": [
+        "code",
+        "maintenance",
+        "platform"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

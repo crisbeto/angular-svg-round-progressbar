@@ -1,0 +1,28 @@
+{
+  "name": "@crisbeto/round-progress",
+  "version": "5.0.0",
+  "peerDependencies": {
+    "@angular/common": "^10.0.12",
+    "@angular/core": "^10.0.12"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "keywords": [
+    "angular",
+    "angular 2",
+    "round-progress"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "@crisbeto/angular-round-progressbar/issue"
+  },
+  "homepage": "@crisbeto/angular-svg-round-progressbar#readme",
+  "repository": {
+    "type": "git",
+    "url": "@crisbeto/angular-svg-round-progressbar"
+  }
+}
