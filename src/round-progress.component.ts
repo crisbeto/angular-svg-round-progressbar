@@ -1,13 +1,14 @@
 import {
-    Component,
-    Input,
-    Output,
-    OnChanges,
-    NgZone,
-    EventEmitter,
-    ViewChild,
-    Renderer,
-    Inject, OnInit,
+  Component,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  Output,
+  ViewChild,
+  Inject,
+  ElementRef,
+  ChangeDetectionStrategy, SimpleChanges,
 } from '@angular/core';
 
 import {RoundProgressService} from './round-progress.service';
@@ -16,14 +17,15 @@ import {RoundProgressEase} from './round-progress.ease';
 
 @Component({
   selector: 'round-progress',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_viewBox">
-      <circle *ngIf="internalCircle"
+    <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="_getViewBox()">
+      <circle #internal_circle
         [attr.fill]="internalCircleColor"
         [attr.cx]="radius"
         [attr.cy]="radius"
         [attr.r]="internalCircleRadius"/>
-        
+
       <circle
         fill="none"
         [attr.cx]="radius"
@@ -45,9 +47,9 @@ import {RoundProgressEase} from './round-progress.ease';
     'role': 'progressbar',
     '[attr.aria-valuemin]': 'current',
     '[attr.aria-valuemax]': 'max',
-    '[style.width]': "responsive ? '' : _diameter + 'px'",
-    '[style.height]': '_elementHeight',
-    '[style.padding-bottom]': '_paddingBottom',
+    '[style.width]': "responsive ? '' : _getDiameter() + 'px'",
+    '[style.height]': '_getElementHeight()',
+    '[style.padding-bottom]': '_getPaddingBottom()',
     '[class.responsive]': 'responsive'
   },
   styles: [
@@ -56,11 +58,11 @@ import {RoundProgressEase} from './round-progress.ease';
       position: relative;
       overflow: hidden;
     }`,
-    `:host.responsive {
+    `:host(.responsive) {
       width: 100%;
       padding-bottom: 100%;
     }`,
-    `:host.responsive > svg {
+    `:host(.responsive) > svg {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -69,15 +71,75 @@ import {RoundProgressEase} from './round-progress.ease';
     }`
   ]
 })
-export class RoundProgressComponent implements OnChanges, OnInit {
-  private _lastAnimationId: number = 0;
+export class RoundProgressComponent implements OnChanges {
+
+  /** Reference to the underlying `path` node. */
+  @ViewChild('path', {static: false}) _path: ElementRef;
+
+  /** Reference to the internal circle `path` node. */
+  @ViewChild('internal_circle', {static: false}) _internalCircle: ElementRef;
+
+  /** Current value of the progress bar. */
+  @Input() current: number;
+
+  /** Maximum value of the progress bar. */
+  @Input() max: number;
+
+  /** Radius of the circle. */
+  @Input() radius: number = this._defaults.radius;
+
+  /** Name of the easing function to use when animating. */
+  @Input() animation: string = this._defaults.animation;
+
+  /** Time in millisconds by which to delay the animation. */
+  @Input() animationDelay: number = this._defaults.animationDelay;
+
+  /** Duration of the animation. */
+  @Input() duration: number = this._defaults.duration;
+
+  /** Width of the circle's stroke. */
+  @Input() stroke: number = this._defaults.stroke;
+
+  /** Color of the circle. */
+  @Input() color: string = this._defaults.color;
+
+  /** Background color of the circle. */
+  @Input() background: string = this._defaults.background;
+
+  /** Whether the circle should take up the width of its parent. */
+  @Input() responsive: boolean = this._defaults.responsive;
+
+  /** Whether the circle is filling up clockwise. */
+  @Input() clockwise: boolean = this._defaults.clockwise;
+
+  /** Whether to render a semicircle. */
+  @Input() semicircle: boolean = this._defaults.semicircle;
+
+  /** Whether the tip of the progress should be rounded off. */
+  @Input() rounded: boolean = this._defaults.rounded;
+
+  /** Background color of the stroke */
+  @Input() strokeBackground?: number;
+
+  /** Whether internal circle should be showed */
+  @Input() internalCircle:   boolean = this._defaults.internalCircle;
+
+  /** Whether the internal circle is showed, should be the circle radius */
+  @Input() internalCircleRadius: number = this._defaults.internalCircleRadius;
+
+  /** Whether the internal circle is showed, should be the circle color */
+  @Input() internalCircleColor?: string;
+
+  /** Emits when a new value has been rendered. */
+  @Output() onRender: EventEmitter<number> = new EventEmitter();
+
+  private _lastAnimationId = 0;
 
   constructor(
     private _service: RoundProgressService,
     private _easing: RoundProgressEase,
     @Inject(ROUND_PROGRESS_DEFAULTS) private _defaults: RoundProgressDefaults,
-    private _ngZone: NgZone,
-    private _renderer: Renderer
+    private _ngZone: NgZone
   ) {}
 
   /** Animates a change in the current value. */
@@ -99,7 +161,7 @@ export class RoundProgressComponent implements OnChanges, OnInit {
         const startTime = self._service.getTimestamp();
         const id = ++self._lastAnimationId;
 
-        requestAnimationFrame(function animation(){
+        requestAnimationFrame(function animation() {
           let currentTime = Math.min(self._service.getTimestamp() - startTime, duration);
           let value = self._easing[self.animation](currentTime, from, changeInValue, duration);
 
@@ -123,8 +185,9 @@ export class RoundProgressComponent implements OnChanges, OnInit {
   /** Sets the path dimensions. */
   private _setPath(value: number): void {
     if (this._path) {
-      this._renderer.setElementAttribute(this._path.nativeElement, 'd', this._service.getArc(value,
-          this.max, this.radius - this.stroke / 2, this.radius, this.semicircle));
+      const arc = this._service.getArc(value, this.max, this.radius - this.stroke / 2,
+          this.radius, this.semicircle);
+      this._path.nativeElement.setAttribute('d', arc);
     }
   }
 
@@ -135,7 +198,7 @@ export class RoundProgressComponent implements OnChanges, OnInit {
 
   /** Determines the SVG transforms for the <path> node. */
   getPathTransform(): string {
-    let diameter = this._diameter;
+    let diameter = this._getDiameter();
 
     if (this.semicircle) {
       return this.clockwise ?
@@ -152,66 +215,42 @@ export class RoundProgressComponent implements OnChanges, OnInit {
   }
 
   /** Change detection callback. */
-  ngOnChanges(changes): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.current) {
       this._animateChange(changes.current.previousValue, changes.current.currentValue);
     } else {
       this._setPath(this.current);
     }
-  }
-
-  /** On init callback */
-  ngOnInit(): void {
-    if (this.strokeBackground == undefined) {
-        this.strokeBackground = this.stroke;
-    }
-    if (this.internalCircleColor == undefined) {
-        this.internalCircleColor = this.color;
-    }
+    this._updateInternalCircleElement();
   }
 
   /** Diameter of the circle. */
-  get _diameter(): number {
+  _getDiameter(): number {
     return this.radius * 2;
   }
 
   /** The CSS height of the wrapper element. */
-  get _elementHeight(): string {
+  _getElementHeight(): string {
     if (!this.responsive) {
-      return (this.semicircle ? this.radius : this._diameter) + 'px';
+      return (this.semicircle ? this.radius : this._getDiameter()) + 'px';
     }
   }
 
   /** Viewbox for the SVG element. */
-  get _viewBox(): string {
-    let diameter = this._diameter;
+  _getViewBox(): string {
+    const diameter = this._getDiameter();
     return `0 0 ${diameter} ${this.semicircle ? this.radius : diameter}`;
   }
 
   /** Bottom padding for the wrapper element. */
-  get _paddingBottom(): string {
+  _getPaddingBottom(): string {
     if (this.responsive) {
       return this.semicircle ? '50%' : '100%';
     }
   }
 
-  @ViewChild('path')         _path;
-  @Input() current:          number;
-  @Input() max:              number;
-  @Input() radius:           number = this._defaults.radius;
-  @Input() animation:        string = this._defaults.animation;
-  @Input() animationDelay:   number = this._defaults.animationDelay;
-  @Input() duration:         number = this._defaults.duration;
-  @Input() stroke:           number = this._defaults.stroke;
-  @Input() color:            string = this._defaults.color;
-  @Input() background:       string = this._defaults.background;
-  @Input() responsive:       boolean = this._defaults.responsive;
-  @Input() clockwise:        boolean = this._defaults.clockwise;
-  @Input() semicircle:       boolean = this._defaults.semicircle;
-  @Input() rounded:          boolean = this._defaults.rounded;
-  @Input() strokeBackground?: number;
-  @Input() internalCircle:   boolean = this._defaults.internalCircle;
-  @Input() internalCircleRadius: number = this._defaults.internalCircleRadius;
-  @Input() internalCircleColor?: string;
-  @Output() onRender:        EventEmitter<number> = new EventEmitter();
+  /** Show or hide the internal circle relative to the input variable */
+  _updateInternalCircleElement() {
+    this._internalCircle.nativeElement.style.display = this.internalCircle ? 'block' : 'none';
+  }
 }

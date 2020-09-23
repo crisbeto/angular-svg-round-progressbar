@@ -1,30 +1,30 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Angular SVG round progressbar demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Angular module that uses SVG to create a circular progressbar">
-    <meta name="author" content="Kristiyan Kostadinov">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
-    <link rel="stylesheet" href="demo.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Angular SVG round progressbar demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Angular module that uses SVG to create a circular progressbar">
+  <meta name="author" content="Kristiyan Kostadinov">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
+  <link rel="stylesheet" href="demo.css">
+</head>
 
-  <body>
-    <demo>
-      <div class="loading">Loading</div>
-    </demo>
+<body>
+<demo>
+  <div class="loading">Loading</div>
+</demo>
 
-    <script src="vendor/core-js/client/shim.min.js"></script>
-    <script src="vendor/zone.js/dist/zone.js"></script>
-    <script src="vendor/systemjs/dist/system.src.js"></script>
-    <script src="systemjs.config.js"></script>
+<script src="vendor/core-js/client/shim.min.js"></script>
+<script src="vendor/zone.js/dist/zone.js"></script>
+<script src="vendor/systemjs/dist/system.src.js"></script>
+<script src="systemjs.config.js"></script>
 
-    <script>
-      System.import('systemjs.config.js').then(function() {
-        System.import('main');
-      }).catch(function(err) {
-        console.error(err);
-      });
-    </script>
-  </body>
+<script>
+  System.import('systemjs.config.js').then(function() {
+    System.import('main');
+  }).catch(function(err) {
+    console.error(err);
+  });
+</script>
+</body>
 </html>

@@ -15,15 +15,15 @@ gulp.task('demo:gh-pages', () => gulp.src(path.join(DEMO, '**/*')).pipe(ghPages(
 gulp.task('demo:ts', compile.tsc(DEMO));
 
 gulp.task('demo:assets', copy(
- 'node_modules',
- path.join(DEMO, 'vendor'),
- [
-  '@angular/**/*.umd.js',
-  'core-js/client/*.min.+(js|js.map)',
-  'rxjs/**/*.+(js|js.map)',
-  'systemjs/dist/*.js',
-  'zone.js/dist/*.js'
- ]
+    'node_modules',
+    path.join(DEMO, 'vendor'),
+    [
+      '@angular/**/*.umd.js',
+      'core-js/client/*.min.+(js|js.map)',
+      'rxjs/**/*.+(js|js.map)',
+      'systemjs/dist/*.js',
+      'zone.js/dist/*.js'
+    ]
 ));
 
 gulp.task('demo:build', done => {

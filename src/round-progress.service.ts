@@ -1,5 +1,5 @@
 import {Injectable, Inject, Optional} from '@angular/core';
-import {DOCUMENT} from '@angular/platform-browser';
+import {DOCUMENT} from '@angular/common';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
 
@@ -11,16 +11,16 @@ export class RoundProgressService {
 
   constructor(@Optional() @Inject(DOCUMENT) document: any) {
     this.supportsSvg = !!(
-      document &&
-      document.createElementNS &&
-      document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect
+        document &&
+        document.createElementNS &&
+        document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect
     );
 
     this._base = document && document.head.querySelector('base');
     this._hasPerf = typeof window !== 'undefined' &&
-                    window.performance &&
-                    window.performance.now &&
-                    typeof window.performance.now() === 'number';
+        window.performance &&
+        window.performance.now &&
+        typeof window.performance.now() === 'number';
   }
 
   /**
@@ -64,7 +64,7 @@ export class RoundProgressService {
     let arcSweep = (percentage <= 180 ? 0 : 1);
 
     return `M ${start} A ${pathRadius} ${pathRadius} 0 ${arcSweep} 0 ${end}`;
-  };
+  }
 
   /**
    * Converts polar cooradinates to Cartesian.
@@ -73,7 +73,7 @@ export class RoundProgressService {
    * @param angleInDegrees Degree to be converted.
    */
   private _polarToCartesian(elementRadius: number, pathRadius: number,
-    angleInDegrees: number): string {
+                            angleInDegrees: number): string {
 
     let angleInRadians = (angleInDegrees - 90) * DEGREE_IN_RADIANS;
     let x = elementRadius + (pathRadius * Math.cos(angleInRadians));
@@ -81,4 +81,4 @@ export class RoundProgressService {
 
     return x + ' ' + y;
   }
-};
+}
