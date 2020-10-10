@@ -10,11 +10,7 @@
     "deprecation": {
       "severity": "warning"
     },
-    "component-class-suffix": true,
     "contextual-lifecycle": true,
-    "directive-class-suffix": true,
-    "directive-selector": [true, "attribute", "app", "camelCase"],
-    "component-selector": [true, "element", "app", "kebab-case"],
     "eofline": true,
     "import-blacklist": [true, "rxjs/Rx"],
     "import-spacing": true,
@@ -29,6 +25,7 @@
         "order": ["static-field", "instance-field", "static-method", "instance-method"]
       }
     ],
+    "no-conditional-assignment": true,
     "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
     "no-empty": false,
     "no-inferrable-types": [false, "ignore-params"],
@@ -75,7 +72,6 @@
       "options": ["check-branch", "check-decl", "check-operator", "check-separator", "check-type", "check-typecast"]
     },
     "no-conflicting-lifecycle": true,
-    "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-inputs-metadata-property": true,
     "no-output-native": true,

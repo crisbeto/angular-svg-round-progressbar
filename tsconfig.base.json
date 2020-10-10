@@ -13,7 +13,7 @@
     "target": "es2015",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@crisbeto/round-progress": ["projects/crisbeto/round-progress/src/public-api.ts"]
+      "angular-svg-round-progressbar": ["./src/lib/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

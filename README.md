@@ -108,30 +108,14 @@ export class YourModule {};
 
 
 ## Development
-* `npm install` to install development dependencies
-* `npm run build:lib` to build the library
-* `npm run start` to start the demo
+*  `npm i` to install development dependencies.
+*  `npm lint` to lint the source files.
+*  `npm start` to run a development server. Go to `localhost:4200` to see the demo.
+*  `npm run build-lib` to build the library in production mode.
+*  `npm run build-demo` to build the demo in production mode.
+*  `npm run release-npm` to build build the library and release it to npm.
 
 ## Credits
 * [Modernizr](http://modernizr.com/) for the SVG support test
 * [Robert Penner](http://www.robertpenner.com/easing/) for the easing function
 * [opsb](http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://anglebrackets.dev/"><img src="https://avatars2.githubusercontent.com/u/1952116?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan</b></sub></a><br /><a href="https://github.com/@crisbeto/angular-svg-round-progressbar/commits?author=DuncanFaulkner" title="Code">💻</a> <a href="#maintenance-DuncanFaulkner" title="Maintenance">🚧</a> <a href="#platform-DuncanFaulkner" title="Packaging/porting to new platform">📦</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

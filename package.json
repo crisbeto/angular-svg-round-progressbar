@@ -1,115 +1,55 @@
 {
   "name": "angular-svg-round-progressbar",
   "version": "4.0.0",
-  "keywords": [
-    "schematics",
-    "library",
-    "opensource",
-    "boilerplate",
-    "angular"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "description": "Angular module that uses SVG to create a circular progressbar",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build-demo": "ng build demo --prod",
+    "build-lib": "ng build angular-svg-round-progressbar --prod && npm run copy-readme",
+    "release-npm": "npm run lint && npm run build-lib && npm publish ./dist/angular-svg-round-progressbar",
+    "lint": "ng lint",
+    "copy-readme": "cp README.md dist/angular-svg-round-progressbar"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/crisbeto/angular-svg-round-progressbar.git"
+  },
+  "keywords": [
+    "angular",
+    "progress",
+    "circle",
+    "round",
+    "svg"
+  ],
+  "author": "crisbeto",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/crisbeto/angular-svg-round-progressbar/issues"
   },
-  "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/crisbeto/angular-svg-round-progressbar"
-  },
-  "author": {
-    "name": "Kristiyan Kostadinov",
-    "email": "crisbeto@github.com",
-    "url": "https://github.com/crisbeto"
-  },
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve --port 4201",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "contributors:add": "all-contributors add",
-    "hooks:pre-commit": "node hooks/pre-commit.js",
-    "commit": "git add . && git-cz",
-    "release:first": "npm run release -- --first-release",
-    "build:lib": "ng build @crisbeto/round-progress --prod && npm run schematics:build && npm run copy",
-    "test:lib": "ng test @crisbeto/round-progress",
-    "release": "cd projects/crisbeto/round-progress && standard-version --infile ../../../CHANGELOG.md",
-    "copy": "npm run schematics:copy && cp -r README.md dist/crisbeto/round-progress",
-    "schematics:build": "npm run build --prefix ./schematics",
-    "schematics:copy": "cp -r schematics/src/ dist/crisbeto/round-progress/schematics",
-    "test:lib:headless": "cross-env CI=true npm run test:lib",
-    "prettier:check": "prettier --check \"**\"",
-    "prettier": "prettier --write \"**\""
-  },
-  "private": true,
-  "dependencies": {
-    "@angular/animations": "~10.0.12",
-    "@angular/common": "~10.0.12",
-    "@angular/compiler": "~10.0.12",
-    "@angular/core": "~10.0.12",
-    "@angular/forms": "~10.0.12",
-    "@angular/platform-browser": "~10.0.12",
-    "@angular/platform-browser-dynamic": "~10.0.12",
-    "@angular/router": "~10.0.12",
-    "@ngneat/lib": "^1.0.4",
-    "rxjs": "~6.6.2",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.11.1"
+  "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar",
+  "files": ["dist/angular-svg-round-progressbar/**/*"],
+  "peerDependencies": {
+    "@angular/core": "^10.0.0",
+    "@angular/common": "^10.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.7",
     "@angular-devkit/build-ng-packagr": "~0.1000.7",
     "@angular/cli": "~10.0.7",
+    "@angular/common": "~10.0.12",
     "@angular/compiler-cli": "~10.0.12",
-    "@angular/language-service": "~10.0.12",
-    "@commitlint/cli": "9.1.2",
-    "@commitlint/config-angular": "^9.1.2",
-    "@commitlint/config-conventional": "^9.1.2",
-    "@ngneat/spectator": "^5.13.0",
-    "@types/jasmine": "~3.5.0",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^14.6.0",
-    "all-contributors-cli": "^6.8.1",
+    "@angular/compiler": "~10.0.12",
+    "@angular/core": "~10.0.12",
+    "@angular/forms": "~10.0.12",
+    "@angular/platform-browser-dynamic": "~10.0.12",
+    "@angular/platform-browser": "~10.0.12",
     "codelyzer": "^6.0.0",
-    "cross-env": "^7.0.2",
-    "git-cz": "^4.7.0",
-    "husky": "^4.2.5",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.1.1",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~4.0.1",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "lint-staged": "^10.2.12",
     "ng-packagr": "^10.0.0",
-    "prettier": "^2.0.5",
-    "protractor": "~7.0.0",
-    "standard-version": "^9.0.0",
-    "ts-node": "~9.0.0",
+    "rxjs": "~6.6.2",
+    "tslib": "^2.0.0",
     "tslint": "~6.1.0",
-    "typescript": "^3.9.7"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "lint-staged": {
-    "*.{js,json,css,scss,ts,html,component.html}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run hooks:pre-commit && lint-staged",
-      "pre-push": "npm run --test:lib:headless"
-    }
+    "typescript": "^3.9.7",
+    "zone.js": "~0.11.1"
   }
 }
