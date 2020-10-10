@@ -1,7 +1,7 @@
 # Angular SVG round progressbar
 Angular module that uses SVG to create a circular progressbar
 
-## [Demo](http://crisbeto.github.io/angular-svg-round-progressbar/)
+## [Demo](https://crisbeto.github.io/angular-svg-round-progressbar/)
 
 ## [Click here for the Angular 1.x version](https://github.com/crisbeto/angular-svg-round-progressbar/tree/angular-1.x)
 
@@ -104,7 +104,7 @@ export class YourModule {};
 * and pretty much any browser that supports SVG
 
 **Note:** Some older browsers may require (a [polyfill for `requestAnimationFrame`](https://gist.github.com/paulirish/1579671)).
-[Read more about the `requestAnimationFrame` browser support.](http://caniuse.com/#feat=requestanimationframe)
+[Read more about the `requestAnimationFrame` browser support.](https://caniuse.com/#feat=requestanimationframe)
 
 
 ## Development
@@ -117,6 +117,6 @@ export class YourModule {};
 *  `npm run release-demo` to build the demo and deploy it to GitHub Pages.
 
 ## Credits
-* [Modernizr](http://modernizr.com/) for the SVG support test
-* [Robert Penner](http://www.robertpenner.com/easing/) for the easing function
-* [opsb](http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
+* [Modernizr](https://modernizr.com/) for the SVG support test
+* [Robert Penner](https://www.robertpenner.com/easing/) for the easing function
+* [opsb](https://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle) for some of the math
