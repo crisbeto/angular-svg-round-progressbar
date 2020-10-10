@@ -24,7 +24,7 @@ import {RoundProgressModule} from 'angular-svg-round-progressbar';
 export class YourModule {};
 ```
 
-If you're using SystemJS as your module loader, there is also a UMD bundle at `./node_modules/angular-svg-round-progressbar/dist/round-progress.umd.js`.
+If you're using SystemJS as your module loader, there is also a UMD bundle at `./node_modules/angular-svg-round-progressbar/bundles/angular-svg-round-progressbar.umd.js`.
 
 ## Options
 | Name           | Description                                                                                               | Required  | Default value     | Possible values   |
