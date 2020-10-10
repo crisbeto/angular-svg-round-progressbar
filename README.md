@@ -113,7 +113,8 @@ export class YourModule {};
 *  `npm start` to run a development server. Go to `localhost:4200` to see the demo.
 *  `npm run build-lib` to build the library in production mode.
 *  `npm run build-demo` to build the demo in production mode.
-*  `npm run release-npm` to build build the library and release it to npm.
+*  `npm run release-lib` to build the library and release it to npm.
+*  `npm run release-demo` to build the demo and deploy it to GitHub Pages.
 
 ## Credits
 * [Modernizr](http://modernizr.com/) for the SVG support test

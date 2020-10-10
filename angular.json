@@ -21,7 +21,9 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [],
-            "styles": ["src/demo/styles.css"],
+            "styles": [
+              "src/demo/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -33,7 +35,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
@@ -69,9 +71,17 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -96,8 +106,12 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/lib/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "src/lib/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
