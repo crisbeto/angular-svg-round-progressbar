@@ -7,4 +7,4 @@ import {ROUND_PROGRESS_DEFAULTS_PROVIDER} from './round-progress.config';
   exports: [RoundProgressComponent],
   providers: [ROUND_PROGRESS_DEFAULTS_PROVIDER],
 })
-export class RoundprogressModule {}
+export class RoundProgressModule {}
