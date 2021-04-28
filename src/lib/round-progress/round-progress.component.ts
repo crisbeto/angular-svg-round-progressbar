@@ -23,8 +23,9 @@ import {RoundProgressEase} from './round-progress.ease';
   styleUrls: ['./round-progress.component.css'],
   host: {
     role: 'progressbar',
-    '[attr.aria-valuemin]': 'current',
+    '[attr.aria-valuemin]': '0',
     '[attr.aria-valuemax]': 'max',
+    '[attr.aria-valuenow]': 'current',
     '[style.width]': 'responsive ? "" : _getDiameter() + "px"',
     '[style.height]': '_getElementHeight()',
     '[style.padding-bottom]': '_getPaddingBottom()',
