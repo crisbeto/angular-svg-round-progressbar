@@ -33,8 +33,10 @@ import {RoundProgressEase} from './round-progress.ease';
   }
 })
 export class RoundProgressComponent implements OnChanges {
+  private currentLinecap: 'round' | '' = '';
+
   /** Reference to the underlying `path` node. */
-  @ViewChild('path') path: ElementRef;
+  @ViewChild('path') path: ElementRef<SVGPathElement>;
 
   /** Current value of the progress bar. */
   @Input() current: number;
@@ -110,8 +112,11 @@ export class RoundProgressComponent implements OnChanges {
           const currentTime = Math.min(self.service.getTimestamp() - startTime, duration);
           const value = self.easing[self.animation](currentTime, from, changeInValue, duration);
 
-          self._setPath(value);
-          self.onRender.emit(value);
+          self._updatePath(value);
+
+          if (self.onRender.observers.length > 0) {
+            self.onRender.emit(value);
+          }
 
           if (id === self.lastAnimationId && currentTime < duration) {
             requestAnimationFrame(animation);
@@ -127,11 +132,22 @@ export class RoundProgressComponent implements OnChanges {
     });
   }
 
-  /** Sets the path dimensions. */
-  private _setPath(value: number): void {
+  /** Updates the path apperance. */
+  private _updatePath(value: number): void {
     if (this.path) {
       const arc = this.service.getArc(value, this.max, this.radius - this.stroke / 2, this.radius, this.semicircle);
-      this.path.nativeElement.setAttribute('d', arc);
+      const path = this.path.nativeElement;
+
+      // Remove the rounded line cap when the value is zero, because SVG won't allow it to disappear completely.
+      const linecap = this.rounded && value > 0 ? 'round' : '';
+
+      // This is called on each animation frame so avoid updating the line cap unless it has changed.
+      if (linecap !== this.currentLinecap) {
+        this.currentLinecap = linecap;
+        path.style.strokeLinecap = linecap;
+      }
+
+      path.setAttribute('d', arc);
     }
   }
 
@@ -163,7 +179,7 @@ export class RoundProgressComponent implements OnChanges {
     if (changes.current) {
       this._animateChange(changes.current.previousValue, changes.current.currentValue);
     } else {
-      this._setPath(this.current);
+      this._updatePath(this.current);
     }
   }
 
