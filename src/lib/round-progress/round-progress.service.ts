@@ -54,7 +54,8 @@ export class RoundProgressService {
    * @param elementRadius Radius of the SVG container.
    * @param isSemicircle  Whether the element should be a semicircle.
    */
-  getArc(current: number, total: number, pathRadius: number, elementRadius: number, isSemicircle = false): string {
+  getArc(current: number, total: number, pathRadius: number, elementRadius: number,
+         isSemicircle = false): string {
     const value = Math.max(0, Math.min(current || 0, total));
     const maxAngle = isSemicircle ? 180 : 359.9999;
     const percentage = total === 0 ? maxAngle : (value / total) * maxAngle;
@@ -71,7 +72,8 @@ export class RoundProgressService {
    * @param pathRadius     Radius of the path being described.
    * @param angleInDegrees Degree to be converted.
    */
-  private _polarToCartesian(elementRadius: number, pathRadius: number, angleInDegrees: number): string {
+  private _polarToCartesian(elementRadius: number, pathRadius: number,
+                            angleInDegrees: number): string {
     const angleInRadians = (angleInDegrees - 90) * DEGREE_IN_RADIANS;
     const x = elementRadius + pathRadius * Math.cos(angleInRadians);
     const y = elementRadius + pathRadius * Math.sin(angleInRadians);

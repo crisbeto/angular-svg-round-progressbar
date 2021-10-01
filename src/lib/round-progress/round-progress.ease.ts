@@ -50,7 +50,7 @@ export class RoundProgressEase {
   }
 
   easeInOutQuad(t: number, b: number, c: number, d: number): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (c / 2) * t * t + b;
     }
@@ -67,7 +67,7 @@ export class RoundProgressEase {
   }
 
   easeInOutCubic(t: number, b: number, c: number, d: number): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (c / 2) * t * t * t + b;
     }
@@ -84,7 +84,7 @@ export class RoundProgressEase {
   }
 
   easeInOutQuart(t: number, b: number, c: number, d: number): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (c / 2) * t * t * t * t + b;
     }
@@ -101,7 +101,7 @@ export class RoundProgressEase {
   }
 
   easeInOutQuint(t: number, b: number, c: number, d: number): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (c / 2) * t * t * t * t * t + b;
     }
@@ -138,7 +138,7 @@ export class RoundProgressEase {
       return b + c;
     }
 
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (c / 2) * Math.pow(2, 10 * (t - 1)) + b;
     }
@@ -155,7 +155,7 @@ export class RoundProgressEase {
   }
 
   easeInOutCirc(t: number, b: number, c: number, d: number): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (-c / 2) * (Math.sqrt(1 - t * t) - 1) + b;
     }
@@ -172,7 +172,7 @@ export class RoundProgressEase {
       return b;
     }
 
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d) === 1) {
       return b + c;
     }
@@ -196,7 +196,7 @@ export class RoundProgressEase {
       return b;
     }
 
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d) === 1) {
       return b + c;
     }
@@ -220,7 +220,7 @@ export class RoundProgressEase {
       return b;
     }
 
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) === 2) {
       return b + c;
     }
@@ -233,10 +233,12 @@ export class RoundProgressEase {
     }
 
     if (t < 1) {
-      return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin(((t * d - s) * (2 * Math.PI)) / p)) + b;
+      return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) *
+        Math.sin(((t * d - s) * (2 * Math.PI)) / p)) + b;
     }
 
-    return a * Math.pow(2, -10 * (t -= 1)) * Math.sin(((t * d - s) * (2 * Math.PI)) / p) * 0.5 + c + b;
+    return a * Math.pow(2, -10 * (t -= 1)) *
+      Math.sin(((t * d - s) * (2 * Math.PI)) / p) * 0.5 + c + b;
   }
 
   easeInBack(t: number, b: number, c: number, d: number, s = 1.70158): number {
@@ -248,7 +250,7 @@ export class RoundProgressEase {
   }
 
   easeInOutBack(t: number, b: number, c: number, d: number, s = 1.70158): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d / 2) < 1) {
       return (c / 2) * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
     }
@@ -261,7 +263,7 @@ export class RoundProgressEase {
   }
 
   easeOutBounce(t: number, b: number, c: number, d: number): number {
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     if ((t /= d) < 1 / 2.75) {
       return c * (7.5625 * t * t) + b;
     } else if (t < 2 / 2.75) {
