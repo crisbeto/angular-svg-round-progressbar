@@ -108,13 +108,15 @@ export class YourModule {};
 
 
 ## Development
-*  `npm i` to install development dependencies.
-*  `npm lint` to lint the source files.
-*  `npm start` to run a development server. Go to `localhost:4200` to see the demo.
-*  `npm run build-lib` to build the library in production mode.
-*  `npm run build-demo` to build the demo in production mode.
-*  `npm run release-lib` to build the library and release it to npm.
-*  `npm run release-demo` to build the demo and deploy it to GitHub Pages.
+The project uses `yarn` to manage dependencies to make sure that you [have it installed](https://yarnpkg.com/getting-started/install).
+
+*  `yarn` to install development dependencies.
+*  `yarn lint` to lint the source files.
+*  `yarn start` to run a development server. Go to `localhost:4200` to see the demo.
+*  `yarn build-lib` to build the library in production mode.
+*  `yarn build-demo` to build the demo in production mode.
+*  `yarn release-lib` to build the library and release it to npm.
+*  `yarn release-demo` to build the demo and deploy it to GitHub Pages.
 
 ## Credits
 * [Modernizr](https://modernizr.com/) for the SVG support test

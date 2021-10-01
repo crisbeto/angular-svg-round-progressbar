@@ -44,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# The project uses yarn rather than npm
+package-lock.json
