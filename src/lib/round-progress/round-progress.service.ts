@@ -48,11 +48,12 @@ export class RoundProgressService {
 
   /**
    * Generates the value for an SVG arc.
-   * @param current       Current value.
-   * @param total         Maximum value.
-   * @param pathRadius    Radius of the SVG path.
+   *
+   * @param current Current value.
+   * @param total Maximum value.
+   * @param pathRadius Radius of the SVG path.
    * @param elementRadius Radius of the SVG container.
-   * @param isSemicircle  Whether the element should be a semicircle.
+   * @param isSemicircle Whether the element should be a semicircle.
    */
   getArc(current: number, total: number, pathRadius: number, elementRadius: number,
          isSemicircle = false): string {
@@ -68,8 +69,9 @@ export class RoundProgressService {
 
   /**
    * Converts polar cooradinates to Cartesian.
-   * @param elementRadius  Radius of the wrapper element.
-   * @param pathRadius     Radius of the path being described.
+   *
+   * @param elementRadius Radius of the wrapper element.
+   * @param pathRadius Radius of the path being described.
    * @param angleInDegrees Degree to be converted.
    */
   private _polarToCartesian(elementRadius: number, pathRadius: number,
