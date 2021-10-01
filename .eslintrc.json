@@ -33,7 +33,7 @@
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/member-ordering": "off",
         "@typescript-eslint/no-unused-vars": "error",
-        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-non-null-assertion": "error",
         "@typescript-eslint/quotes": [
           "error",
           "single",
@@ -74,10 +74,10 @@
         ],
         "no-duplicate-imports": "error",
         "no-redeclare": "error",
-        "object-shorthand": "off",
+        "object-shorthand": "error",
         "no-underscore-dangle": "off",
         "prefer-arrow/prefer-arrow-functions": "off",
-        "jsdoc/newline-after-description": "off",
+        "jsdoc/newline-after-description": "error",
         "quote-props": "off"
       }
     },
