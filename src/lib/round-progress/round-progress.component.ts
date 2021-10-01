@@ -135,13 +135,16 @@ export class RoundProgressComponent implements OnChanges {
   /** Updates the path apperance. */
   private _updatePath(value: number): void {
     if (this.path) {
-      const arc = this.service.getArc(value, this.max, this.radius - this.stroke / 2, this.radius, this.semicircle);
+      const arc = this.service.getArc(value, this.max, this.radius - this.stroke / 2,
+                                      this.radius, this.semicircle);
       const path = this.path.nativeElement;
 
-      // Remove the rounded line cap when the value is zero, because SVG won't allow it to disappear completely.
+      // Remove the rounded line cap when the value is zero,
+      // because SVG won't allow it to disappear completely.
       const linecap = this.rounded && value > 0 ? 'round' : '';
 
-      // This is called on each animation frame so avoid updating the line cap unless it has changed.
+      // This is called on each animation frame so avoid
+      // updating the line cap unless it has changed.
       if (linecap !== this.currentLinecap) {
         this.currentLinecap = linecap;
         path.style.strokeLinecap = linecap;
