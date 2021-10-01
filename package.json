@@ -6,9 +6,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build-demo": "ng build demo --configuration production",
-    "build-lib": "ng build angular-svg-round-progressbar --configuration production && npm run copy-readme",
-    "release-lib": "npm run lint && npm run build-lib && npm publish ./dist/angular-svg-round-progressbar",
-    "release-demo": "npm run lint && ng deploy demo",
+    "build-lib": "ng build angular-svg-round-progressbar --configuration production && yarn copy-readme",
+    "release-lib": "yarn lint && yarn build-lib && yarn publish ./dist/angular-svg-round-progressbar",
+    "release-demo": "yarn lint && ng deploy demo",
     "lint": "ng lint",
     "copy-readme": "cp README.md dist/angular-svg-round-progressbar"
   },
@@ -29,7 +29,10 @@
     "url": "https://github.com/crisbeto/angular-svg-round-progressbar/issues"
   },
   "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@angular/core": "^13.0.0",
+    "@angular/common": "^13.0.0"
+  },
   "devDependencies": {
     "@angular-devkit/architect": "^0.1300.0-next.7",
     "@angular-devkit/build-angular": "~13.0.0-next.7",
@@ -42,7 +45,7 @@
     "@angular/platform-browser": "~13.0.0-next.9",
     "@angular/platform-browser-dynamic": "~13.0.0-next.9",
     "angular-cli-ghpages": "^1.0.0-rc.2",
-    "ng-packagr": "^12.0.5",
+    "ng-packagr": "~13.0.0-next.5",
     "rxjs": "~6.6.3",
     "tslib": "^2.3.0",
     "tslint": "~6.1.0",
