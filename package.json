@@ -29,28 +29,24 @@
     "url": "https://github.com/crisbeto/angular-svg-round-progressbar/issues"
   },
   "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar",
-  "peerDependencies": {
-    "@angular/core": "^12.0.0",
-    "@angular/common": "^12.0.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1200.4",
-    "@angular-devkit/build-angular": "~12.0.4",
-    "@angular/cli": "~12.0.4",
-    "@angular/common": "~12.0.4",
-    "@angular/compiler": "~12.0.4",
-    "@angular/compiler-cli": "~12.0.4",
-    "@angular/core": "~12.0.4",
-    "@angular/forms": "~12.0.4",
-    "@angular/platform-browser": "~12.0.4",
-    "@angular/platform-browser-dynamic": "~12.0.4",
+    "@angular-devkit/architect": "^0.1300.0-next.7",
+    "@angular-devkit/build-angular": "~13.0.0-next.7",
+    "@angular/cli": "~13.0.0-next.7",
+    "@angular/common": "~13.0.0-next.9",
+    "@angular/compiler": "~13.0.0-next.9",
+    "@angular/compiler-cli": "~13.0.0-next.9",
+    "@angular/core": "~13.0.0-next.9",
+    "@angular/forms": "~13.0.0-next.9",
+    "@angular/platform-browser": "~13.0.0-next.9",
+    "@angular/platform-browser-dynamic": "~13.0.0-next.9",
     "angular-cli-ghpages": "^1.0.0-rc.2",
-    "codelyzer": "^6.0.0",
     "ng-packagr": "^12.0.5",
     "rxjs": "~6.6.3",
     "tslib": "^2.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.2.4",
+    "typescript": "~4.4.2",
     "zone.js": "~0.11.4"
   }
 }
