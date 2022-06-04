@@ -6,20 +6,20 @@ import {Component} from '@angular/core';
   styleUrls: ['./demo.component.css'],
 })
 export class DemoComponent {
-  current: number = 27;
-  max: number = 50;
-  stroke: number = 15;
-  radius: number = 125;
-  semicircle: boolean = false;
-  rounded: boolean = false;
-  responsive: boolean = false;
-  clockwise: boolean = true;
-  color: string = '#45ccce';
-  background: string = '#eaeaea';
-  duration: number = 800;
-  animation: string = 'easeOutCubic';
-  animationDelay: number = 0;
-  animations: Array<string> = [
+  current = 27;
+  max = 50;
+  stroke = 15;
+  radius = 125;
+  semicircle = false;
+  rounded = false;
+  responsive = false;
+  clockwise = true;
+  color = '#45ccce';
+  background = '#eaeaea';
+  duration = 800;
+  animation = 'easeOutCubic';
+  animationDelay = 0;
+  animations = [
     'linearEase',
     'easeInQuad',
     'easeOutQuad',
@@ -52,8 +52,8 @@ export class DemoComponent {
     'easeOutBounce',
     'easeInOutBounce',
   ];
-  gradient: boolean = false;
-  realCurrent: number = 0;
+  gradient = false;
+  realCurrent = 0;
 
   increment(amount = 1) {
     this.current += amount;
@@ -68,7 +68,7 @@ export class DemoComponent {
       bottom: isSemi ? '5%' : 'auto',
       left: '50%',
       transform,
-      'font-size': this.radius / 3.5 + 'px',
+      fontSize: this.radius / 3.5 + 'px',
     };
   }
 }

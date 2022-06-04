@@ -22,7 +22,7 @@ import {RoundProgressEase} from './round-progress.ease';
   templateUrl: './round-progress.component.html',
   styleUrls: ['./round-progress.component.css'],
   host: {
-    role: 'progressbar',
+    'role': 'progressbar',
     '[attr.aria-valuemin]': '0',
     '[attr.aria-valuemax]': 'max',
     '[attr.aria-valuenow]': 'current',

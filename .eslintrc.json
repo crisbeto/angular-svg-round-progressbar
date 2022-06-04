@@ -23,6 +23,17 @@
         "@typescript-eslint/dot-notation": "off",
         "@angular-eslint/no-host-metadata-property": "off",
         "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "property",
+            "format": ["camelCase"],
+            "filter": {
+              "regex": "^(\\[attr\\.|\\[class\\.|\\[style\\.)",
+              "match": false
+            }
+          }
+        ],
         "@angular-eslint/no-output-on-prefix": "off",
         "@typescript-eslint/explicit-member-accessibility": [
           "off",
