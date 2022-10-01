@@ -1,0 +1,17 @@
+name: Build
+run-name: Build
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+      - name: Install the dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Lint
+        run: yarn lint
+      - name: Build Library
+        run: yarn build-lib
+      - name: Build Demo
+        run: yarn build-demo
