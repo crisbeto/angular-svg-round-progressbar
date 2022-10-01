@@ -12,6 +12,7 @@
     "importHelpers": true,
     "target": "es2020",
     "lib": ["es2018", "dom"],
+    "strict": true,
     "paths": {
       "angular-svg-round-progressbar": ["./src/lib/public-api.ts"]
     }
