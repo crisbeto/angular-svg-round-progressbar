@@ -36,46 +36,46 @@ export class RoundProgressComponent implements OnChanges {
   private currentLinecap: 'round' | '' = '';
 
   /** Reference to the underlying `path` node. */
-  @ViewChild('path') path: ElementRef<SVGPathElement>;
+  @ViewChild('path') path!: ElementRef<SVGPathElement>;
 
   /** Current value of the progress bar. */
-  @Input() current: number;
+  @Input() current: number = 0;
 
   /** Maximum value of the progress bar. */
-  @Input() max: number;
+  @Input() max: number = 0;
 
   /** Radius of the circle. */
-  @Input() radius: number = this.defaults.radius;
+  @Input() radius: number = this.defaults.radius!;
 
   /** Name of the easing function to use when animating. */
-  @Input() animation: string = this.defaults.animation;
+  @Input() animation: string = this.defaults.animation!;
 
   /** Time in millisconds by which to delay the animation. */
-  @Input() animationDelay: number = this.defaults.animationDelay;
+  @Input() animationDelay: number = this.defaults.animationDelay!;
 
   /** Duration of the animation. */
-  @Input() duration: number = this.defaults.duration;
+  @Input() duration: number = this.defaults.duration!;
 
   /** Width of the circle's stroke. */
-  @Input() stroke: number = this.defaults.stroke;
+  @Input() stroke: number = this.defaults.stroke!;
 
   /** Color of the circle. */
-  @Input() color: string = this.defaults.color;
+  @Input() color: string = this.defaults.color!;
 
   /** Background color of the circle. */
-  @Input() background: string = this.defaults.background;
+  @Input() background: string = this.defaults.background!;
 
   /** Whether the circle should take up the width of its parent. */
-  @Input() responsive: boolean = this.defaults.responsive;
+  @Input() responsive: boolean = this.defaults.responsive!;
 
   /** Whether the circle is filling up clockwise. */
-  @Input() clockwise: boolean = this.defaults.clockwise;
+  @Input() clockwise: boolean = this.defaults.clockwise!;
 
   /** Whether to render a semicircle. */
-  @Input() semicircle: boolean = this.defaults.semicircle;
+  @Input() semicircle: boolean = this.defaults.semicircle!;
 
   /** Whether the tip of the progress should be rounded off. */
-  @Input() rounded: boolean = this.defaults.rounded;
+  @Input() rounded: boolean = this.defaults.rounded!;
 
   /** Emits when a new value has been rendered. */
   @Output() onRender: EventEmitter<number> = new EventEmitter();
@@ -110,7 +110,8 @@ export class RoundProgressComponent implements OnChanges {
 
         requestAnimationFrame(function animation() {
           const currentTime = Math.min(self.service.getTimestamp() - startTime, duration);
-          const value = self.easing[self.animation](currentTime, from, changeInValue, duration);
+          const easingFn = self.easing[self.animation as keyof RoundProgressEase];
+          const value = easingFn(currentTime, from, changeInValue, duration);
 
           self._updatePath(value);
 
@@ -160,7 +161,7 @@ export class RoundProgressComponent implements OnChanges {
   }
 
   /** Determines the SVG transforms for the <path> node. */
-  getPathTransform(): string {
+  getPathTransform(): string|null {
     const diameter = this._getDiameter();
 
     if (this.semicircle) {
@@ -170,6 +171,8 @@ export class RoundProgressComponent implements OnChanges {
     } else if (!this.clockwise) {
       return `scale(-1, 1) translate(-${diameter} 0)`;
     }
+
+    return null;
   }
 
   /** Resolves a color through the service. */
@@ -192,10 +195,12 @@ export class RoundProgressComponent implements OnChanges {
   }
 
   /** The CSS height of the wrapper element. */
-  _getElementHeight(): string {
+  _getElementHeight(): string|null {
     if (!this.responsive) {
       return (this.semicircle ? this.radius : this._getDiameter()) + 'px';
     }
+
+    return null;
   }
 
   /** Viewbox for the SVG element. */
@@ -205,9 +210,11 @@ export class RoundProgressComponent implements OnChanges {
   }
 
   /** Bottom padding for the wrapper element. */
-  _getPaddingBottom(): string {
+  _getPaddingBottom(): string|null {
     if (this.responsive) {
       return this.semicircle ? '50%' : '100%';
     }
+
+    return null;
   }
 }
