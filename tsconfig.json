@@ -10,12 +10,18 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
-    "lib": ["es2018", "dom"],
+    "target": "ES2022",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "strict": true,
     "paths": {
-      "angular-svg-round-progressbar": ["./src/lib/public-api.ts"]
-    }
+      "angular-svg-round-progressbar": [
+        "./src/lib/public-api.ts"
+      ]
+    },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
