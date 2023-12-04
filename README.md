@@ -95,7 +95,7 @@ import {
   RoundProgressModule,
   RoundProgressConfig,
   ROUND_PROGRESS_DEFAULTS
-  } from 'angular-svg-round-progressbar';
+} from 'angular-svg-round-progressbar';
 
 @NgModule({
   imports: [RoundProgressModule],

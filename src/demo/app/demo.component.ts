@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {NgStyle} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RoundProgressComponent} from 'angular-svg-round-progressbar';
 
@@ -8,7 +8,7 @@ import {RoundProgressComponent} from 'angular-svg-round-progressbar';
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css'],
   standalone: true,
-  imports: [RoundProgressComponent, CommonModule, FormsModule]
+  imports: [RoundProgressComponent, NgStyle, FormsModule]
 })
 export class DemoComponent {
   current = 27;
