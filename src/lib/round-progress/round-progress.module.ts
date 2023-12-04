@@ -3,7 +3,7 @@ import {RoundProgressComponent} from './round-progress.component';
 import {ROUND_PROGRESS_DEFAULTS_PROVIDER} from './round-progress.config';
 
 @NgModule({
-  declarations: [RoundProgressComponent],
+  imports: [RoundProgressComponent],
   exports: [RoundProgressComponent],
   providers: [ROUND_PROGRESS_DEFAULTS_PROVIDER],
 })

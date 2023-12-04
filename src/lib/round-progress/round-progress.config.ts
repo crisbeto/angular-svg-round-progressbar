@@ -1,23 +1,28 @@
 import {InjectionToken, Provider} from '@angular/core';
 
+const DEFAULTS = {
+  radius: 125,
+  animation: 'easeOutCubic',
+  animationDelay: undefined,
+  duration: 500,
+  stroke: 15,
+  color: '#45CCCE',
+  background: '#EAEAEA',
+  responsive: false,
+  clockwise: true,
+  semicircle: false,
+  rounded: false,
+};
+
 export const ROUND_PROGRESS_DEFAULTS =
-    new InjectionToken<RoundProgressDefaults>('ROUND_PROGRESS_DEFAULTS');
+    new InjectionToken<RoundProgressDefaults>('ROUND_PROGRESS_DEFAULTS', {
+      providedIn: 'root',
+      factory: () => DEFAULTS
+    });
 
 export const ROUND_PROGRESS_DEFAULTS_PROVIDER: Provider = {
   provide: ROUND_PROGRESS_DEFAULTS,
-  useValue: {
-    radius: 125,
-    animation: 'easeOutCubic',
-    animationDelay: null,
-    duration: 500,
-    stroke: 15,
-    color: '#45CCCE',
-    background: '#EAEAEA',
-    responsive: false,
-    clockwise: true,
-    semicircle: false,
-    rounded: false,
-  },
+  useValue: DEFAULTS,
 };
 
 export interface RoundProgressDefaults {

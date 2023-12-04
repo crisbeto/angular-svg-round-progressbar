@@ -21,7 +21,21 @@ import {RoundProgressModule} from 'angular-svg-round-progressbar';
 @NgModule({
   imports: [RoundProgressModule]
 })
-export class YourModule {};
+export class YourModule {}
+```
+
+Or `RoundProgressComponent`, if you're using standalone:
+
+```typescript
+import {Component} from '@angular/core';
+import {RoundProgressComponent} from 'angular-svg-round-progressbar';
+
+@Component({
+  standalone: true,
+  imports: [RoundProgressComponent],
+  template: '...'
+})
+export class YourComponent {}
 ```
 
 If you're using SystemJS as your module loader, there is also a UMD bundle at `./node_modules/angular-svg-round-progressbar/bundles/angular-svg-round-progressbar.umd.js`.
@@ -47,7 +61,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
 
 ### Minimal example:
 ```html
-<round-progress [current]="current" [max]="max"></round-progress>
+<round-progress [current]="current" [max]="max"/>
 ```
 
 ### Full example:
@@ -66,7 +80,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [duration]="800"
     [animation]="'easeInOutQuart'"
     [animationDelay]="0"
-    (onRender)="doSomethingWithCurrentValue($event)"></round-progress>
+    (onRender)="doSomethingWithCurrentValue($event)"/>
 ```
 
 ### Configuring the default values
