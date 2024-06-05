@@ -99,31 +99,31 @@ export class RoundProgressComponent implements OnChanges {
     to = this._clamp(to);
     from = this._clamp(from);
 
-    const self = this;
     const changeInValue = to - from;
-    const duration = self.duration;
+    const duration = this.duration;
 
     // Avoid firing change detection for each of the animation frames.
-    self.ngZone.runOutsideAngular(() => {
+    this.ngZone.runOutsideAngular(() => {
       const start = () => {
-        const startTime = self.service.getTimestamp();
-        const id = ++self.lastAnimationId;
-
-        requestAnimationFrame(function animation() {
-          const currentTime = Math.min(self.service.getTimestamp() - startTime, duration);
-          const easingFn = self.easing[self.animation as keyof RoundProgressEase];
+        const startTime = this.service.getTimestamp();
+        const id = ++this.lastAnimationId;
+        const animation = () => {
+          const currentTime = Math.min(this.service.getTimestamp() - startTime, duration);
+          const easingFn = this.easing[this.animation as keyof RoundProgressEase];
           const value = easingFn(currentTime, from, changeInValue, duration);
 
-          self._updatePath(value);
+          this._updatePath(value);
 
-          if (self.onRender.observers.length > 0) {
-            self.onRender.emit(value);
+          if (this.onRender.observers.length > 0) {
+            this.onRender.emit(value);
           }
 
-          if (id === self.lastAnimationId && currentTime < duration) {
+          if (id === this.lastAnimationId && currentTime < duration) {
             requestAnimationFrame(animation);
           }
-        });
+        }
+
+        requestAnimationFrame(animation);
       };
 
       if (this.animationDelay > 0) {

@@ -9,14 +9,14 @@ export class RoundProgressService {
   private hasPerf: boolean;
   public supportsSvg: boolean;
 
-  constructor(@Optional() @Inject(DOCUMENT) document: any) {
+  constructor(@Optional() @Inject(DOCUMENT) document?: Document) {
     this.supportsSvg = !!(
       document &&
       document.createElementNS &&
       document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect
     );
 
-    this.base = document && document.head.querySelector('base');
+    this.base = document?.head?.querySelector('base') as HTMLBaseElement;
     this.hasPerf =
       typeof window !== 'undefined' &&
       window.performance &&
