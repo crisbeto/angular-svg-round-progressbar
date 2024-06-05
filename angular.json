@@ -11,24 +11,26 @@
       "prefix": "demo",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/demo",
+            "outputPath": {
+              "base": "dist/demo"
+            },
             "index": "src/demo/index.html",
-            "main": "src/demo/main.ts",
-            "polyfills": "src/demo/polyfills.ts",
+            "polyfills": [
+              "src/demo/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [],
             "styles": [
               "src/demo/styles.css"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "src/demo/main.ts"
           },
           "configurations": {
             "production": {
@@ -42,8 +44,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -115,5 +115,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
