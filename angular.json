@@ -82,7 +82,10 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "buildTarget": "demo:build:production",
+            "dir": "dist/demo/browser"
+          }
         }
       }
     },
