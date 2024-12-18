@@ -30,8 +30,7 @@ import {RoundProgressEase} from './round-progress.ease';
     '[style.height]': '_getElementHeight()',
     '[style.padding-bottom]': '_getPaddingBottom()',
     '[class.responsive]': 'responsive',
-  },
-  standalone: true
+  }
 })
 export class RoundProgressComponent implements OnChanges {
   private currentLinecap: 'round' | '' = '';

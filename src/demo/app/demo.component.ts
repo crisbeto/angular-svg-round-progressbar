@@ -7,7 +7,6 @@ import {RoundProgressComponent} from 'angular-svg-round-progressbar';
   selector: 'demo',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css'],
-  standalone: true,
   imports: [RoundProgressComponent, NgStyle, FormsModule]
 })
 export class DemoComponent {

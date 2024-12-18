@@ -11,11 +11,9 @@
       "prefix": "demo",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
-            "outputPath": {
-              "base": "dist/demo"
-            },
+            "outputPath": "dist/demo",
             "index": "src/demo/index.html",
             "polyfills": [
               "src/demo/polyfills.ts"
@@ -30,7 +28,7 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "browser": "src/demo/main.ts"
+            "main": "src/demo/main.ts"
           },
           "configurations": {
             "production": {
@@ -123,7 +121,7 @@
     "analytics": false
   },
   "schematics": {
-    "@angular-eslint/schematics:application": {
+    "@angular-eslint/schematics:browser-esbuild": {
       "setParserOptionsProject": true
     },
     "@angular-eslint/schematics:library": {
