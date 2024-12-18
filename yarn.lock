@@ -2959,7 +2959,7 @@ ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-angular-cli-ghpages@^2.0.0:
+angular-cli-ghpages@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/angular-cli-ghpages/-/angular-cli-ghpages-2.0.3.tgz#4f5f1e298c84cb030bf5b13486f269ac4ed97bdf"
   integrity sha512-eVyyCgtoXtSXxsgI59fYow+wBrAOAxPZ6eMwIieSpQI+8Gunq2DtNalicEoDPqD69LHaPmNiI8jEwgkzZt0WTw==
