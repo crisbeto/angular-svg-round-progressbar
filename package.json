@@ -9,6 +9,7 @@
     "build-lib": "ng build angular-svg-round-progressbar --configuration production && yarn copy-readme",
     "release-lib": "yarn lint && yarn build-lib && yarn publish ./dist/angular-svg-round-progressbar",
     "release-demo": "yarn lint && ng deploy demo",
+    "prepare": "yarn build-lib",
     "lint": "ng lint",
     "copy-readme": "cp README.md dist/angular-svg-round-progressbar"
   },
@@ -29,6 +30,8 @@
     "url": "https://github.com/crisbeto/angular-svg-round-progressbar/issues"
   },
   "homepage": "https://github.com/crisbeto/angular-svg-round-progressbar",
+  "module": "dist/angular-svg-round-progressbar/fesm2022/angular-svg-round-progressbar.mjs",
+  "typings": "dist/angular-svg-round-progressbar/index.d.ts",
   "devDependencies": {
     "@angular-devkit/architect": "^0.1900.5",
     "@angular-devkit/build-angular": "^19.0.5",
