@@ -77,6 +77,8 @@ export class RoundProgressComponent implements OnChanges {
   /** Whether the tip of the progress should be rounded off. */
   @Input() rounded: boolean = this.defaults.rounded!;
 
+  @Input() innerCircleFill: string = this.defaults.innerCircleFill!;
+
   /** Emits when a new value has been rendered. */
   @Output() onRender: EventEmitter<number> = new EventEmitter();
 

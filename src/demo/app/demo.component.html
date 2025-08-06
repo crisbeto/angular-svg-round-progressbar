@@ -16,7 +16,8 @@
       [responsive]="responsive"
       [duration]="duration"
       [animation]="animation"
-      [animationDelay]="animationDelay"/>
+      [animationDelay]="animationDelay"
+	  [innerCircleFill]="innerCircleFill"/>
   </div>
   <button (click)="increment()">Increment</button>
   <button (click)="increment(-1)">Decrement</button>
@@ -83,6 +84,10 @@
     <div class="cf">
       <label for="background">Background color:</label>
       <input id="background" name="background" type="color" [(ngModel)]="background" />
+    </div>
+    <div class="cf">
+      <label for="innerCircleFill">Inner circle fill color:</label>
+      <input id="innerCircleFill" name="innerCircleFill" type="text" [(ngModel)]="innerCircleFill" />
     </div>
   </form>
 </div>

@@ -12,6 +12,7 @@ const DEFAULTS = {
   clockwise: true,
   semicircle: false,
   rounded: false,
+  innerCircleFill: 'none',
 };
 
 export const ROUND_PROGRESS_DEFAULTS =
@@ -37,4 +38,5 @@ export interface RoundProgressDefaults {
   clockwise?: boolean;
   semicircle?: boolean;
   rounded?: boolean;
+  innerCircleFill?: string;
 }
