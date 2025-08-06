@@ -9,7 +9,7 @@
     "build-lib": "ng build angular-svg-round-progressbar --configuration production && yarn copy-readme",
     "release-lib": "yarn lint && yarn build-lib && yarn publish ./dist/angular-svg-round-progressbar",
     "release-demo": "yarn lint && ng deploy demo",
-    "prepare": "yarn build-lib",
+    "prepare": "ng build angular-svg-round-progressbar --configuration production && yarn copy-readme",
     "lint": "ng lint",
     "copy-readme": "cp README.md dist/angular-svg-round-progressbar"
   },
