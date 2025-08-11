@@ -12,7 +12,7 @@ const DEFAULTS = {
   clockwise: true,
   semicircle: false,
   rounded: false,
-  innerCircleFill: 'none',
+  innerCircleFill: 'transparent',
 };
 
 export const ROUND_PROGRESS_DEFAULTS =
