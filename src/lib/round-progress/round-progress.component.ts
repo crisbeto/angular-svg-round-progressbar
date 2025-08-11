@@ -77,6 +77,7 @@ export class RoundProgressComponent implements OnChanges {
   /** Whether the tip of the progress should be rounded off. */
   @Input() rounded: boolean = this.defaults.rounded!;
 
+  /** Fill color of the circle inside the progress bar */
   @Input() innerCircleFill: string = this.defaults.innerCircleFill!;
 
   /** Emits when a new value has been rendered. */
