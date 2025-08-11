@@ -81,7 +81,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [duration]="800"
     [animation]="'easeInOutQuart'"
     [animationDelay]="0"
-    [innerCircleFill]="none"
+    [innerCircleFill]="transparent"
     (onRender)="doSomethingWithCurrentValue($event)"/>
 ```
 
