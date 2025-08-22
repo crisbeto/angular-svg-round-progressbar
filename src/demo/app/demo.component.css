@@ -23,6 +23,7 @@ h2 {
   color: #bbb;
   font-weight: 100;
   line-height: 1;
+  z-index: 2;	/* Show above the gauge control, so text won't get covered by innerCircleFill */
 }
 
 round-progress {

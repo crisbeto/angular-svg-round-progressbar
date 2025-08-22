@@ -57,6 +57,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
 | `animationDelay` | Milliseconds to wait before starting an animation.                                                     | No         | `0`               | `number`          |
 | `onRender`     | Callback function that gets executed every time the circle is animated. The function gets called with the current progress as it is being animated.                                | No        | `undefined`       | `Function`         |
 | `animation`    | The easing function that will be used when animating.                                                     | No        | easeOutCubic      | linearEase <br> easeInQuad <br> easeOutQuad <br> easeInOutQuad <br> easeInCubic <br> easeOutCubic <br> easeInOutCubic <br> easeInQuart <br> easeOutQuart <br> easeInOutQuart <br> easeInQuint <br> easeOutQuint <br> easeInOutQuint <br> easeInSine <br> easeOutSine <br> easeInOutSine <br> easeInExpo <br> easeOutExpo <br> easeInOutExpo <br> easeInCirc <br> easeOutCirc <br> easeInOutCirc <br> easeInElastic <br> easeOutElastic <br> easeInOutElastic <br> easeInBack <br> easeOutBack <br> easeInOutBack <br> easeInBounce <br> easeOutBounce <br> easeInOutBounce <br> |
+| `innerCircleFill` | Color to use for the circular area inside the gauge.  Defaults to `none` which is transparent.         | No       | `none`        | `string` any value acceptable for the CSS `fill` property    |
 
 
 ### Minimal example:
@@ -80,6 +81,7 @@ If you're using SystemJS as your module loader, there is also a UMD bundle at `.
     [duration]="800"
     [animation]="'easeInOutQuart'"
     [animationDelay]="0"
+    [innerCircleFill]="transparent"
     (onRender)="doSomethingWithCurrentValue($event)"/>
 ```
 

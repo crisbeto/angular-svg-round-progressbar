@@ -20,6 +20,7 @@ export class DemoComponent {
   clockwise = true;
   color = '#45ccce';
   background = '#eaeaea';
+  innerCircleFill = 'transparent';
   duration = 800;
   animation = 'easeOutCubic';
   animationDelay = 0;
