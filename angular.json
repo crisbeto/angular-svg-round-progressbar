@@ -84,7 +84,7 @@
           "builder": "angular-cli-ghpages:deploy",
           "options": {
             "buildTarget": "demo:build:production",
-            "dir": "dist/demo"
+            "dir": "dist/demo/browser"
           }
         }
       }
