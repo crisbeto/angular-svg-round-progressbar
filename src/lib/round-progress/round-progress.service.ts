@@ -1,5 +1,4 @@
-import {Injectable, Inject, Optional} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {Injectable, Inject, Optional, DOCUMENT} from '@angular/core';
 
 const DEGREE_IN_RADIANS: number = Math.PI / 180;
 
