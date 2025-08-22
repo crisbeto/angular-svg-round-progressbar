@@ -1,6 +1,6 @@
 {
   "name": "angular-svg-round-progressbar",
-  "version": "14.0.0",
+  "version": "15.0.0",
   "description": "Angular module that uses SVG to create a circular progressbar",
   "scripts": {
     "ng": "ng",
